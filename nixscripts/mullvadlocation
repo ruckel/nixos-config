@@ -1,0 +1,7 @@
+#!/bin/sh
+
+mullvad relay set location $@
+echo "mullvad location set to $@"
+sleep 1
+mullvad status
+

@@ -1,0 +1,33 @@
+{ pkgs, ... } : { environment.systemPackages = with pkgs.gnomeExtensions; [
+  allow-locked-remote-desktop
+  appindicator
+  arc-menu
+  awesome-tiles
+  blur-my-shell
+  burn-my-windows
+  dash-to-dock
+  dash-to-dock-toggle
+  dash-to-plank
+  desktop-clock
+  do-not-disturb-while-screen-sharing-or-recording
+  fuzzy-clock-2
+  grand-theft-focus
+  gsconnect
+  just-perfection
+  launcher
+  mock-tray
+  notification-counter
+  notifications-alert-on-user-menu
+  open-bar
+  peek-top-bar-on-fullscreen
+  quick-text
+  sleep-through-notifications
+  space-bar
+  system-monitor
+  task-widget
+  todotxt
+  tray-icons-reloaded
+  volume-scroller-2
+  window-title-is-back
+  
+];}

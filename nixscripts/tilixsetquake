@@ -1,0 +1,48 @@
+#!/bin/sh
+
+baseDir=/com/gexperts/Tilix/
+wDir=${baseDir}quake-width-percent
+hDir=${baseDir}quake-height-percent
+
+
+run () {
+  if [[ $1 != "-h" && $1 != "-w"  ]];then
+    echo poo man
+    return 1
+  else
+    cont $@
+  fi
+}
+
+cont () {
+  if [[ $1 == "-w" ]];then
+    curV=$(dconf read $wDir)
+    keyToChange=${wDir}
+    echo curwidth : $curV
+  else
+    curV=$(dconf read $hDir)
+    keyToChange=${hDir}
+    echo curheight: $curV
+  fi
+
+  if [[ $2 == "add" ]];then 
+    newV=$((${curV}+5))
+  else
+    newV=$((${curV}-5))
+  fi
+
+  echo $newV
+  if [ $newV -gt 100 ];then
+    echo out of bounds
+    return 1
+  fi 
+  if [ $newV -lt 10 ];then
+    echo out of bounds
+    return 1
+  fi
+
+  echo finnish line
+  dconf write ${keyToChange} $newV
+
+}
+run $@
