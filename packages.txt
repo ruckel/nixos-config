@@ -38,5 +38,3 @@ transmission
 tuxguitar
 veracrypt
 vlc
-gnome-browser-connector
-gnome.dconf-editor #gui
