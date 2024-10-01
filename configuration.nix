@@ -1,5 +1,5 @@
 { config, pkgs, lib, ... }:
-let vars = import ./vars.nix; # TODO: upgrade to github.com/Mic92/sops-nix
+let vars = import ./vars.nix;
 in
 { imports =
   [ #./hardware-configuration.nix  # Include the results of the hardware scan.

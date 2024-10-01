@@ -1,4 +1,4 @@
-{
+{ # TODO: upgrade to github.com/Mic92/sops-nix
   user = "korv";
   host = "nixburk";
   keys = [
