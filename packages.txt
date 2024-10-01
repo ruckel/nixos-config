@@ -1,8 +1,3 @@
-{ pkgs, ... } : { 
-imports = [ 
-  /home/korv/.config/packages.nix
-];
-environment.systemPackages = with pkgs; [
 betterbird
 brave
 caprine-bin
@@ -13,8 +8,6 @@ gh
 ghostwriter
 gimp
 git
-gnome-browser-connector
-gnome.dconf-editor #gui
 helvum
 keepassxc
 libreoffice
@@ -45,4 +38,5 @@ transmission
 tuxguitar
 veracrypt
 vlc
-];}
+gnome-browser-connector
+gnome.dconf-editor #gui
