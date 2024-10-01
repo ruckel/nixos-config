@@ -4,7 +4,8 @@ let args = {
   cfg = config.experimental;
   vars = import ../vars.nix;
 };
-in {
+in 
+{
   options.experimental = {
     enable                  = mkEnableOption "experimental";
 
@@ -19,11 +20,13 @@ in {
   config = lib.mkIf args.cfg.enable {
     services.systembus-notify.enable = args.cfg.enableSystembus-notify;
     qt.style = "adwaita-dark";
-    services.mysql.package = pkgs.mariadb;
     services.avahi.enable = args.cfg.enableAvahi;
     networking.firewall = lib.mkIf args.cfg.enableVncFirewall {
       allowedTCPPorts = [ 5900 ];
       allowedUDPPorts = [ 5900 ];
+    };
+    programs.virt-manager = lib.mkIf args.cfg.enableVncFirewall {
+      enable = true;
     };
     services.xserver = lib.mkIf args.cfg.enableVirtualScreen {
       virtualScreen = { x = 1720; y = 1440; };
@@ -35,7 +38,7 @@ in {
     };
 
 
-virtualisation.docker.enable = true;
-users.users.${args.vars.user}.extraGroups = [ "docker" ];
+    virtualisation.docker.enable = true;
+    users.users.${args.vars.user}.extraGroups = [ "docker" ];
   };
 }

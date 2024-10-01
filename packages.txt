@@ -1,9 +1,10 @@
 betterbird
 brave
 caprine-bin
-chawan
+ddclient
 discord
 endeavour
+fastfetch
 gh
 ghostwriter
 gimp
