@@ -21,6 +21,7 @@ in
     ./modules/ffsyncserver.nix
     ./modules/syncthing.nix
     ./modules/systemd.nix
+    ./nixscripts/helloWorld.nix
   ];
 
 # TODO services.displayManager.defaultSession = "none+dwm"; # "gnome"
