@@ -15,7 +15,10 @@ in {
       allowedTCPPortRanges = [{ from = 1714; to = 1764; }];#gsconnect
       allowedUDPPortRanges = [{ from = 1714; to = 1764; }];
     };
-    environment.systemPackages = with pkgs.gnomeExtensions; [
+    environment.systemPackages = with pkgs; [
+      gnome-browser-connector
+      gnome.dconf-editor
+      (gnome.withExtension (subpkgs: with subpkgs; [
         allow-locked-remote-desktop
         appindicator
         arc-menu
@@ -46,6 +49,7 @@ in {
         tray-icons-reloaded
         volume-scroller-2
         window-title-is-back
-      ];
+      ]))
+    ];
   };
 }

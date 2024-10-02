@@ -2,23 +2,24 @@
 let vars = import ./vars.nix;
 in
 { imports =
+    #./systemPackagesDefault.nix
   [ #./hardware-configuration.nix  # Include the results of the hardware scan.
     /etc/nixos/hardware-configuration.nix
-    #./systemPackagesDefault.nix
     #./systemStateVersion.nix
     /etc/nixos/systemStateVersion.nix
     ./modules/ssh.nix
     ./modules/autorandr.nix
     ./modules/customscripts.nix
     ./modules/adb.nix
-    ./modules/localization.nix
     ./modules/dwm.nix
-    ./modules/experimental.nix
-    ./modules/gnome.nix
+    #./modules/experimental.nix
+    ./modules/ffsyncserver.nix
+    ./modules/gnomeWM.nix
     ./modules/kbdLayout.nix
+    ./modules/localization.nix
+    ./modules/packages.nix
     ./modules/qemu.nix
     ./modules/sound.nix
-    ./modules/ffsyncserver.nix
     ./modules/syncthing.nix
     ./modules/systemd.nix
     ./nixscripts/helloWorld.nix
@@ -33,7 +34,7 @@ services.udisks2 = { enable = true; #settings = {};
   };
 services.xserver = {
   enable = true;
-  videoDrivers = [ "amdgpu" ];
+  #videoDrivers = [ "amdgpu" ];
 };
 services.mullvad-vpn.enable = true;
 networking = {
@@ -52,23 +53,27 @@ adb.enable          = true;
 scripts.enable      = true;
 #dwm.enable         = true;
 ffsyncserver.enable = true;
-gnome.enable        = true;
+gnomeWM.enable        = true;
 #kbdLayout.enable    = true;
 localization.enable = true;
-qemu.enable         = true;
+#qemu.enable         = true;
 soundconf.enable    = true;
 ssh.enable          = true;
 syncthing.enable    = true;
-systemdconf.enable  = true;
+#systemdconf.enable  = true;
+#
+#experimental = { #enable = true;
+#  enableSystembus-notify =  true;
+#  enableAvahi =             true;
+#  #enableRustdeskServer =   true;
+#  #enableVirtualScreen =    true;
+#  enableVncFirewall =       true;
+#};
 
-experimental = { enable = true;
-  enableSystembus-notify =  true;
-  enableAvahi =             true;
-  #enableRustdeskServer =   true;
-  #enableVirtualScreen =    true;
-  enableVncFirewall =       true;
+systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
+  "getty@tty1".enable = false;
+  "autovt@tty1".enable = false;
 };
-
 nixpkgs.config = {
   allowUnfree = true;
   permittedInsecurePackages = [
@@ -101,13 +106,13 @@ services.xserver.displayManager.gdm = {
   enable = true;
   wayland = false;
 };
-boot.plymouth = { enable = true;
+#boot.plymouth = { enable = true;
  #themePackages = [ ];
  #theme         = "";
  #logo          = "";
  #font          = "";
  #extraConfig   = "";
-};
+#};
 boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;

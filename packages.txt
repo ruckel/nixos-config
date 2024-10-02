@@ -1,9 +1,10 @@
 betterbird
 brave
 caprine-bin
-chawan
+ddclient
 discord
 endeavour
+fastfetch
 gh
 ghostwriter
 gimp
@@ -38,5 +39,3 @@ transmission
 tuxguitar
 veracrypt
 vlc
-gnome-browser-connector
-gnome.dconf-editor #gui
