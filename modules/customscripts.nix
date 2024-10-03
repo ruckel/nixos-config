@@ -13,5 +13,6 @@ in {
     "\
     echo bishybashy
     ";
+    environment.etc."test".source = ../bashrc;
   };
 }

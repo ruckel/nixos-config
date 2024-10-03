@@ -11,32 +11,45 @@ in {
     };
 
   config = {
+    services.transmission.enable = true;
     programs = {
+      appimage.binfmt = true;
       bash.vteIntegration = true;
       firefox.enable = true;
+      kdeconnect.enable = true;
       steam.enable = true;
-      appimage.binfmt = true;
-      thunar = { enable = true; 
+      thunar = { enable = true;
         plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin thunar-media-tags-plugin ];
       };
+      vim.defaultEditor = true;
+      xfconf.enable = true;
     };
-    environment.systemPackages = with pkgs; [#args.textfile 
+    environment.systemPackages = with pkgs; [#args.textfile
+     #android-studio
      appimage-run
+     arandr
 brave floorp ungoogled-chromium surf
+#bitwig-studio audacity
 brightnessctl
+#busybox
+ddclient
 dmenu networkmanager_dmenu
-easyeffects helvum
+easyeffects helvum vesktop
+efibootmgr
 endeavour
 feh qimgv nomacs
 ferdium element-desktop
+ffmpegthumbnailer
 foot
+fswebcam
 gimp openshot-qt obs-studio pinta
 git gh
+gparted
 gradience
-keepassxc
+keepassxc git-credential-keepassxc
 libgnomekbd
 libreoffice
-
+mdp
 menulibre
 mpv media-downloader vlc playerctl helvum
 mullvad-vpn
@@ -44,15 +57,18 @@ networkmanagerapplet
 nextcloud-client syncthing transmission rymdport
 openshot-qt gnome-photos digikam shotwell
 signal-desktop simplex-chat-desktop
+#spacedrive
 spotify spotify-tray spotifywm spotifyd spotify-player mlterm
 super-productivity
-tiramisu toastify ntfy-sh dunst
+taskwarrior3 ptask
+tiramisu toastify ntfy-sh dunst libnotify
 tuxguitar
 veracrypt scrypt #rage
-tilix vim termimage feh mdp trashy ots xorg.xev lsof showmethekey
+thunderbird birdtray
+ots
 vscodium-fhs
-x11vnc tigervnc scrcpy 
-
+x11vnc tigervnc scrcpy vncdo
+xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at
     ];
   };
 }

@@ -42,5 +42,8 @@ in {
         X11Forwarding = args.cfg.x11fw;
       };
     };
+    services.fail2ban = {
+      enable = true;
+    };
   };
 }

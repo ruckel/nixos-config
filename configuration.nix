@@ -22,15 +22,16 @@ in
     ./modules/sound.nix
     ./modules/syncthing.nix
     ./modules/systemd.nix
-    ./nixscripts/helloWorld.nix
+    #./nixscripts/helloWorld.nix
   ];
 
-# TODO services.displayManager.defaultSession = "none+dwm"; # "gnome"
+services.displayManager.defaultSession = "none+dwm"; # "gnome"
 
-services.devmon.enable = true; ## automatic device mounting daemon
-services.gvfs.enable = true;
+services.devmon.enable = true; /* automatic device mounting daemon */
+services.gvfs.enable = true; /* Mount, trash, and other functionalities */
+services.tumbler.enable = true; /* Thumbnail support for images */
 services.udisks2 = { enable = true; #settings = {};
-  mountOnMedia = true; ## mount in /media/ instead of /run/media/$USER/
+  mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
   };
 services.xserver = {
   enable = true;
@@ -70,6 +71,11 @@ syncthing.enable    = true;
 #  enableVncFirewall =       true;
 #};
 
+
+environment.localBinInPath = true;
+environment.etc."bashrc".source = ./bashrc;
+environment.etc."test".source = ./xprofile;
+
 systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   "getty@tty1".enable = false;
   "autovt@tty1".enable = false;
@@ -80,13 +86,12 @@ nixpkgs.config = {
     "python3.11-youtube-dl-2021.12.17"
   ];
 };
-services.transmission.enable = true;
 
 
 users.users.${vars.user} = { isNormalUser = true;
     description = "basic user";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [ tilix vte bc ];
+    packages = with pkgs; [ tilix bc ];
 };
 fonts.packages =
   with pkgs; [
@@ -116,6 +121,11 @@ services.xserver.displayManager.gdm = {
 boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
+#    grub = {
+#      enable = true;
+#      device = "/dev/sda"; /* vaio */
+#      useOSProber = true;
+#    };
 };
 nix.gc = { ## garbage collection
   automatic = true;
