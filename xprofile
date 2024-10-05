@@ -2,6 +2,7 @@
 waiti=20
 if [ -z $_XPROFILE_SOURCED ]; then
   export _XPROFILE_SOURCED=1
+  export GTK_THEME=Adwaita-dark
   xrandr
 
   dunst &

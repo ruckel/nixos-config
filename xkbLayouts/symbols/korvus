@@ -1,0 +1,7 @@
+xkb_symbols "korvus" {
+include "se(basic)"
+key <TLDE> {[ slash, backslash, paragraph, threequarters ]}; //section,    onehalf,    paragraph, threequarters
+key <AE12> {[ grave, asciitilde, plusminus, notsign ]}; //dead_acute, dead_grave,    plusminus,      notsign
+key <AD12> {[ asciitilde, dead_circumflex, dead_diaeresis, asciicircum ]}; //dead_diaeresis, dead_circumflex, dead_tilde, asciicircum
+key <SPCE>  {[ space, space, U200B, U200C ]}; //space, space, space, nobreakspace
+};

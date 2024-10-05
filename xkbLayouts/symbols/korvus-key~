@@ -1,0 +1,10 @@
+xkb_keycodes "korvus"
+{
+#<volUp> = 49;
+#<secondCustomKey> = 667;
+#<thirdCustomKey> = 668;
+
+#keycode 76 (keysym 0xffc7, F10)
+#keycode 180 (keysym 0x1008ff18, XF86HomePage)
+#keycode 49 (keysym 0xa7, section) #§
+}
