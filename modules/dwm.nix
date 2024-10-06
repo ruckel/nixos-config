@@ -1,16 +1,27 @@
 { lib, config, pkgs, ... } : 
 with lib;
 let args = {
+  vars = ../vars.nix;
   cfg = config.dwm;
 };
 in {
-  options.dwm.enable = mkEnableOption "";
+  options.dwm.enable  = mkEnableOption "";
+  options.dwm = {
+    fakefullscreen    = mkEnableOption "";
+    allmonitorsstatus = mkEnableOption "";
+    activemonitor     = mkEnableOption "";
+    noborder          = mkEnableOption ""; 
+    warp              = mkEnableOption ""; 
+    tilewide          = mkEnableOption ""; 
+    focusonclick      = mkEnableOption ""; 
+  };
 
   config = lib.mkIf args.cfg.enable {
     services.xserver.windowManager.dwm = {
       enable = true;
       package = pkgs.dwm.overrideAttrs rec { 
-        src = /home/user/dwm;
+      # src = /home/${args.vars.user}/dwm;
+        src = /home/korv/dwm;
         #src = /etc/nixos/dwm;
         # fetchFromGitHub {
         #   owner = "hollystandring";   # x

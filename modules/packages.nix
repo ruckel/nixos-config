@@ -46,7 +46,7 @@ gimp openshot-qt obs-studio pinta
 git gh
 gparted
 gradience
-keepassxc git-credential-keepassxc
+keepassxc git-credential-keepassxc cryptsetup
 libgnomekbd
 libreoffice
 mdp
@@ -63,12 +63,12 @@ super-productivity
 taskwarrior3 ptask
 tiramisu toastify ntfy-sh dunst libnotify
 tuxguitar
-veracrypt scrypt #rage
+veracrypt scrypt cryptsetup #rage
 thunderbird birdtray
 ots
 vscodium-fhs
 x11vnc tigervnc scrcpy vncdo
-xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at
+xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp
     ];
   };
 }

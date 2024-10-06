@@ -14,8 +14,8 @@ alias nixfindpackage=~/scripts/nix/find.sh
 alias nixfastfind=~/scripts/nix/find.sh
 alias nfind=~/scripts/nix/find.sh
 
-alias nixswitch='sudo nixos-rebuild switch'
-alias nswitch='sudo nixos-rebuild switch'
+#alias nixswitch='sudo nixos-rebuild switch'
+#alias nswitch='sudo nixos-rebuild switch'
 
 alias grepinverted="grep -v"
 alias grepinvertedwithpipe="| grep -v"

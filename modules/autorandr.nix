@@ -18,9 +18,9 @@ let args = {
       hz = "60.00";
     };
     tv = {
-      fingerprint = "";
-      res = "";
-      hz = "";
+      fingerprint = "00ffffffffffff004c2dc507010000002e140103806639780aee91a3544c99260f5054bdef80714f8100814081809500950fb300a940023a801871382d40582c4500a05a0000001e662150b051001b3040703600a05a0000001e000000fd00184b1a5117000a202020202020000000fc0053414d53554e470a20202020200144020332f14b901f0413051403122021222309070783010000e2000fe305030172030c001000b82d20d0080140073f405090a0023a80d072382d40102c4580a05a0000001e011d00bc52d01e20b8285540a05a0000001e011d80d0721c1620102c2580a05a0000009e0000000000000000000000000000000000000000000000b8";
+      res = "1920x1080";
+      hz = "60.00";
     };
   };
   cfg = config.autorandr;
@@ -32,66 +32,107 @@ in
   config = mkIf args.cfg.enable {
     services.autorandr = {
       enable = true;
-      profiles = { 
-        "3screen" = { 
+      profiles = {
+        "3screen" = {
           fingerprint = {
-            DisplayPort-0 = monitors.wide.fingerprint;
-            DisplayPort-1 = monitors.reg.fingerprint;
-            DisplayPort-2 = monitors.vertical.fingerprint;
+            DisplayPort-0 = args.monitors.wide.fingerprint;
+            DisplayPort-1 = args.monitors.reg.fingerprint;
+            DisplayPort-2 = args.monitors.vertical.fingerprint;
           };
-          config = {  
+          config = {
             HDMI-A-0.enable = false;
-            DisplayPort-0 = { 
-              enable = true; 
-              mode = monitors.wide.res; 
-              rate = monitors.wide.hz;  
-              crtc = 0; 
-              position = "1920x294"; 
-              primary = true; 
-            };
-            DisplayPort-1 = { 
+            DisplayPort-0 = {
               enable = true;
-              mode = monitors.reg.hz;
-              rate = monitors.reg.hz;  
+              mode = args.monitors.wide.res;
+              rate = args.monitors.wide.hz;
+              crtc = 0;
+              position = "1920x294";
+              primary = true;
+            };
+            DisplayPort-1 = {
+              enable = true;
+              mode = args.monitors.reg.hz;
+              rate = args.monitors.reg.hz;
               crtc = 1;
               position = "0x465";
             };
-            DisplayPort-2 = { 
+            DisplayPort-2 = {
               enable = true;
-              mode = monitors.vertical.res;
-              rate = monitors.vertical.hz; 
+              mode = args.monitors.vertical.res;
+              rate = args.monitors.vertical.hz;
               rotate = "left";
               crtc =  2;
               position = "5360x0";
-            }; 
-          }; 
+            };
           };
-        "2screen" = { 
-          fingerprint = { 
-            DisplayPort-0 = monitors.wide.fingerprint;
-            DisplayPort-1 = monitors.reg.fingerprint;
-            DisplayPort-2 = monitors.vertical.fingerprint;
+        };
+        "2screen" = {
+          fingerprint = {
+            DisplayPort-0 = args.monitors.wide.fingerprint;
+            DisplayPort-1 = args.monitors.reg.fingerprint;
+            DisplayPort-2 = args.monitors.vertical.fingerprint;
+            HDMI-A-0 = args.monitors.tv.fingerprint;
           };
-          config = {  
-            HDMI-A-0.enable = false; 
+          config = {
+            HDMI-A-0.enable = false;
             DisplayPort-1.enable = false;
-            DisplayPort-0 = { 
-              enable = true; 
-              mode = monitors.wide.res; 
-              rate = monitors.wide.hz;  
+            DisplayPort-0 = {
+              enable = true;
+              mode = args.monitors.wide.res;
+              rate = args.monitors.wide.hz;
               crtc = 0;
               position = "0x240";
               primary = true;
             };
-            DisplayPort-2 = { 
+            DisplayPort-2 = {
               enable = true;
-              mode = monitors.vertical.res;
-              rate = monitors.vertical.hz; 
+              mode = args.monitors.vertical.res;
+              rate = args.monitors.vertical.hz;
               rotate = "left";
               crtc = 2;
               position = "3440x0";
-            }; 
-          }; 
+            };
+          };
+        };
+        "4screen" = {
+          fingerprint = {
+            DisplayPort-0 = args.monitors.wide.fingerprint;
+            DisplayPort-1 = args.monitors.reg.fingerprint;
+            DisplayPort-2 = args.monitors.vertical.fingerprint;
+            HDMI-A-0 = args.monitors.tv.fingerprint;
+          };
+          config = {
+            DisplayPort-0 = {
+              enable = true;
+              mode = args.monitors.wide.res;
+              rate = args.monitors.wide.hz;
+              crtc = 0;
+              position = "1920x0";
+              primary = true;
+            };
+            DisplayPort-1 = {
+              enable = true;
+              mode = args.monitors.reg.res;
+              rate = args.monitors.reg.hz;
+              crtc = 1;
+              position = "0x0";
+            };
+            DisplayPort-2 = {
+              enable = true;
+              mode = args.monitors.vertical.res;
+              rate = args.monitors.vertical.hz;
+              rotate = "left";
+              crtc =  2;
+              position = "5360x0";
+            };
+            HDMI-A-0 = {
+              enable = true;
+              mode = args.monitors.tv.res;
+              rate = args.monitors.tv.hz;
+              crtc = 3;
+              position = "0x0";
+            };
+          };
         };
       };
     };

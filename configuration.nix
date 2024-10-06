@@ -38,7 +38,7 @@ services.udisks2 = { enable = true; #settings = {};
   };
 services.xserver = {
   enable = true;
-  #videoDrivers = [ "amdgpu" ];
+  videoDrivers = [ "amdgpu" ];
 };
 services.mullvad-vpn.enable = true;
 networking = {
@@ -53,14 +53,14 @@ networking = {
 
 
 adb.enable          = true;
-#autorandr.enable   = true;
+autorandr.enable   = true;
 #scripts.enable      = true;
 dwm.enable         = true;
 ffsyncserver.enable = true;
 gnomeWM.enable        = true;
 kbdLayout.enable    = true;
 localization.enable = true;
-#qemu.enable         = true;
+qemu.enable         = true;
 soundconf.enable    = true;
 ssh.enable          = true;
 syncthing.enable    = true;
@@ -114,21 +114,21 @@ services.xserver.displayManager.gdm = {
   enable = true;
   wayland = false;
 };
-#boot.plymouth = { enable = true;
+boot.plymouth = { enable = true;
  #themePackages = [ ];
  #theme         = "";
  #logo          = "";
  #font          = "";
  #extraConfig   = "";
-#};
+};
 boot.loader = {
-#    systemd-boot.enable = true;
-#    efi.canTouchEfiVariables = true;
-    grub = {
-      enable = true;
-      device = "/dev/sda"; /* vaio */
-      useOSProber = true;
-    };
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+#   grub = {
+#     enable = true;
+#     device = "/dev/sda"; /* vaio */
+#     useOSProber = true;
+#   };
 };
 nix.gc = { ## garbage collection
   automatic = true;
