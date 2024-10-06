@@ -1,6 +1,8 @@
 { # TODO: upgrade to github.com/Mic92/sops-nix
-  user = "korv";
-  host = "nixburk";
+  user = "user";
+  host = "nixvaio";
+  user2 = "korv";
+  host2 = "nixburk";
   keys = [
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEJsd82H9yUf2hgBiXECvfPVgUxy84vHz5MbsBDbShvv korv@nixos"
         "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICPC8sV9tofPmdM1VmrsUK1AoymNkobPphDynC6nKd/E korv@nixos-dell"

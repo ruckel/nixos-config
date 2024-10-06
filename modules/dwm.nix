@@ -1,17 +1,23 @@
 { lib, config, pkgs, ... } : 
-{
-  services.xserver.windowManager.dwm = {
+with lib;
+let args = {
+  cfg = config.dwm;
+};
+in {
+  options.dwm.enable = mkEnableOption "";
+
+  config = lib.mkIf args.cfg.enable {
+    services.xserver.windowManager.dwm = {
       enable = true;
       package = pkgs.dwm.overrideAttrs rec { 
-        #src = ../dwm;
-        src = /etc/nixos/dwm;
+        src = /home/user/dwm;
+        #src = /etc/nixos/dwm;
         # fetchFromGitHub {
         #   owner = "hollystandring";   # x
         #   repo = "dwm-bar";           # z
         #   rev = "";                   # 8ab3d03681479263a11b05f7f1b53157f61e8c3b
         #   sha256 = "1vz70wh68kgazxy6wympifaq05cg65flfc9jr7q1apfa6spq4274";
         # }
-        
         patches = [
           #./path/to/local.patch
           (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/fakefullscreen/dwm-fakefullscreen-20210714-138b405.diff";
@@ -39,4 +45,5 @@
       # };
       };
     };
+  };
 }

@@ -9,10 +9,10 @@ in
     /etc/nixos/systemStateVersion.nix
     ./modules/ssh.nix
     ./modules/autorandr.nix
-    ./modules/customscripts.nix
+#   ./modules/customscripts.nix
     ./modules/adb.nix
     ./modules/dwm.nix
-    #./modules/experimental.nix
+    ./modules/experimental.nix
     ./modules/ffsyncserver.nix
     ./modules/gnomeWM.nix
     ./modules/kbdLayout.nix
@@ -22,8 +22,11 @@ in
     ./modules/sound.nix
     ./modules/syncthing.nix
     ./modules/systemd.nix
-    #./nixscripts/helloWorld.nix
+    ./modules/xprofile.nix
+    ./modules/bashrc.nix
+#./nixscripts/helloWorld.nix
   ];
+
 
 services.displayManager.defaultSession = "none+dwm"; # "gnome"
 
@@ -51,30 +54,30 @@ networking = {
 
 adb.enable          = true;
 #autorandr.enable   = true;
-scripts.enable      = true;
-#dwm.enable         = true;
+#scripts.enable      = true;
+dwm.enable         = true;
 ffsyncserver.enable = true;
 gnomeWM.enable        = true;
-#kbdLayout.enable    = true;
+kbdLayout.enable    = true;
 localization.enable = true;
 #qemu.enable         = true;
 soundconf.enable    = true;
 ssh.enable          = true;
 syncthing.enable    = true;
 #systemdconf.enable  = true;
-#
-#experimental = { #enable = true;
-#  enableSystembus-notify =  true;
-#  enableAvahi =             true;
-#  #enableRustdeskServer =   true;
-#  #enableVirtualScreen =    true;
-#  enableVncFirewall =       true;
-#};
+
+experimental = { #enable = true;
+  enableSystembus-notify =  true;
+  enableAvahi =             true;
+  #enableRustdeskServer =   true;
+  #enableVirtualScreen =    true;
+  enableVncFirewall =       true;
+};
 
 
 environment.localBinInPath = true;
-environment.etc."bashrc".source = ./bashrc;
-environment.etc."test".source = ./xprofile;
+#environment.etc."bashrc".source = ./bashrc;
+#environment.etc."xprofile".source = ./xprofile;
 
 systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   "getty@tty1".enable = false;
@@ -119,13 +122,13 @@ services.xserver.displayManager.gdm = {
  #extraConfig   = "";
 #};
 boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
-#    grub = {
-#      enable = true;
-#      device = "/dev/sda"; /* vaio */
-#      useOSProber = true;
-#    };
+#    systemd-boot.enable = true;
+#    efi.canTouchEfiVariables = true;
+    grub = {
+      enable = true;
+      device = "/dev/sda"; /* vaio */
+      useOSProber = true;
+    };
 };
 nix.gc = { ## garbage collection
   automatic = true;

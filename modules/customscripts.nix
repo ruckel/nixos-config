@@ -7,7 +7,7 @@ in {
 
     };
 
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.enable rec {
     environment.localBinInPath = true;
     environment.etc."bashrc".text =
     "\
