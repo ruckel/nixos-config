@@ -12,9 +12,6 @@ alias nixfindpackage=~/scripts/nix/find.sh
 alias nixfastfind=~/scripts/nix/find.sh
 alias nfind=~/scripts/nix/find.sh
 
-alias nixswitch='sudo nixos-rebuild switch'
-alias nswitch='sudo nixos-rebuild switch'
-
 alias grepinverted="grep -v"
 alias grepinvertedwithpipe="| grep -v"
 alias gnomeextfind=~/scripts/nix/gnomefindext.sh
@@ -32,13 +29,13 @@ alias neofetch=fastfetch
 alias lock='xdg-screensaver lock'
 alias chawan='cha'
 alias pixelIp=192.168.1.4
-alias s20Ip=192.168.1.5
 alias 192.168.1.=192.168.1.
 alias blurtoggle=~/scripts/blurwindows
 alias logout='gnome-session-quit --logout'
 alias cl='clear'
 alias mv='mv -v'
 alias rm='trash'
+alias rmlasthistoryentry='history -d -1; history'
 alias poweroff='gnome-session-quit --no-prompt --power-off'
 alias shutdown='gnome-session-quit --no-prompt --power-off'
 

@@ -3,31 +3,30 @@ with lib;
 let args = {
   cfg = config.ssh;
   vars = import ../vars.nix;
+  thewhole = import ./shebang.nix;
 };
 in {
   options.ssh = {
     enable = mkEnableOption "custom ssh conf";
-    ports = mkOption {
+    ports = mkOption { default = args.vars.ports;
       type = with types; listOf int;
-      default = args.vars.ports;
     };
-    user = mkOption {
-      type = with types; uniq str;
-      default = args.vars.user;
+    user = mkOption { default = args.vars.user;
+      type = with types; nullOr str;
+      description = "which user (singular) to allow ssh connections";
     };
-    keys = mkOption {
+    keys = mkOption { default = args.vars.keys;
       type = with types; listOf str;
-      default = args.vars.keys;
-    };
-    pwauth = mkOption {
-      type = with types; nullOr bool;
-      default = false;
-      description = "enable password authentication";
-    };
-    x11fw = mkOption {
-      type = with types; nullOr bool;
-      default = true;
+      description = "authorization keys";
+      };
+    pwauth = mkEnableOption "enable password authentication";
+    x11fw = mkOption { default = true;
+      type = types.bool;
       description = "enable x11 forwarding";
+    };
+    vncbg = mkOption { default = true;
+      type = types.bool;
+      description = "Background VNC server at startup";
     };
   };
 
@@ -44,6 +43,10 @@ in {
     };
     services.fail2ban = {
       enable = true;
+      #TODO: Expand fail2ban
     };
+    environment.etc."xprofile2".text = lib.mkIf args.cfg.vncbg ''${args.thewhole.shebang}
+x11vnc -forever -noxdamage  -passwdfile ~/.vnc/passwd &
+'';
   };
 }

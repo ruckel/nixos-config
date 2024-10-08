@@ -136,5 +136,11 @@ in
         };
       };
     };
+    environment.etc."xprofile2".text = ''
+    xrandr
+    if [ $HOSTNAME == 'nixburk' ]; then
+      autorandr 4screen &
+    fi
+    '';
   };
 }

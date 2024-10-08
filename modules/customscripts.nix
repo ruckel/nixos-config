@@ -9,10 +9,7 @@ in {
 
   config = lib.mkIf cfg.enable rec {
     environment.localBinInPath = true;
-    environment.etc."bashrc".text =
-    "\
-    echo bishybashy
-    ";
-    environment.etc."test".source = ../bashrc;
+    environment.etc."bashrc".text = ". /etc/custombashscript.sh ";
+    environment.etc."custombashscript.sh".source = ../custombashscript.sh;
   };
 }
