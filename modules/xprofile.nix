@@ -6,7 +6,6 @@ let args = {
 in
 { environment.etc."xprofile".text = ''
     #!/bin/sh
-    rm ~/.ptmp
     if [ -z _XPROFILE_SOURCED ]; then
       export _XPROFILE_SOURCED=True
       . /etc/xprofile2 &
