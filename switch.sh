@@ -1,6 +1,6 @@
 #!/bin/sh
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-SCRIPTDIR=/home/${USER}/nixos-config
+SCRIPTDIR=/home/${USER}/nixos-cfg
 name=korvus
 tstamp=$(date +%y%m%d-%H:%M)
 
@@ -25,7 +25,7 @@ makeSwitch() {
   #echo $PW |
   sudo -p '' -A -- echo "sudo pw:d"
   sudo nixos-rebuild switch --show-trace --fast \
-  -I nixos-config=$SCRIPTDIR/configuration.nix \
+  -I nixos-config=$SCRIPT_DIR/configuration.nix \
   -I nixpkgs=. \
   -p $PROFILE
 }
@@ -33,7 +33,7 @@ makeSwitch() {
 makeBuild() {
   echo "Doing build"
   nixos-rebuild build --show-trace --fast \
-  -I nixos-config=$SCRIPTDIR/configuration.nix \
+  -I nixos-config=$SCRIPT_DIR/configuration.nix \
   -I nixpkgs=.
 }
 run $@
