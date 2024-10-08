@@ -1,4 +1,4 @@
-xkb_symbols "korvus"
+xkb_symbols "example"
 {
 include "evdev"
 include "aliases(qwerty)"

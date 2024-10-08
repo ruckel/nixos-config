@@ -1,4 +1,4 @@
-xkb_keycodes "korvus"
+xkb_keycodes "example"
 {
 #<volUp> = 49;
 #<secondCustomKey> = 667;

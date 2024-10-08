@@ -1,11 +1,11 @@
+/* Checkout original layout with: ```sh
+less $(echo "$(nix-build --no-out-link '<nixpkgs>' -A xorg.xkeyboardconfig)/etc/X11/xkb/")symbols/se 00-keyboard.conf
+``` */
 { lib, pkgs, config, ... } :
 with lib;
-let cfg = config.kbdLayout;
+let cfg = config.customkbd;
 in {
-  options.kbdLayout = {
-    enable = mkEnableOption "DESCRIPTION";
-
-    };
+  options.customkbd.enable = mkEnableOption "add custom keyboard layouts";
 
   config = lib.mkIf cfg.enable {
     services.xserver = {
@@ -19,5 +19,6 @@ in {
       };
 
     };
+  environment.etc."xprofile2".text = ''setxkbmap korvus'';
   };
 }

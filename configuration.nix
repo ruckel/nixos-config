@@ -15,7 +15,7 @@ in
     ./modules/experimental.nix
     ./modules/ffsyncserver.nix
     ./modules/gnomeWM.nix
-    ./modules/kbdLayout.nix
+    ./modules/customkbd.nix
     ./modules/localization.nix
     ./modules/packages.nix
     ./modules/qemu.nix
@@ -55,7 +55,8 @@ networking = {
 adb.enable          = true;
 autorandr.enable   = true;
 #scripts.enable      = true;
-dwm.enable         = true;
+customkbd.enable    = true;
+dwm.enable          = true;
 ffsyncserver.enable = true;
 gnomeWM.enable        = true;
 kbdLayout.enable    = true;
@@ -76,8 +77,6 @@ experimental = { #enable = true;
 
 
 environment.localBinInPath = true;
-#environment.etc."bashrc".source = ./bashrc;
-#environment.etc."xprofile".source = ./xprofile;
 
 systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   "getty@tty1".enable = false;
