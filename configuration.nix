@@ -18,6 +18,7 @@ in
     ./modules/customkbd.nix
     ./modules/localization.nix
     ./modules/packages.nix
+    ./modules/python.nix
     ./modules/qemu.nix
     ./modules/sound.nix
     ./modules/syncthing.nix
@@ -53,15 +54,15 @@ networking = {
 
 
 adb.enable          = true;
-autorandr.enable   = true;
+autorandr.enable    = true;
 #scripts.enable      = true;
 customkbd.enable    = true;
 dwm.enable          = true;
 ffsyncserver.enable = true;
-gnomeWM.enable        = true;
-kbdLayout.enable    = true;
+gnomeWM.enable      = true;
 localization.enable = true;
 qemu.enable         = true;
+pythonconf.enable   = true;
 soundconf.enable    = true;
 ssh.enable          = true;
 syncthing.enable    = true;

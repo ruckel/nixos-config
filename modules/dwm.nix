@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ... } : 
+{ lib, config, pkgs, ... } :
 with lib;
 let args = {
   vars = ../vars.nix;
@@ -10,16 +10,16 @@ in {
     fakefullscreen    = mkEnableOption "";
     allmonitorsstatus = mkEnableOption "";
     activemonitor     = mkEnableOption "";
-    noborder          = mkEnableOption ""; 
-    warp              = mkEnableOption ""; 
-    tilewide          = mkEnableOption ""; 
-    focusonclick      = mkEnableOption ""; 
+    noborder          = mkEnableOption "";
+    warp              = mkEnableOption "";
+    tilewide          = mkEnableOption "";
+    focusonclick      = mkEnableOption "";
   };
 
   config = lib.mkIf args.cfg.enable {
     services.xserver.windowManager.dwm = {
       enable = true;
-      package = pkgs.dwm.overrideAttrs rec { 
+      package = pkgs.dwm.overrideAttrs rec {
       # src = /home/${args.vars.user}/dwm;
         src = /home/korv/dwm;
         #src = /etc/nixos/dwm;
@@ -39,10 +39,14 @@ in {
             hash = "sha256-MEF/vSN3saZlvL4b26mp/7XyKG3Lp0FD0vTYPULuQXA=";})
           (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/noborder/dwm-noborderfloatingfix-6.2.diff";
             hash = "sha256-CrKItgReKz3G0mEPYiqCHW3xHl6A3oZ0YiQ4oI9KXSw=";})
-         #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/warp/dwm-warp-6.4.diff";
-         #  hash = "sha256-8z41ld47/2WHNJi8JKQNw76umCtD01OUQKSr/fehfLw=";})
           (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/tilewide/dwm-tilewide-6.4.diff";
             hash = "sha256-l8QDEb8X32LlnGpidaE4xKyd0JmT8+Oodi5qVXg1ol4=";})
+          (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/systray/dwm-systray-20230922-9f88553.diff";
+            hash = "sha256-Kh1aP1xgZAREjTy7Xz48YBo3rhrJngspUYwBU2Gyw7k=";})
+         #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/defaulttransparency/dwm-defaulttransparency-r1521.diff";
+         #  hash = "sha256-K4UlNVs9y2sAyJFAJhdGHwmBUltWau+bKg3YwXv0350=";})
+         #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/warp/dwm-warp-6.4.diff";
+         #  hash = "sha256-8z41ld47/2WHNJi8JKQNw76umCtD01OUQKSr/fehfLw=";})
          #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/focusonclick/dwm-focusonclick-20200110-61bb8b2.diff";
          #  hash = "sha256-FDDBIXbUCEuVLaot3ju8yyqMWqrfCMGcVhV1kmKKusM=";})
          #(pkgs.fetchpatch { url = "";
@@ -56,5 +60,13 @@ in {
       # };
       };
     };
+    environment.etc."xprofile2".text = ''
+    if [ $DESKTOP_SESSION == "none+dwm" ]; then
+      echo "" > ~/dwmbar.txt
+      ~/.fswebbg
+      ~/dwm/dwmbar.sh &
+      syncthing &
+    fi
+    '';
   };
 }

@@ -43,7 +43,7 @@ ffmpegthumbnailer
 foot
 fswebcam
 gimp openshot-qt obs-studio pinta
-git gh
+git gh gitg
 gparted
 gradience
 keepassxc git-credential-keepassxc cryptsetup
@@ -55,6 +55,7 @@ mpv media-downloader vlc playerctl helvum
 mullvad-vpn
 networkmanagerapplet
 nextcloud-client syncthing transmission rymdport
+obsidian
 openshot-qt gnome-photos digikam shotwell
 signal-desktop simplex-chat-desktop
 #spacedrive
@@ -68,7 +69,7 @@ thunderbird birdtray
 ots
 vscodium-fhs
 x11vnc tigervnc scrcpy vncdo
-xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp
+xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
     ];
   };
 }
