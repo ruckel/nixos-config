@@ -9,7 +9,7 @@ in
     /etc/nixos/systemStateVersion.nix
     ./modules/ssh.nix
     ./modules/autorandr.nix
-#   ./modules/customscripts.nix
+    ./modules/customscripts.nix
     ./modules/adb.nix
     ./modules/dwm.nix
     ./modules/experimental.nix
@@ -24,8 +24,7 @@ in
     ./modules/syncthing.nix
     ./modules/systemd.nix
     ./modules/xprofile.nix
-    ./modules/bashrc.nix
-#./nixscripts/helloWorld.nix
+    #./nixscripts/helloWorld.nix
   ];
 
 
@@ -55,7 +54,7 @@ networking = {
 
 adb.enable          = true;
 autorandr.enable    = true;
-#scripts.enable      = true;
+scripts.enable      = true;
 customkbd.enable    = true;
 dwm.enable          = true;
 ffsyncserver.enable = true;

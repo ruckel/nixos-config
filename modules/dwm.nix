@@ -41,8 +41,8 @@ in {
             hash = "sha256-CrKItgReKz3G0mEPYiqCHW3xHl6A3oZ0YiQ4oI9KXSw=";})
           (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/tilewide/dwm-tilewide-6.4.diff";
             hash = "sha256-l8QDEb8X32LlnGpidaE4xKyd0JmT8+Oodi5qVXg1ol4=";})
-          (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/systray/dwm-systray-20230922-9f88553.diff";
-            hash = "sha256-Kh1aP1xgZAREjTy7Xz48YBo3rhrJngspUYwBU2Gyw7k=";})
+         #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/systray/dwm-systray-20230922-9f88553.diff";
+         #  hash = "sha256-Kh1aP1xgZAREjTy7Xz48YBo3rhrJngspUYwBU2Gyw7k=";})
          #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/defaulttransparency/dwm-defaulttransparency-r1521.diff";
          #  hash = "sha256-K4UlNVs9y2sAyJFAJhdGHwmBUltWau+bKg3YwXv0350=";})
          #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/warp/dwm-warp-6.4.diff";
