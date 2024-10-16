@@ -6,12 +6,11 @@ let
 in {
   options.ssh = {
     enable = mkEnableOption "custom ssh conf";
-    ports = mkOption { default = args.vars.ports;
-      type = with types; listOf int;
+    user = mkOption { default = "user";
+      type = types.str;
     };
-    user = mkOption { default = args.vars.user;
-      type = with types; nullOr str;
-      description = "which user (singular) to allow ssh connections";
+    ports = mkOption { default = [ ];
+      type = with types; listOf int;
     };
     keys = mkOption { default = args.vars.keys;
       type = with types; listOf str;
@@ -54,7 +53,7 @@ in {
       enable = true;
       #TODO: Expand fail2ban
     };
-    environment.etc."xprofile2".text = lib.mkIf cfg.vncbg ''${args.thewhole.shebang}
+    environment.etc."xprofile2".text = lib.mkIf cfg.vncbg ''${thewhole.shebang}
 x11vnc -forever -noxdamage  -passwdfile ~/.vnc/passwd &
 '';
   };

@@ -9,22 +9,26 @@ run() {
     if [[ $1 == 'build' ]];then
       makeBuild
       exit 0
-    else
-      name=$1
+    elif [[ $1 == 'switch' ]];then
+      PROFILE=$2
+      makeSwitch
+      exit 0
     fi
   fi
-  PROFILE=${name}
 #@${tstamp}
-  makeSwitch
+  makeTest
+}
+makeTest() {
+  sudo -p '' -A -- echo "sudo pw:d"
+  sudo nixos-rebuild test --fast --impure --flake ./# \
+  -I nixos-config=$SCRIPT_DIR/configuration.nix \
+  -I nixpkgs=.
 }
 
 makeSwitch() {
   echo $PROFILE
-  #printf "sudo pw: "
-  #read -s PW
-  #echo $PW |
   sudo -p '' -A -- echo "sudo pw:d"
-  sudo nixos-rebuild switch --show-trace --fast \
+  sudo nixos-rebuild switch --fast --impure --flake ./# \
   -I nixos-config=$SCRIPT_DIR/configuration.nix \
   -I nixpkgs=. \
   -p $PROFILE
@@ -33,7 +37,7 @@ makeSwitch() {
 makeBuild() {
   echo "Doing build"
   nixos-rebuild build --fast --impure --flake ./#  \
-  -I nixos-config=$SCRIPT_DIR/configuration.nix \
-  -I nixpkgs=.
+  -I nixos-config=$SCRIPT_DIR/configuration.nix #\
+  #-I nixpkgs=.
 }
 run $@
