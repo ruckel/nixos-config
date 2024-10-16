@@ -1,10 +1,8 @@
 { lib, pkgs, config, ... } :
 with lib;
-let args = {
+let
   cfg = config.ssh;
-  vars = import ../vars.nix;
   thewhole = import ./shebang.nix;
-};
 in {
   options.ssh = {
     enable = mkEnableOption "custom ssh conf";
@@ -30,22 +28,33 @@ in {
     };
   };
 
-  config = lib.mkIf args.cfg.enable {
-    users.users.${args.cfg.user}.openssh.authorizedKeys.keys = args.cfg.keys;
+  config = lib.mkIf cfg.enable {
+    users.users.${cfg.user}.openssh.authorizedKeys.keys = cfg.keys;
+    environment.systemPackages = with pkgs; [
+      x11vnc
+      tigervnc
+      scrcpy
+      vncdo
+    ];
     services.openssh = {
       enable = true;
-      ports = args.cfg.ports;
+      ports = cfg.ports;
       openFirewall = true;
       settings = {
-        PasswordAuthentication = args.cfg.pwauth;
-        X11Forwarding = args.cfg.x11fw;
+        PasswordAuthentication = cfg.pwauth;
+        X11Forwarding = cfg.x11fw;
       };
+    };
+    networking.firewall = {
+    enable = true;
+    allowedTCPPorts = [ 5900 ];# [vnc]
+    allowedUDPPorts = [ 5900 ];
     };
     services.fail2ban = {
       enable = true;
       #TODO: Expand fail2ban
     };
-    environment.etc."xprofile2".text = lib.mkIf args.cfg.vncbg ''${args.thewhole.shebang}
+    environment.etc."xprofile2".text = lib.mkIf cfg.vncbg ''${args.thewhole.shebang}
 x11vnc -forever -noxdamage  -passwdfile ~/.vnc/passwd &
 '';
   };

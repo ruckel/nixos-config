@@ -1,9 +1,7 @@
 { lib, config, pkgs, ... } :
 with lib;
-let args = {
-  vars = ../vars.nix;
+let
   cfg = config.dwm;
-};
 in {
   options.dwm.enable  = mkEnableOption "";
   options.dwm = {
@@ -16,12 +14,12 @@ in {
     focusonclick      = mkEnableOption "";
   };
 
-  config = lib.mkIf args.cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.xserver.windowManager.dwm = {
       enable = true;
       package = pkgs.dwm.overrideAttrs rec {
       # src = /home/${args.vars.user}/dwm;
-        src = /home/korv/dwm;
+        src = /home/korv/dwm;#TODO
         #src = /etc/nixos/dwm;
         # fetchFromGitHub {
         #   owner = "hollystandring";   # x

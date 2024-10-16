@@ -7,13 +7,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     services.xserver.desktopManager.gnome.enable = true;
-    networking.firewall = {
-      allowedTCPPortRanges = [{ from = 1714; to = 1764; }];#gsconnect
-      allowedUDPPortRanges = [{ from = 1714; to = 1764; }];
-    };
     environment.systemPackages = with pkgs; [
       gnome-browser-connector
-      gnome.dconf-editor
+      dconf-editor
       gnomeExtensions.allow-locked-remote-desktop
       gnomeExtensions.appindicator
       gnomeExtensions.arc-menu
@@ -27,7 +23,6 @@ in {
       gnomeExtensions.do-not-disturb-while-screen-sharing-or-recording
       gnomeExtensions.fuzzy-clock-2
       gnomeExtensions.grand-theft-focus
-      gnomeExtensions.gsconnect
       gnomeExtensions.just-perfection
       gnomeExtensions.launcher
       gnomeExtensions.mock-tray

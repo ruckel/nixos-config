@@ -1,16 +1,14 @@
 { lib, pkgs, config, ... } :
 with lib;
-let args = {
+let
   cfg = config.syncthing;
-  vars = import ../vars.nix;
-};
 in {
   options.syncthing = {
     enable = mkEnableOption "DESCRIPTION";
 
     };
 
-  config = lib.mkIf args.cfg.enable {
+  config = lib.mkIf cfg.enable {
     systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
     services.syncthing = {
       enable = true;

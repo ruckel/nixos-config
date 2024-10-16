@@ -29,7 +29,7 @@ in
 {
   options.autorandr = {enable = mkEnableOption "";};
 
-  config = lib.mkIf args.cfg.enable {
+  config = /*lib.mkIf args.cfg.enable*/ {
     services.autorandr = {
       enable = true;
       profiles = {

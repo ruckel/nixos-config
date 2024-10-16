@@ -10,6 +10,6 @@ in {
   config = lib.mkIf cfg.enable rec {
     environment.localBinInPath = true;
     environment.etc."bashrc".text = ". /etc/bashaliases ";
-    environment.etc."bashaliases".source = ../aliases;
+    #TODO environment.etc."bashaliases".source = ../aliases;
   };
 }

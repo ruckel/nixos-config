@@ -1,12 +1,11 @@
 { lib, config, ... }:
-let args = {
+let
   cfg = darktheme.config;
-};
 in
 {
   options.darktheme.enable = true;
 
-  config = lib.mkIf args.cfg.enable {
+  config = lib.mkIf cfg.enable {
     environment.etc."xprofile2".text = ''
     xfconf-query -c xsettings -p /Net/ThemeName -s           "Adwaita-dark"
     gsettings set org.gnome.desktop.interface icon-theme      Adwaita-dark

@@ -6,7 +6,7 @@ in {
     enable = mkEnableOption "custom ffsyncserver conf";
   };
 
-  config = mkIf cfg.enable {
+  config = lib.mkIf cfg.enable {
     services.mysql.package = pkgs.mariadb;
     services.firefox-syncserver = {
       enable = true;

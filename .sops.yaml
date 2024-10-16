@@ -1,0 +1,11 @@
+keys:
+  - &primary age1nqful4cmsa42urdgqhukwgu779kp0qy56fp8rk04h7g00p8t9ywqhrhqhy
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+    - age:
+      - *primary
+  - path_regex: eval-secrets/eval-secrets.nix$
+    key_groups:
+    - age:
+      - *primary

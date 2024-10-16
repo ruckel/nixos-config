@@ -1,10 +1,13 @@
+alias sudoa='sudo -A'
 alias ls='ls -Ah'
 alias lsl='ls -lAh'
 
+alias printtime='echo $(date +%H:%M)'
 alias noti='sleep 5; echo'
 alias alert='/home/korv/scripts/alert'
 
-alias nixtest='sudo nixos-rebuild test'
+alias nixswitch='nixos-rebuild switch'
+alias nixtest='sudo -A nixos-rebuild test'
 alias nixeditconfig='sudo vim /etc/nixos/configuration.nix && nixswitch && alert'
 alias nixpackages='sudo vim /etc/nixos/packages.nix && nixswitch && alert'
 
@@ -28,20 +31,25 @@ alias tautohide='/home/korv/scripts/tilixautohide'
 alias neofetch=fastfetch
 alias lock='xdg-screensaver lock'
 alias chawan='cha'
-alias pixelIp=192.168.1.4
-alias 192.168.1.=192.168.1.
 alias blurtoggle=~/scripts/blurwindows
 alias logout='gnome-session-quit --logout'
 alias cl='clear'
 alias mv='mv -v'
 alias rm='trash'
 alias rmlasthistoryentry='history -d -1; history'
-alias poweroff='gnome-session-quit --no-prompt --power-off'
-alias shutdown='gnome-session-quit --no-prompt --power-off'
+alias poweroffgnome='gnome-session-quit --no-prompt --power-off'
+alias shutdowngnome='gnome-session-quit --no-prompt --power-off'
 
 alias sshmoln='ssh moln'
 alias torrent='transmission-remote --add'
 alias potsify='spotify_player'
 alias spotifyplayer='spotify_player'
-alias reboot='gnome-session-quit --no-prompt --reboot'
+alias rebootgnome='gnome-session-quit --no-prompt --reboot'
 alias ff=fastfetch
+
+alias wpctlstatus='wpctl status'
+alias wpctldefault='wpctl set-default'
+alias wpctlvol='wpctl set-volume @DEFAULT_SINK@'
+alias wpctlvolup='wpctl set-volume @DEFAULT_SINK@ .05+'
+alias wpctlvoldn='wpctl set-volume @DEFAULT_SINK@ .05-'
+alias wpctlgrep='wpctl status | grep'

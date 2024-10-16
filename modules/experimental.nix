@@ -1,13 +1,14 @@
 { lib, pkgs, config, ... } :
 with lib;
-let args = {
+let
   cfg = config.experimental;
-  vars = import ../vars.nix;
-};
-in 
+in
 {
   options.experimental = {
     enable                  = mkEnableOption "experimental";
+    user = mkOption { default = "user";
+      type = types.str;
+    };
 
     docker                  = mkEnableOption "";
     enableSystembus-notify  = mkEnableOption "";
@@ -17,28 +18,28 @@ in
     enableVncFirewall       = mkEnableOption "";
   };
 
-  config = lib.mkIf args.cfg.enable {
-    services.systembus-notify.enable = args.cfg.enableSystembus-notify;
+  config = lib.mkIf cfg.enable {
+    services.systembus-notify.enable = cfg.enableSystembus-notify;
     qt.style = "adwaita-dark";
-    services.avahi.enable = args.cfg.enableAvahi;
-    networking.firewall = lib.mkIf args.cfg.enableVncFirewall {
+    services.avahi.enable = cfg.enableAvahi;
+    networking.firewall = lib.mkIf cfg.enableVncFirewall {
       allowedTCPPorts = [ 5900 ];
       allowedUDPPorts = [ 5900 ];
     };
-    programs.virt-manager = lib.mkIf args.cfg.enableVncFirewall {
+    programs.virt-manager = lib.mkIf cfg.enableVncFirewall {
       enable = true;
     };
-    services.xserver = lib.mkIf args.cfg.enableVirtualScreen {
+    services.xserver = lib.mkIf cfg.enableVirtualScreen {
       virtualScreen = { x = 1720; y = 1440; };
     };
     services.rustdesk-server = {
-      enable = args.cfg.enableRustdeskServer;
+      enable = cfg.enableRustdeskServer;
       openFirewall = true;
       relayIP = "127.0.0.1";
     };
 
 
     virtualisation.docker.enable = true;
-    users.users.${args.vars.user}.extraGroups = [ "docker" ];
+    users.users.${cfg.user}.extraGroups = [ "docker" ];
   };
 }

@@ -1,16 +1,19 @@
 { lib, config, pkgs, ...}:
-let args = {
+with lib;
+let
   cfg = config.soundconf;
-  vars = import ../vars.nix;
-};
 in {
   options.soundconf = {
     enable = lib.mkEnableOption "Enable Module";
 
     linkouts.enable = lib.mkEnableOption "";
+
+    user = mkOption { default = "user";
+      type = types.str;
+    };
   };
 
-  config = lib.mkIf args.cfg.enable {
+  config = lib.mkIf cfg.enable {
     security.rtkit.enable = true;     # pipewire realtime priotitizing
     hardware.pulseaudio.enable = false;
     services.pipewire = {
@@ -28,26 +31,26 @@ in {
       ];
     };
 
-    systemd.user.services.pipewire-linking = lib.mkIf args.cfg.linkouts.enable {
+    systemd.user.services.pipewire-linking = lib.mkIf cfg.linkouts.enable {
       enable = true;
       after = [ "pipewire.service" "multi-user.target" "gdm.service" ];
       path = [ pkgs.pipewire ];
       serviceConfig = {
           Type = "oneshot";
-          ExecStart = ''/home/${args.vars.user}/scripts/pipewire.sh'';
+          ExecStart = ''/home/${cfg.user}/scripts/pipewire.sh'';
           #User = vars.user;
           #Group = "users";
       };
       wantedBy = [ "pipewire.service" ];
     };
 
-    environment.etc."xprofile2".text = lib.mkIf args.cfg.linkouts.enable ''
+    environment.etc."xprofile2".text = lib.mkIf cfg.linkouts.enable ''
     if [ ! -f ~/scripts/pipewire.sh ];then
       printf "#" > ~/scripts/pipewire.sh
       printf "!" >> ~/scripts/pipewire.sh
       printf "/bin/sh" >> ~/scripts/pipewire.sh
       echo "" >> ~/scripts/pipewire.sh
-      echo "RUN_AS_USER=${args.vars.user}" >> ~/scripts/pipewire.sh
+      echo "RUN_AS_USER=${cfg.user}" >> ~/scripts/pipewire.sh
       echo "sourceL='alsa_output.pci-0000_00_1f.3.analog-stereo:monitor_FL'" >> ~/scripts/pipewire.sh
       echo "sourceR='alsa_output.pci-0000_00_1f.3.analog-stereo:monitor_FR'" >> ~/scripts/pipewire.sh
 

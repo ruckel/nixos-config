@@ -1,16 +1,32 @@
 { lib, config, ... }:
-let args = {
-  vars = import ../vars.nix;
-  bashfile = import ../xprofile;
-};
+with lib;
+let cfg = config.xprofile;
 in
-{ environment.etc."xprofile".text = ''
+{
+
+  options.xprofile = {
+    enable = mkEnableOption "DESCRIPTION";
+    user = mkOption { default = "user";
+      type = types.str;
+    };
+    };
+
+
+  config = lib.mkIf cfg.enable {
+  environment.etc."xprofile".text = ''
     #!/bin/sh
     if [ -z _XPROFILE_SOURCED ]; then
       export _XPROFILE_SOURCED=True
       . /etc/xprofile2 &
       dunst &
       toastify send -a 'xserver' -t 1000 -u normal 'loaded' '.xprofile'
+    else
+      echo already sourced
     fi
   '';
+  environment.etc."xprofile2".text = ''
+    . /home/${cfg.user}/xautostart &
+
+  '';
+  };
 }

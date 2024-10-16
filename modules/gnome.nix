@@ -17,7 +17,7 @@ in {
     };
     environment.systemPackages = with pkgs; [
       gnome-browser-connector
-      gnome.dconf-editor
+      dconf-editor
       (gnome.withExtension (subpkgs: with subpkgs; [
         allow-locked-remote-desktop
         appindicator

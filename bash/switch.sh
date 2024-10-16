@@ -32,7 +32,7 @@ makeSwitch() {
 
 makeBuild() {
   echo "Doing build"
-  nixos-rebuild build --show-trace --fast \
+  nixos-rebuild build --fast --impure --flake ./#  \
   -I nixos-config=$SCRIPT_DIR/configuration.nix \
   -I nixpkgs=.
 }

@@ -20,6 +20,7 @@ mpv
 mullvad-vpn
 nextcloud-client
 nomacs
+nodejs-slim nodePackages.npm dum
 obs-studio
 obsidian
 openshot-qt

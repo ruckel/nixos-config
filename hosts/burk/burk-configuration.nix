@@ -1,33 +1,41 @@
-{ config, pkgs, lib, ... }:
-let vars = import ./vars.nix;
+{ config, pkgs, lib, inputs, ... }:
+let
+vars = import "${inputs.vars}";
 in
-{ imports =
-    #./systemPackagesDefault.nix
-  [ #./hardware-configuration.nix  # Include the results of the hardware scan.
-    /etc/nixos/hardware-configuration.nix
-    #./systemStateVersion.nix
-    /etc/nixos/systemStateVersion.nix
-    ./modules/ssh.nix
-    ./modules/autorandr.nix
-    ./modules/customscripts.nix
-    ./modules/adb.nix
-    ./modules/dwm.nix
-    ./modules/experimental.nix
-    ./modules/ffsyncserver.nix
-    ./modules/gnomeWM.nix
-    ./modules/customkbd.nix
-    ./modules/localization.nix
-    ./modules/packages.nix
-    ./modules/python.nix
-    ./modules/qemu.nix
-    ./modules/sound.nix
-    ./modules/syncthing.nix
-    ./modules/systemd.nix
-    ./modules/xprofile.nix
-    #./nixscripts/helloWorld.nix
+{ imports = [
+  #./imports.nix
+  /home/korv/nixos-cfg/modules/imports.nix
+  ./hardware-configuration.nix
+  #"${inputs.imports}"
   ];
 
+sops = {
+  defaultSopsFile = /home/korv/nixos-cfg/secrets/secrets.yaml;
+  defaultSopsFormat = "yaml";
+  age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
+  age.keyFile = "/home/korv/.config/sops/age/keys.txt";
+  age.generateKey = true;
+  secrets = {
+    "users/def".neededForUsers = true;
+    "users/def" = {};
+    pw.neededForUsers = true;
+    "ports/p1".neededForUsers = true;
+    "ports/p2".neededForUsers = true;
+    "ports/p3".neededForUsers = true;
+  };
+};
+environment.etc.test.source = config.sops.secrets."pw".path;
 
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+nix.extraOptions = ''
+  plugin-files = ${pkgs.nix-plugins}/lib/nix/plugins
+'';
+nix.settings.plugin-files = "${pkgs.nix-plugins}/lib/nix/plugins";
+nix.settings.extra-builtins-file = [ ../modules/libs/extra-builtins.nix ];
+
+
+system.stateVersion = "24.05";
 services.displayManager.defaultSession = "none+dwm"; # "gnome"
 
 services.devmon.enable = true; /* automatic device mounting daemon */
@@ -42,38 +50,40 @@ services.xserver = {
 };
 services.mullvad-vpn.enable = true;
 networking = {
-  hostName = vars.host;
+  hostName = nixburk;
   networkmanager.enable = true;
-  firewall = {
-    enable = true;
-    allowedTCPPorts = [ 5900 ];# [vnc]
-    allowedUDPPorts = [ 5900 ];
-    };
+  firewall.enable = true;
 };
 
 
-adb.enable          = true;
-autorandr.enable    = true;
-scripts.enable      = true;
-customkbd.enable    = true;
+#adb.enable          = true;
+#autorandr.enable    = true;
+#scripts.enable      = true;
+#customkbd.enable    = true;
 dwm.enable          = true;
-ffsyncserver.enable = true;
-gnomeWM.enable      = true;
-localization.enable = true;
-qemu.enable         = true;
-pythonconf.enable   = true;
-soundconf.enable    = true;
-ssh.enable          = true;
-syncthing.enable    = true;
+#ffsyncserver.enable = true;
+#gnomeWM.enable      = true;
+#localization.enable = true;
+#qemu.enable         = true;
+#pcon = {
+#  enable = true;
+#  gscon = false;
+#  kde = true;
+#};
+#pythonconf.enable   = true;
+#soundconf.enable    = true;
+#ssh.enable          = true;
+#syncthing.enable    = true;
 #systemdconf.enable  = true;
+#ollama.enable       = true;
 
-experimental = { #enable = true;
-  enableSystembus-notify =  true;
-  enableAvahi =             true;
+#experimental = { #enable = true;
+  #enableSystembus-notify =  true;
+  #enableAvahi =             true;
   #enableRustdeskServer =   true;
   #enableVirtualScreen =    true;
-  enableVncFirewall =       true;
-};
+  #enableVncFirewall =       true;
+#};
 
 
 environment.localBinInPath = true;
@@ -95,11 +105,10 @@ users.users.${vars.user} = { isNormalUser = true;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ tilix bc ];
 };
-fonts.packages =
-  with pkgs; [
-    fira fira-code fira-code-nerdfont
-    noto-fonts noto-fonts-cjk-sans
-    ];
+#fonts.packages = with pkgs; [
+#    fira fira-code fira-code-nerdfont
+#    noto-fonts noto-fonts-cjk-sans
+#];
 
 xdg = {
   autostart.enable = true;
@@ -134,8 +143,8 @@ nix.gc = { ## garbage collection
   dates = "06:00";
 };
 system.autoUpgrade = {
-   enable = true;
+   #enable = true;
    allowReboot = false; #true;
-   channel = "https://channels.nixos.org/nixos-24.05";
+   channel = "https://channels.nixos.org/nixos-unstable";
 };
 }
