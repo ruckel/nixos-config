@@ -1,3 +1,0 @@
-[config]
-"agecrypt/secret.1" = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID3DFf7qALg3+SWhznb7oyFyEGGm9GkYrlhcyWCdIBI4 korv@nixburk"]
-"secret.1" = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID3DFf7qALg3+SWhznb7oyFyEGGm9GkYrlhcyWCdIBI4 korv@nixburk"]

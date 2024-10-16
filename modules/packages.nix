@@ -68,7 +68,7 @@ mpv media-downloader vlc playerctl helvum
 mullvad-vpn
 networkmanagerapplet
 nextcloud-client syncthing transmission_3 rymdport
-niv nix-plugins
+nix-plugins
 nodejs-slim nodePackages.npm dum
 obsidian
 openshot-qt gnome-photos digikam shotwell

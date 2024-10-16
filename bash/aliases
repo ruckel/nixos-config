@@ -5,6 +5,8 @@ alias lsl='ls -lAh'
 alias printtime='echo $(date +%H:%M)'
 alias noti='sleep 5; echo'
 alias alert='/home/korv/scripts/alert'
+alias wraplines-temporary-disabling='tput rmam'
+alias wraplines-restore='tput smam'
 
 alias nixswitch='nixos-rebuild switch'
 alias nixtest='sudo -A nixos-rebuild test'
