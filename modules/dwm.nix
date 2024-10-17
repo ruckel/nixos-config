@@ -15,6 +15,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
+    environment.systemPackages = with pkgs; [ dmenu networkmanager_dmenu ];
     services.xserver.windowManager.dwm = {
       enable = true;
       package = pkgs.dwm.overrideAttrs rec {
