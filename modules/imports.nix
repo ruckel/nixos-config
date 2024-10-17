@@ -16,7 +16,7 @@
     ../modules/gnomeWM.nix
     ../modules/customkbd.nix
     ../modules/localization.nix
-    ../modules/packages.nix
+    #../modules/packages.nix
     ../modules/phonecon.nix
     ../modules/python.nix
     ../modules/qemu.nix

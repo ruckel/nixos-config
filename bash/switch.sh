@@ -19,19 +19,22 @@ run() {
   makeTest
 }
 makeTest() {
+  echo making test round
   sudo -p '' -A -- echo "sudo pw:d"
-  sudo nixos-rebuild test --fast --impure --flake ./# \
-  -I nixos-config=$SCRIPT_DIR/configuration.nix \
-  -I nixpkgs=.
+  sudo nixos-rebuild test  --impure --flake ./#
+  #-I nixos-config=$SCRIPT_DIR/configuration.nix #\
+  #-I nixpkgs=.
 }
 
 makeSwitch() {
   echo $PROFILE
   sudo -p '' -A -- echo "sudo pw:d"
   sudo nixos-rebuild switch --fast --impure --flake ./# \
-  -I nixos-config=$SCRIPT_DIR/configuration.nix \
-  -I nixpkgs=. \
+  --show-trace \
+  #-I nixos-config=$SCRIPT_DIR/configuration.nix \
   -p $PROFILE
+# -I nixpkgs=.
+
 }
 
 makeBuild() {

@@ -2,6 +2,7 @@
   description = "A template that shows all standard flake outputs";
     inputs = {
       nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+      #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
       sops-nix.url = "github:Mic92/sops-nix";
       vars = {
         url = "/etc/vars.nix";

@@ -6,6 +6,7 @@ in
   #../modules/imports.nix /* TODO: why no work? :( */
   /home/korv/nixos-cfg/modules/imports.nix
   ./hardware-configuration.nix
+  ./packages.nix
   ];
 
 adb.enable          = true;
@@ -22,7 +23,7 @@ pcon = {
   gscon = false;
   kde = true;
 };
-pythonconf.enable   = true;
+#pythonconf.enable   = true;
 soundconf.enable    = true;
 soundconf.user      = vars.user;
 ssh = {
@@ -37,7 +38,7 @@ ssh = {
 syncthing.enable    = true;
 syncthing.user      = vars.user;
 systemdconf.enable  = true;
-ollama.enable       = true;
+#ollama.enable       = true;
 xprofile.enable     = true;
 xprofile.user       = vars.user;
 
@@ -111,7 +112,7 @@ services.xserver.displayManager.gdm = {
   wayland = false;
 };
 networking = {
-  hostName = vars.user;
+  hostName = vars.host;
   networkmanager.enable = true;
   firewall.enable = true;
 };
