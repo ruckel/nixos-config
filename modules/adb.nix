@@ -2,8 +2,6 @@
 with lib;
 let
   cfg = config.adb;
-  #vars = import ../vars.nix;
-  vars = inputs.vars;
 in {
   options.adb = {
     enable = mkEnableOption "custom adb conf";
@@ -15,9 +13,9 @@ in {
 
   config = lib.mkIf cfg.enable {
     programs.adb.enable = true;
-    users.users."korv"/*${vars.user}*/.extraGroups = [ "adbusers" ];
+    users.users.${cfg.user}.extraGroups = [ "adbusers" ];
     networking.firewall = {
-    allowedTCPPorts = [ 5555 ];
+    allowedTCPPorts = [ 5555 ]; #TODO ports
     allowedUDPPorts = [ 5555 ];
     };
   };

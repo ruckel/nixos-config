@@ -9,7 +9,11 @@ in
   ./packages.nix
   ];
 
-adb.enable          = true;
+adb = {
+  enable            = true;
+  user              = vars.user;
+  ports             = vars.adbports
+};
 autorandr.enable    = true;
 scripts.enable      = true;
 customkbd.enable    = true;

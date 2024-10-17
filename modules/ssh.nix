@@ -47,7 +47,7 @@ in {
     networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 5900 ];# [vnc]
-    allowedUDPPorts = [ 5900 ];
+    allowedUDPPorts = [ 5900 ]; #TODO prots
     };
     services.fail2ban = {
       enable = true;

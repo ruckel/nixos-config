@@ -8,7 +8,7 @@ options.ollama.enableWebui = mkEnableOption "";
 
 config = lib.mkIf cfg.enable {
   networking.firewall = {
-    allowedTCPPorts = [ 11434 ];
+    allowedTCPPorts = [ 11434 ]; #TODO ports
     allowedUDPPorts = [ 11434 ];
   };
 hardware.amdgpu.opencl.enable = true;

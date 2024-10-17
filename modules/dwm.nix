@@ -20,7 +20,7 @@ in {
       enable = true;
       package = pkgs.dwm.overrideAttrs rec {
       # src = /home/${args.vars.user}/dwm;
-        src = /home/korv/dwm;#TODO
+        src = /home/korv/dwm;#TODO dynamic
         #src = /etc/nixos/dwm;
         # fetchFromGitHub {
         #   owner = "hollystandring";   # x
