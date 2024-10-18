@@ -44,6 +44,7 @@ in {
         X11Forwarding = cfg.x11fw;
       };
     };
+    #programs.ssh.setXAuthLocation = true;
     networking.firewall = {
     enable = true;
     allowedTCPPorts = [ 5900 ];# [vnc]

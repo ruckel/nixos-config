@@ -5,6 +5,9 @@ let
 in {
   options.dwm.enable  = mkEnableOption "";
   options.dwm = {
+    user = mkOption { default = "user";
+      type = types.str;
+    };
     fakefullscreen    = mkEnableOption "";
     allmonitorsstatus = mkEnableOption "";
     activemonitor     = mkEnableOption "";
@@ -16,30 +19,41 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ dmenu networkmanager_dmenu ];
+    #services.dwm-status.enable = true;
+    #services.dwm-status.order = [ "audio" "backlight" "battery" "cpu_load" "network" "time" ];
     services.xserver.windowManager.dwm = {
       enable = true;
       package = pkgs.dwm.overrideAttrs rec {
-      # src = /home/${args.vars.user}/dwm;
-        src = /home/korv/dwm;#TODO dynamic
-        #src = /etc/nixos/dwm;
-        # fetchFromGitHub {
-        #   owner = "hollystandring";   # x
-        #   repo = "dwm-bar";           # z
-        #   rev = "";                   # 8ab3d03681479263a11b05f7f1b53157f61e8c3b
-        #   sha256 = "1vz70wh68kgazxy6wympifaq05cg65flfc9jr7q1apfa6spq4274";
-        # }
+        #src = ~/dwmorg;
+        #src = /home/korv/dwm;#TODO dynamic
+        src = /home/${cfg.user}/dwm;
         patches = [
-          #./path/to/local.patch
-          (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/fakefullscreen/dwm-fakefullscreen-20210714-138b405.diff";
+          (pkgs.fetchpatch {
+            url = "https://dwm.suckless.org/patches/fakefullscreen/dwm-fakefullscreen-20210714-138b405.diff";
             hash = "sha256-7AHooplO1c/W4/Npyl8G3drG0bA34q4DjATjD+JcSzI=";})
-          (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/statusallmons/dwm-statusallmons-6.2.diff";
+          (pkgs.fetchpatch {
+            url = "https://dwm.suckless.org/patches/statusallmons/dwm-statusallmons-6.2.diff";
             hash = "sha256-AdngAZTKzICfwAx66sOdWD3IdsoJN8UW8eXa/o+X5/4=";})
-          (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/activemonitor/dwm-activemonitor-20230825-e81f17d.diff";
+          (pkgs.fetchpatch {
+            url = "https://dwm.suckless.org/patches/activemonitor/dwm-activemonitor-20230825-e81f17d.diff";
             hash = "sha256-MEF/vSN3saZlvL4b26mp/7XyKG3Lp0FD0vTYPULuQXA=";})
-          (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/noborder/dwm-noborderfloatingfix-6.2.diff";
+          (pkgs.fetchpatch {
+            url = "https://dwm.suckless.org/patches/noborder/dwm-noborderfloatingfix-6.2.diff";
             hash = "sha256-CrKItgReKz3G0mEPYiqCHW3xHl6A3oZ0YiQ4oI9KXSw=";})
-          (pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/tilewide/dwm-tilewide-6.4.diff";
+          (pkgs.fetchpatch {
+            url = "https://dwm.suckless.org/patches/tilewide/dwm-tilewide-6.4.diff";
             hash = "sha256-l8QDEb8X32LlnGpidaE4xKyd0JmT8+Oodi5qVXg1ol4=";})
+          #(pkgs.fetchpatch {
+          #  url = "https://gist.githubusercontent.com/ruckel/5241adaefb25034d8f43ace2d3b6e320/raw/bf4306cf9d691ee4f6473f9c91bacebc0aabbcf2/korv.diff";
+          #  hash = "sha256-PxSmKuBDFQRgp6qyBjpEKMaBV7Kte/owb65mMxqrHr0=";})
+        #  (pkgs.fetchpatch {
+        #    url = "https://dwm.suckless.org/patches/centretitle/dwm-centretitle-20200907-61bb8b2.diff";
+        #    hash = "sha256-1SSsJaIq1WjAfrz5fiWg+kHs7kHNj3Ie9ls6E834n9c=";
+        #  })
+        #  (pkgs.fetchpatch {
+        #    url = "https://dwm.suckless.org/patches/preserveonrestart/dwm-preserveonrestart-6.3.diff";
+        #    hash = "sha256-zgwTCgD3YE+2K4BF6Em+qkM1Gax5vOZfeuWa6zXx8cE=";
+        #  })
          #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/systray/dwm-systray-20230922-9f88553.diff";
          #  hash = "sha256-Kh1aP1xgZAREjTy7Xz48YBo3rhrJngspUYwBU2Gyw7k=";})
          #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/defaulttransparency/dwm-defaulttransparency-r1521.diff";
@@ -48,6 +62,19 @@ in {
          #  hash = "sha256-8z41ld47/2WHNJi8JKQNw76umCtD01OUQKSr/fehfLw=";})
          #(pkgs.fetchpatch { url = "https://dwm.suckless.org/patches/focusonclick/dwm-focusonclick-20200110-61bb8b2.diff";
          #  hash = "sha256-FDDBIXbUCEuVLaot3ju8yyqMWqrfCMGcVhV1kmKKusM=";})
+#              (pkgs.fetchpatch {
+#                url = "https://tools.suckless.org/dmenu/patches/navhistory/dmenu-navhistory-5.0.diff";
+#                hash = "sha256-zBADNWotwgt2ur0kf0Dk/Jiw/JcD+nxOQuzZsWJd5Jo=";
+#              })
+#              (pkgs.fetchpatch {
+#                url = "https://dwm.suckless.org/patches/centeredwindowname/dwm-centeredwindowname-20200723-f035e1e.diff";
+#                hash = "sha256-oL8VrdqVpJ9yw+yDFpKdr17mvIJjQEYiLYv5DEaLUug=";
+#              })
+#              (pkgs.fetchpatch {
+#                url = "https://dwm.suckless.org/patches/clientopacity/dwm-clientopacity-6.4.diff";
+#                hash = "sha256-Q7mUN+jJMVKHL3Nd1zTpTUmEcv3H1DBSNezaeXCJpaM=";
+#              })
+          #./path/to/local.patch
          #(pkgs.fetchpatch { url = "";
          #  hash = "";})
         ];

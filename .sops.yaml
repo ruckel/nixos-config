@@ -5,7 +5,11 @@ creation_rules:
     key_groups:
     - age:
       - *primary
-  - path_regex: eval-secrets/eval-secrets.nix$
+  - path_regex: secrets/eval-secrets.nix$
+    key_groups:
+    - age:
+      - *primary
+  - path_regex: secrets/vars.nix$
     key_groups:
     - age:
       - *primary
