@@ -14,7 +14,10 @@ adb = {
 autorandr.enable    = true;
 scripts.enable      = true;
 customkbd.enable    = true;
-dwm.enable          = true;
+dwm = {
+  enable            = true;
+  user              = vars.user;
+};
 #ffsyncserver.enable = true;
 gnomeWM.enable      = true;
 localization.enable = true;

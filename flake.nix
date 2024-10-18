@@ -25,7 +25,23 @@
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
-          /home/korv/nixos-cfg/hosts/burk/burk-configuration.nix
+          ./hosts/burk/burk-configuration.nix
+          sops-nix.nixosModules.sops
+        ];
+      };
+      nixdell = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs outputs; };
+        modules = [
+          ./hosts/dell/configuration.nix
+          sops-nix.nixosModules.sops
+        ];
+      };
+      nixvaio = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs outputs; };
+        modules = [
+          ./hosts/vaio/configuration.nix
           sops-nix.nixosModules.sops
         ];
       };

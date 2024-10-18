@@ -26,7 +26,7 @@ in {
       package = pkgs.dwm.overrideAttrs rec {
         #src = ~/dwmorg;
         #src = /home/korv/dwm;#TODO dynamic
-        src = /home/${cfg.user}/dwm;
+        src = /home/${cfg.user}/dwm-conf;
         patches = [
           (pkgs.fetchpatch {
             url = "https://dwm.suckless.org/patches/fakefullscreen/dwm-fakefullscreen-20210714-138b405.diff";
