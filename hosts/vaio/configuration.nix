@@ -136,6 +136,6 @@ nix.gc = { /* garbage collection */
 system.autoUpgrade = {
    enable = true;
    allowReboot = false; #true;
-   channel = "https://channels.nixos.org/nixos-unstable";
+   channel = "https://channels.nixos.org/nixos-24.05-small";
 };
 }
