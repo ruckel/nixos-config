@@ -16,6 +16,8 @@
     ../modules/gnomeWM.nix
     ../modules/customkbd.nix
     ../modules/localization.nix
+    ../modules/mysql.nix
+    ../modules/nextcloud.nix
     #../modules/packages.nix
     ../modules/phonecon.nix
     ../modules/python.nix

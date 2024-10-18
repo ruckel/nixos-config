@@ -12,15 +12,17 @@ in
 adb = {
   enable            = true;
   user              = vars.user;
-  ports             = vars.adbports
+  #ports             = vars.adbports;
 };
 autorandr.enable    = true;
 scripts.enable      = true;
 customkbd.enable    = true;
 dwm.enable          = true;
-ffsyncserver.enable = true;
+#ffsyncserver.enable = true;
 gnomeWM.enable      = true;
 localization.enable = true;
+mysql.enable        = true;
+nc.enable           = true;
 qemu.enable         = true;
 pcon = {
   enable = true;
@@ -77,6 +79,8 @@ sops = {
   age.keyFile = "/home/korv/.config/sops/age/keys.txt";
   age.generateKey = true;
   secrets.pw.neededForUsers = true;
+  secrets.nc-admin-pw = {};
+  secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
 };
 environment.etc."test/test".source = config.sops.secrets."pw".path;
 
