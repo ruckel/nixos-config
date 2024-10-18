@@ -1,10 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
-let
-vars = import "${inputs.vars}";
-in
+let vars = import "${inputs.vars}"; in
 { imports = [
-  #../modules/imports.nix /* TODO: why no work? :( */
-  /home/korv/nixos-cfg/modules/imports.nix
+  ../../modules/imports.nix
   ./hardware-configuration.nix
   ./packages.nix
   ];
@@ -22,7 +19,7 @@ dwm.enable          = true;
 gnomeWM.enable      = true;
 localization.enable = true;
 mysql.enable        = true;
-nc.enable           = true;
+#nc.enable           = true;
 qemu.enable         = true;
 pcon = {
   enable = true;
@@ -68,7 +65,7 @@ systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-
 nixpkgs.config = {
   allowUnfree = true;
   permittedInsecurePackages = [
-    "python3.11-youtube-dl-2021.12.17"
+    #"python3.11-youtube-dl-2021.12.17"
   ];
 };
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -80,13 +77,14 @@ sops = {
   age.generateKey = true;
   secrets.pw.neededForUsers = true;
   secrets.nc-admin-pw = {};
-  secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
+  #secrets.data = {};
+  #secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
 };
 environment.etc."test/test".source = config.sops.secrets."pw".path;
 
 /* Constants */
 environment.localBinInPath = true;
-system.stateVersion = "24.05";
+system.stateVersion = "24.05"; /*vars.burkStateVersion;*/
 services.devmon.enable = true; /* automatic device mounting daemon */
 services.gvfs.enable = true; /* Mount, trash, and other functionalities */
 services.tumbler.enable = true; /* Thumbnail support for images */
@@ -99,7 +97,7 @@ services.xserver = {
 };
 services.mullvad-vpn.enable = true;
 users.users.${vars.user} = { isNormalUser = true;
-    description = "basic user";
+    description = vars.user;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ tilix bc ];
 };
