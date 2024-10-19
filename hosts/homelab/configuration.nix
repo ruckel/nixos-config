@@ -71,7 +71,7 @@ environment.etc."test/test".source = config.sops.secrets."pw".path;
 
 /* Constants */
 environment.localBinInPath = true;
-system.stateVersion = "24.05"; /*vars.burkStateVersion;*/
+system.stateVersion =   vars.stateVersion.lab; /*vars.burkStateVersion;*/
 services.devmon.enable = true; /* automatic device mounting daemon */
 services.gvfs.enable = true; /* Mount, trash, and other functionalities */
 services.tumbler.enable = true; /* Thumbnail support for images */
