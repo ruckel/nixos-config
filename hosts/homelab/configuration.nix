@@ -57,10 +57,10 @@ nixpkgs.config = {
 };
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
 sops = {
-  defaultSopsFile = /home/korv/nixos-cfg/secrets/secrets.yaml;
+  defaultSopsFile = ./secrets/secrets.yaml;
   defaultSopsFormat = "yaml";
   age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  age.keyFile = "/home/korv/.config/sops/age/keys.txt";
+  age.keyFile = "../.config/sops/age/keys.txt";
   age.generateKey = true;
   secrets.pw.neededForUsers = true;
   secrets.nc-admin-pw = {};
