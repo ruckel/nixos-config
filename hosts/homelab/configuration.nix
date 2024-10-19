@@ -6,35 +6,21 @@ let vars = import "${inputs.vars}"; in
   ./packages.nix
   ];
 
-adb = {
-  enable            = true;
-  user              = vars.user.burk;
-  #ports             = vars.adbports;
-};
-autorandr.enable    = true;
+
 scripts.enable      = true;
 customkbd.enable    = true;
 dwm = {
   enable            = true;
-  user              = vars.user.burk;
+  user              = vars.user.lab;
 };
-#ffsyncserver.enable = true;
-gnomeWM.enable      = true;
 localization.enable = true;
 mysql.enable        = true;
 nc.enable           = true;
-qemu.enable         = true;
-pcon = {
-  enable = true;
-  gscon = false;
-  kde = true;
-};
-#pythonconf.enable   = true;
 soundconf.enable    = true;
-soundconf.user      = vars.user.burk;
+soundconf.user      = vars.user.lab;
 ssh = {
   enable            = true;
-  user              = vars.user.burk;
+  user              = vars.user.lab;
   ports             = vars.ports;
   keys              = vars.keys;
   pwauth            = true;
@@ -42,18 +28,16 @@ ssh = {
   vncbg             = true;
 };
 syncthing.enable    = true;
-syncthing.user      = vars.user.burk;
+syncthing.user      = vars.user.lab;
 systemdconf.enable  = true;
 #ollama.enable       = true;
 xprofile.enable     = true;
-xprofile.user       = vars.user.burk;
+xprofile.user       = vars.user.lab;
 
 experimental = {
   enable                  = true;
-  user                    = vars.user.burk;
-  enableSystembus-notify  = true;
+  user                    = vars.user.lab;
   enableAvahi             = true;
-  enableRustdeskServer    = true;
   enableVirtualScreen     = true;
   enableVncFirewall       = true;
 };
@@ -94,13 +78,10 @@ services.tumbler.enable = true; /* Thumbnail support for images */
 services.udisks2 = { enable = true; #settings = {};
   mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
   };
-services.xserver = {
-  enable = true;
-  videoDrivers = [ "amdgpu" ];
-};
+services.xserver.enable = true;
 services.mullvad-vpn.enable = true;
-users.users.${vars.user.burk} = { isNormalUser = true;
-    description = vars.user.burk;
+users.users.${vars.user.lab} = { isNormalUser = true;
+    description = vars.user.lab;
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ tilix bc ];
 };
@@ -114,7 +95,7 @@ xdg = {
   };
 services.displayManager.autoLogin = {
   enable = true;
-  user = vars.user.burk;
+  user = vars.user.lab;
 };
 services.xserver.displayManager.gdm = {
   enable = true;
@@ -124,13 +105,6 @@ networking = {
   hostName = vars.host;
   networkmanager.enable = true;
   firewall.enable = true;
-};
-boot.plymouth = { enable = true;
- #themePackages = [ ];
- #theme         = "";
- #logo          = "";
- #font          = "";
- #extraConfig   = "";
 };
 boot.loader = {
     systemd-boot.enable = true;
@@ -142,7 +116,7 @@ nix.gc = { /* garbage collection */
 };
 system.autoUpgrade = {
    enable = true;
-   allowReboot = false; #true;
-   channel = "https://channels.nixos.org/nixos-unstable";
+   allowReboot = true;
+   channel = "https://channels.nixos.org/nixos-24.05-small";
 };
 }

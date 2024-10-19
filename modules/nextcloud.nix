@@ -6,12 +6,13 @@ in
   options.nc.enable = mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
+
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud28;
-      maxUploadSize = "";
+      maxUploadSize = "1G";
 
-      https = true;
+      #https = true;
       hostName = "localhost";
       #home = "";
       #datadir = "";
@@ -24,17 +25,18 @@ in
         error_reporting = "E_ALL & ~E_DEPRECATED & ~E_STRICT";
         expose_php = "Off";
         "opcache.fast_shutdown" = "1";
-        "opcache.interned_strings_buffer" = "8";
+        "opcache.interned_strings_buffer" = "16";
         "opcache.max_accelerated_files" = "10000";
         "opcache.memory_consumption" = "128";
         "opcache.revalidate_freq" = "1";
         "openssl.cafile" = "/etc/ssl/certs/ca-certificates.crt";
+        #memory_limit = "512";
         output_buffering = "0";
         short_open_tag = "Off";
         instanceid = "ocvufs9qxu02";
         passwordsalt = "XDtrXybh8uBcOgIATWsJ7zV+h07pHt";
         secret = "Uf6KwmcYdtW1WkvlvNrOaoLdvhH8EDsPZWnG66/ALHU17fAO";
-        logfile = "/var/log/nextcloud.log";
+        logfile = "/var/log/nextcloud";
         dbtype = "mysql";
         #version = "26.0.13.1";
         dbtableprefix = "oc_";
@@ -46,6 +48,7 @@ in
         #twofactor_enforced_groups = array ();
         "bulkupload.enabled" = "false";
         maintenance = "false";
+        maintenance_window_start = "4";
         #app_install_overwrite = "array (0 => 'sharerenamer')";
         "htaccess.RewriteBase" = "/";
         mail_from_address = "kevin.dybeck";
@@ -62,7 +65,7 @@ in
         theme = "";
       };
       settings = {
-      # trusted_domains = "";
+      # trusted_domains = ["moln.kevindybeck.com" "192.168.1.12"];
       # skeletondirectory "";
         loglevel = 2;
         log_type = "syslog"; #"errorlog", "file", "syslog", "systemd"
@@ -70,6 +73,7 @@ in
     # configureRedis = ;
       database.createLocally = true;
       config = {
+        adminuser = "admin";
         adminpassFile = "/run/secrets/nc-admin-pw";# "string";
         dbuser = "nextcloud";
         dbtype = "mysql"; #"sqlite", "pgsql", "mysql"
@@ -79,17 +83,40 @@ in
       };
       autoUpdateApps = {
         enable = true;
-        startAt = "Mon 02:00:00";
+        startAt = "05:00:00";
       };
-      #extraApps ={
-      #  inherit (pkgs.nextcloud25Packages.apps) mail calendar contact;
-      #  phonetrack = pkgs.fetchNextcloudApp {
-      #    name = "phonetrack";
-      #    sha256 = "0qf366vbahyl27p9mshfma1as4nvql6w75zy2zk5xwwbp343vsbc";
-      #    url = "https://gitlab.com/eneiluj/phonetrack-oc/-/wikis/uploads/931aaaf8dca24bf31a7e169a83c17235/phonetrack-0.6.9.tar.gz";
-      #    version = "0.6.9";
-      #  };
-      #};
+      extraAppsEnable = true;
+      extraApps ={
+        inherit (pkgs.nextcloud28Packages.apps)
+        bookmarks
+        calendar
+        contacts
+        cookbook
+        cospend
+        deck
+        #files_texteditor
+        #files_markdown
+        mail
+        music
+        notes
+        phonetrack
+        tasks
+        ;
+        #sharerenamer = pkgs.fetchNextcloudApp {
+        #  #name = "sharerenamer";
+        #  sha256 = "74d46c22ed0f24a6fe00b2acf8e7f6a3a469ed00984ee035277c5ac9f605908e";
+        #  license = "AGPL";
+        #  url = "https://github.com/JonathanTreffler/sharerenamer/releases/download/v3.4.0/sharerenamer.tar.gz";
+        #  #version = "3.4.0";
+        #};
+        #timemanager = pkgs.fetchNextcloudApp {
+        #  #name = "timemanager";
+        #  sha256 = "a4594a3bc8c6239c1ab7df7ceaedc517065e4ca6401fbd4fa553306e5cdffec5";
+        #  license = "AGPL";
+        #  url = "https://github.com/te-online/timemanager/archive/refs/tags/v0.3.16.tar.gz";
+        #  #version = "0.3.16";
+        #};
+      };
     };
   };
 }
