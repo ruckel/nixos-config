@@ -45,6 +45,14 @@
           sops-nix.nixosModules.sops
         ];
       };
+      nix-homelab = nixpkgs.lib.nixosSystem {
+        inherit system;
+        specialArgs = { inherit inputs outputs; };
+        modules = [
+          ./hosts/homelab/configuration.nix
+          sops-nix.nixosModules.sops
+        ];
+      };
     };
   };
 }
