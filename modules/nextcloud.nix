@@ -2,7 +2,7 @@
 with lib;
 let
 cfg = config.nc;
-ncversion = "30";
+ncversion = "29";
 in
 {
   options.nc.enable = mkEnableOption "";
@@ -138,7 +138,7 @@ in
       extraAppsEnable = true;
       extraApps ={
         #inherit ("pkgs.nextcloud${ncversion}Packages.apps")
-        inherit (pkgs.nextcloud30Packages.apps)
+        inherit (pkgs.nextcloud29Packages.apps)
         bookmarks
         calendar
         contacts
