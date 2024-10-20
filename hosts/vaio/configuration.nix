@@ -10,19 +10,13 @@ let vars = import "${inputs.vars}"; in
 
 adb = {
   enable            = true;
-  user              = vars.user;
+  user              = "user";
   #ports             = vars.adbports;
 };
-#autorandr.enable    = true;
 scripts.enable      = true;
 customkbd.enable    = true;
 dwm.enable          = true;
-#ffsyncserver.enable = true;
-#gnomeWM.enable      = true;
 localization.enable = true;
-#mysql.enable        = true;
-#nc.enable           = true;
-#qemu.enable         = true;
 pcon = {
   enable = true;
   gscon = false;
@@ -30,26 +24,31 @@ pcon = {
 };
 #pythonconf.enable   = true;
 soundconf.enable    = true;
-soundconf.user      = vars.user;
+soundconf.user      = "user";
 ssh = {
   enable            = true;
-  user              = vars.user;
-  ports             = vars.ports;
-  keys              = vars.keys;
+  user              = "user";
+  ports             = [ 6842 6843 6844 ];
+  keys              = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEJsd82H9yUf2hgBiXECvfPVgUxy84vHz5MbsBDbShvv korv@nixos"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICPC8sV9tofPmdM1VmrsUK1AoymNkobPphDynC6nKd/E korv@nixos-dell"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIa8dGCkZtulhJ7Peg2XvdryhAowWpL0hVMAS+i0I1t5 root@debian-homelab"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpTIZfMSLWJBzkvSZyCthrU40R0CB8GjRi0WUMxi62z korv@pixel"
+  ];
   pwauth            = true;
   x11fw             = true;
   vncbg             = true;
 };
 syncthing.enable    = true;
-syncthing.user      = vars.user;
+syncthing.user      = "user";
 systemdconf.enable  = true;
 #ollama.enable       = true;
 xprofile.enable     = true;
-xprofile.user       = vars.user;
+xprofile.user       = "user";
 
 experimental = {
   enable                  = true;
-  user                    = vars.user;
+  user                    = "user";
 #  enableSystembus-notify  = true;
 #  enableAvahi             = true;
 #  enableRustdeskServer    = true;
@@ -85,7 +84,7 @@ sops = {
 environment.etc."test/test".source = config.sops.secrets."pw".path;
 /* Constants */
 environment.localBinInPath = true;
-system.stateVersion = "24.05"; /*vars.burkStateVersion;*/
+system.stateVersion = "24.05";
 services.devmon.enable = true; /* automatic device mounting daemon */
 services.gvfs.enable = true; /* Mount, trash, and other functionalities */
 services.tumbler.enable = true; /* Thumbnail support for images */
@@ -94,11 +93,10 @@ services.udisks2 = { enable = true; #settings = {};
   };
 services.xserver = {
   enable = true;
-  videoDrivers = [ "amdgpu" ];
 };
 services.mullvad-vpn.enable = true;
-users.users.${vars.user} = { isNormalUser = true;
-    description = vars.user;
+users.users.${"user"} = { isNormalUser = true;
+    description = "user";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ tilix bc ];
 };
@@ -112,14 +110,14 @@ xdg = {
   };
 services.displayManager.autoLogin = {
   enable = true;
-  user = vars.user;
+  user = "user";
 };
 services.xserver.displayManager.gdm = {
   enable = true;
   wayland = false;
 };
 networking = {
-  hostName = vars.host;
+  hostName = "vaio";
   networkmanager.enable = true;
   firewall.enable = true;
 };

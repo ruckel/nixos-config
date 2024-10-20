@@ -11,32 +11,37 @@ scripts.enable      = true;
 customkbd.enable    = true;
 dwm = {
   enable            = true;
-  user              = vars.user.lab;
+  user              = "user";
 };
 localization.enable = true;
 mysql.enable        = true;
 nc.enable           = true;
 soundconf.enable    = true;
-soundconf.user      = vars.user.lab;
+soundconf.user      = "user";
 ssh = {
   enable            = true;
-  user              = vars.user.lab;
-  ports             = vars.ports;
-  keys              = vars.keys;
+  user              = "user";
+  ports             = [ 6842 6843 6844 ];
+  keys              = [
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEJsd82H9yUf2hgBiXECvfPVgUxy84vHz5MbsBDbShvv korv@nixos"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICPC8sV9tofPmdM1VmrsUK1AoymNkobPphDynC6nKd/E korv@nixos-dell"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIa8dGCkZtulhJ7Peg2XvdryhAowWpL0hVMAS+i0I1t5 root@debian-homelab"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpTIZfMSLWJBzkvSZyCthrU40R0CB8GjRi0WUMxi62z korv@pixel"
+  ];
   pwauth            = true;
   x11fw             = true;
   vncbg             = true;
 };
 syncthing.enable    = true;
-syncthing.user      = vars.user.lab;
+syncthing.user      = "user";
 systemdconf.enable  = true;
 #ollama.enable       = true;
 xprofile.enable     = true;
-xprofile.user       = vars.user.lab;
+xprofile.user       = "user";
 
 experimental = {
   enable                  = true;
-  user                    = vars.user.lab;
+  user                    = "user";
   enableAvahi             = true;
   enableVirtualScreen     = true;
   enableVncFirewall       = true;
@@ -67,11 +72,10 @@ sops = {
   secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
   #secrets.data = {};
 };
-environment.etc."test/test".source = config.sops.secrets."pw".path;
 
 /* Constants */
 environment.localBinInPath = true;
-system.stateVersion =   vars.stateVersion.lab; /*vars.burkStateVersion;*/
+system.stateVersion =  "23.11";
 services.devmon.enable = true; /* automatic device mounting daemon */
 services.gvfs.enable = true; /* Mount, trash, and other functionalities */
 services.tumbler.enable = true; /* Thumbnail support for images */
@@ -80,10 +84,11 @@ services.udisks2 = { enable = true; #settings = {};
   };
 services.xserver.enable = true;
 services.mullvad-vpn.enable = true;
-users.users.${vars.user.lab} = { isNormalUser = true;
-    description = vars.user.lab;
+users.users.${"user"} = { isNormalUser = true;
+    description = "user";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ tilix bc ];
+    hashedPasswordFile = config.sops.secrets.pw.path;
 };
 fonts.packages = with pkgs; [
     fira fira-code fira-code-nerdfont
@@ -95,14 +100,14 @@ xdg = {
   };
 services.displayManager.autoLogin = {
   enable = true;
-  user = vars.user.lab;
+  user = "user";
 };
 services.xserver.displayManager.gdm = {
   enable = true;
   wayland = false;
 };
 networking = {
-  hostName = vars.host;
+  hostName = "nix-homelab";
   networkmanager.enable = true;
   firewall.enable = true;
 };
