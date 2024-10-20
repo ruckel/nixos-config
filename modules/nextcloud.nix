@@ -61,7 +61,7 @@ in
     };
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud${ncversion};
+      package = pkgs."nextcloud${ncversion}";
       maxUploadSize = "1G";
 
       #https = true;
@@ -137,7 +137,8 @@ in
       };
       extraAppsEnable = true;
       extraApps ={
-        inherit (pkgs.nextcloud${ncversion}Packages.apps)
+        #inherit ("pkgs.nextcloud${ncversion}Packages.apps")
+        inherit (pkgs.nextcloud29Packages.apps)
         bookmarks
         calendar
         contacts
