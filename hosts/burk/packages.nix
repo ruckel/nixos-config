@@ -75,6 +75,7 @@ taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
 tiramisu toastify #ntfy-sh
 dunst libnotify
 transmission #_3
+tmux
 tuxguitar /* guitar pro-like */
 veracrypt scrypt cryptsetup #rage /* encryption tools */
 thunderbird birdtray /* email client */

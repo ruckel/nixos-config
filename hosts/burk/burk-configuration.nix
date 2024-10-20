@@ -22,7 +22,7 @@ dwm = {
 gnomeWM.enable      = true;
 localization.enable = true;
 mysql.enable        = true;
-nc.enable           = true;
+#nc.enable           = true;
 qemu.enable         = true;
 pcon = {
   enable = true;
@@ -85,7 +85,7 @@ sops = {
   age.generateKey = true;
   secrets.pw.neededForUsers = true;
   secrets.nc-admin-pw = {};
-  secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
+ #secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
   #secrets.data = {};
 };
 environment.etc."test/test".source = config.sops.secrets."pw".path;
