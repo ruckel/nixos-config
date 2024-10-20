@@ -87,17 +87,17 @@ in
         maintenance_window_start = "4";
         #app_install_overwrite = "array (0 => 'sharerenamer')";
         "htaccess.RewriteBase" = "/";
-        mail_from_address = "kevin.dybeck";
-        mail_smtpmode = "smtp";
-        mail_sendmailmode = "smtp";
-        mail_domain = "gmail.com";
-        mail_smtphost = "smtp.gmail.com";
-        mail_smtpport = "465";
-        mail_smtpauth = "1";
-        mail_smtpname = "kevin.dybeck@gmail.com";
-        mail_smtppassword = "mvki bkbv cnzz nikx";
-        mail_smtpdebug = "als";
-        mail_smtpsecure = "ssl";
+        #mail_from_address = "kevin.dybeck";
+        #mail_smtpmode = "smtp";
+        #mail_sendmailmode = "smtp";
+        #mail_domain = "gmail.com";
+        #mail_smtphost = "smtp.gmail.com";
+        #mail_smtpport = "465";
+        #mail_smtpauth = "1";
+        #mail_smtpname = "kevin.dybeck@gmail.com";
+        #mail_smtppassword = "mvki bkbv cnzz nikx";
+        #mail_smtpdebug = "als";
+        #mail_smtpsecure = "ssl";
         theme = "";
       };
       settings = {
