@@ -1,11 +1,5 @@
 {
   imports = [
-    #./hardware-configuration.nix  # Include the results of the hardware scan.
-    /etc/nixos/hardware-configuration.nix
-    #./systemStateVersion.nix
-    #/etc/nixos/systemStateVersion.nix
-    #"${(import ./nix/sources.nix).sops-nix}/modules/sops"
-    #<sops-nix/modules/sops>
     ../modules/ssh.nix
     ../modules/autorandr.nix
     ../modules/customscripts.nix
