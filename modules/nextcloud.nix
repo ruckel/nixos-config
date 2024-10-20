@@ -6,6 +6,43 @@ in
   options.nc.enable = mkEnableOption "";
 
   config = lib.mkIf cfg.enable {
+    fileSystems = {
+      "/".device = "/dev/sda2";
+      "/var/lib/nextcloud/5tb" = {
+       label = "5tb";
+        device = "/dev/disk/by-uuid/cbbd80d8-68e0-4288-afcd-b040c8865dd8";
+        options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
+      };
+
+        #options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
+        #label = "usb";
+      #"/var/lib/nextcloud" = {
+      #  device = "/dev/disk/by-uuid/ace3495c-8cff-4084-89b5-85c7b5789b3a";
+      #};
+    };
+
+
+    services.nginx = {
+      enable = true;
+      recommendedGzipSettings = true;
+      recommendedOptimisation = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
+    };
+    services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
+      forceSSL = true;
+      enableACME = true;
+    };
+    security.acme = {
+      acceptTerms = true;
+      certs = {
+        ${config.services.nextcloud.hostName}.email = "webmaster@kevindybeck.com";
+      };
+    };
+    services.jellyfin = {
+      enable = true;
+      openFirewall = true;
+    };
 
     services.nextcloud = {
       enable = true;
@@ -15,7 +52,7 @@ in
       #https = true;
       hostName = "localhost";
       #home = "";
-      #datadir = "";
+      datadir = "/var/lib/nextcloud/5tb/newdir";
       #secretFile = "path"; #{"redis":{"password":"secret"}}
 
       appstoreEnable = true;
@@ -73,7 +110,7 @@ in
     # configureRedis = ;
       database.createLocally = true;
       config = {
-        adminuser = "admin";
+        #adminuser = "admin";
         adminpassFile = "/run/secrets/nc-admin-pw";# "string";
         dbuser = "nextcloud";
         dbtype = "mysql"; #"sqlite", "pgsql", "mysql"

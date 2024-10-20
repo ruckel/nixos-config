@@ -1,7 +1,6 @@
 { config, pkgs, ... }:
 let vars = import "${inputs.vars}"; in
-{
-  imports = [
+{ imports = [
   ../../modules/imports.nix
   ./hardware-configuration.nix
   ./packages.nix
