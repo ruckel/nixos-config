@@ -1,8 +1,9 @@
 {
   description = "A template that shows all standard flake outputs";
     inputs = {
-      nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-      #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+      nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+      nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
+      nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-24.05-small";
       sops-nix.url = "github:Mic92/sops-nix";
       vars = {
         url = "/etc/vars.nix";
@@ -12,7 +13,9 @@
 
   outputs = {
     self,
-    nixpkgs,
+    nixpkgs-unstable,
+    nixpkgs-stable,
+    nixpkgs-small,
     sops-nix,
     ...
   } @ inputs: let
@@ -21,7 +24,7 @@
   in
   {
     nixosConfigurations = {
-      nixburk = nixpkgs.lib.nixosSystem {
+      nixburk = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
@@ -29,7 +32,7 @@
           sops-nix.nixosModules.sops
         ];
       };
-      nixdell = nixpkgs.lib.nixosSystem {
+      nixdell = nixpkgs-stable.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
@@ -37,7 +40,7 @@
           sops-nix.nixosModules.sops
         ];
       };
-      nixvaio = nixpkgs.lib.nixosSystem {
+      nixvaio = nixpkgs-small.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
@@ -45,7 +48,7 @@
           sops-nix.nixosModules.sops
         ];
       };
-      nix-homelab = nixpkgs.lib.nixosSystem {
+      nix-homelab = nixpkgs-small.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
