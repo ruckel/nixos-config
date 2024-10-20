@@ -73,7 +73,7 @@ in
     # configureRedis = ;
       database.createLocally = true;
       config = {
-        adminuser = "admin";
+        #adminuser = "admin";
         adminpassFile = "/run/secrets/nc-admin-pw";# "string";
         dbuser = "nextcloud";
         dbtype = "mysql"; #"sqlite", "pgsql", "mysql"

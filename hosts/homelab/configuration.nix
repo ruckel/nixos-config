@@ -2,7 +2,7 @@
 let vars = import "${inputs.vars}"; in
 { imports = [
   ../../modules/imports.nix
-  ./hardware-configuration.nix
+  /etc/nixos/hardware-configuration.nix
   ./packages.nix
   ];
 
@@ -62,10 +62,10 @@ nixpkgs.config = {
 };
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
 sops = {
-  defaultSopsFile = ./secrets/secrets.yaml;
+  defaultSopsFile = /home/user/nixos-cfg/secrets/secrets.yaml;
   defaultSopsFormat = "yaml";
   age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  age.keyFile = "../.config/sops/age/keys.txt";
+  age.keyFile = "/home/user/.config/sops/age/keys.txt";
   age.generateKey = true;
   secrets.pw.neededForUsers = true;
   secrets.nc-admin-pw = {};
