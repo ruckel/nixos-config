@@ -27,6 +27,7 @@ dwm = {
   enable            = true;
   user              = "user";
 };
+docker.enable       = true;
 localization.enable = true;
 mysql.enable        = true;
 nc.enable           = true;

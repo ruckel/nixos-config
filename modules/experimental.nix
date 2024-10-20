@@ -10,7 +10,6 @@ in
       type = types.str;
     };
 
-    docker                  = mkEnableOption "";
     enableSystembus-notify  = mkEnableOption "";
     enableAvahi             = mkEnableOption "";
     enableRustdeskServer    = mkEnableOption "";
@@ -39,7 +38,5 @@ in
     };
 
 
-    virtualisation.docker.enable = true;
-    users.users.${cfg.user}.extraGroups = [ "docker" ];
   };
 }

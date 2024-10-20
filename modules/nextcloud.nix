@@ -12,20 +12,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    fileSystems = {
-     #"/".device = "/dev/sda2";
-     #"/var/lib/nextcloud/5tb" = {
-     # label = "5tb";
-     #  device = "/dev/disk/by-uuid/cbbd80d8-68e0-4288-afcd-b040c8865dd8";
-     #  options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
-     #};
-
-        #options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
-        #label = "usb";
-      #"/var/lib/nextcloud" = {
-      #  device = "/dev/disk/by-uuid/ace3495c-8cff-4084-89b5-85c7b5789b3a";
-      #};
-    };
 
 
     services.nginx = {
@@ -101,17 +87,17 @@ in
         maintenance_window_start = "4";
         #app_install_overwrite = "array (0 => 'sharerenamer')";
         "htaccess.RewriteBase" = "/";
-        mail_from_address = "kevin.dybeck";
-        mail_smtpmode = "smtp";
-        mail_sendmailmode = "smtp";
-        mail_domain = "gmail.com";
-        mail_smtphost = "smtp.gmail.com";
-        mail_smtpport = "465";
-        mail_smtpauth = "1";
-        mail_smtpname = "kevin.dybeck@gmail.com";
-        mail_smtppassword = "mvki bkbv cnzz nikx";
-        mail_smtpdebug = "als";
-        mail_smtpsecure = "ssl";
+        #mail_from_address = "kevin.dybeck";
+        #mail_smtpmode = "smtp";
+        #mail_sendmailmode = "smtp";
+        #mail_domain = "gmail.com";
+        #mail_smtphost = "smtp.gmail.com";
+        #mail_smtpport = "465";
+        #mail_smtpauth = "1";
+        #mail_smtpname = "kevin.dybeck@gmail.com";
+        #mail_smtppassword = "mvki bkbv cnzz nikx";
+        #mail_smtpdebug = "als";
+        #mail_smtpsecure = "ssl";
         theme = "";
       };
       settings = {
