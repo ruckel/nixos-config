@@ -1,6 +1,7 @@
 # my personal linux setup
-i'm a sucker for declarative setups and 'Architecture as Code'. so I got sucked into nix and nixOS.
-halfway through I realized that I don't really care for Nix as a language. so there might be some hacks and such things through out. but I wanted to finish through (hello [sunk cost fallacy](https://en.wikipedia.org/wiki/Sunk_cost)) and here we are.
+i'm a sucker for declarative setups and 'Architecture as Code'. so I got sucked into nix and nixOS.  
+halfway through I realized that I don't really care for Nix as a language - so there might be some hacks and such things through out.  
+but I wanted to finish through (hello [sunk cost fallacy](https://en.wikipedia.org/wiki/Sunk_cost)) and here we are.
 
 not much comments or anything, i like keeping my own things concise. makes it easier parsing through for me.
 
