@@ -4,15 +4,19 @@ let cfg = config.nc;
 in
 {
   options.nc.enable = mkEnableOption "";
+  options.nc.pwfile = mkOption {
+    type = types.str;
+    default = "";
+  };
 
   config = lib.mkIf cfg.enable {
     fileSystems = {
-      "/".device = "/dev/sda2";
-      "/var/lib/nextcloud/5tb" = {
-       label = "5tb";
-        device = "/dev/disk/by-uuid/cbbd80d8-68e0-4288-afcd-b040c8865dd8";
-        options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
-      };
+     #"/".device = "/dev/sda2";
+     #"/var/lib/nextcloud/5tb" = {
+     # label = "5tb";
+     #  device = "/dev/disk/by-uuid/cbbd80d8-68e0-4288-afcd-b040c8865dd8";
+     #  options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
+     #};
 
         #options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
         #label = "usb";
@@ -36,25 +40,33 @@ in
     security.acme = {
       acceptTerms = true;
       certs = {
-        ${config.services.nextcloud.hostName}.email = "webmaster@kevindybeck.com";
+        ${config.services.nextcloud.hostName}.email = "kevin.dybeck@yahoo.com";
       };
     };
-    services.jellyfin = {
-      enable = true;
-      openFirewall = true;
-    };
+     # - Exactly one of the options
+     # security.acme.certs.moln.kevin.dybeck.com.dnsProvider`,
+     # security.acme.certs.moln.kevin.dybeck.com.webroot,
+     # security.acme.certs.moln.kevin.dybeck.com.listenHTTP
+     # security.acme.certs.moln.kevin.dybeck.com.s3Bucket
+  # services.jellyfin = {
+  #   enable = true;
+  #   openFirewall = true;
+  # };
 
+    networking.firewall = {
+      allowedTCPPorts = [ 80 443 ]; #TODO ports
+      allowedUDPPorts = [ 80 443 ];
+    };
     services.nextcloud = {
       enable = true;
       package = pkgs.nextcloud28;
       maxUploadSize = "1G";
 
       #https = true;
-      hostName = "localhost";
+      hostName = "moln.kevindybeck.com";
       #home = "";
-      datadir = "/var/lib/nextcloud/5tb/newdir";
+      datadir = "/var/lib/nextcloud/5tb/nextcloud";
       #secretFile = "path"; #{"redis":{"password":"secret"}}
-
       appstoreEnable = true;
       phpOptions = {
         catch_workers_output = "yes";
@@ -102,7 +114,7 @@ in
         theme = "";
       };
       settings = {
-      # trusted_domains = ["moln.kevindybeck.com" "192.168.1.12"];
+       trusted_domains = ["192.168.1.12" "80.216.17.208"];
       # skeletondirectory "";
         loglevel = 2;
         log_type = "syslog"; #"errorlog", "file", "syslog", "systemd"
@@ -110,8 +122,8 @@ in
     # configureRedis = ;
       database.createLocally = true;
       config = {
-        #adminuser = "admin";
-        adminpassFile = "/run/secrets/nc-admin-pw";# "string";
+       #adminuser = "admin";
+       adminpassFile = cfg.pwfile;# "string";
         dbuser = "nextcloud";
         dbtype = "mysql"; #"sqlite", "pgsql", "mysql"
         dbname = "nextcloud";

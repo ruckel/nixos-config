@@ -14,6 +14,7 @@
   environment.systemPackages = with pkgs; [
     surf /* browser */
     brightnessctl
+    certbot
     efibootmgr
     feh
     qimgv

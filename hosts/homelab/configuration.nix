@@ -6,6 +6,20 @@ let vars = import "${inputs.vars}"; in
   ./packages.nix
   ];
 
+#networking.firewall = {
+#    allowedTCPPorts = [ 80 ]; #TODO ports
+#    allowedUDPPorts = [ 80 ];
+#    };
+fileSystems = {
+# "/" = {
+#   device = "/dev/sda2";
+# };
+  "/var/lib/nextcloud/5tb" = {
+    label = "5tb";
+    device = "/dev/disk/by-uuid/cbbd80d8-68e0-4288-afcd-b040c8865dd8";
+#    options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
+  };
+};
 
 scripts.enable      = true;
 customkbd.enable    = true;
@@ -16,6 +30,7 @@ dwm = {
 localization.enable = true;
 mysql.enable        = true;
 nc.enable           = true;
+nc.pwfile	    = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
 soundconf.enable    = true;
 soundconf.user      = "user";
 ssh = {
@@ -70,6 +85,7 @@ sops = {
   secrets.pw.neededForUsers = true;
   secrets.nc-admin-pw = {};
   secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
+ #secrets.nc-admin-pw.neededForUsers = true;
   #secrets.data = {};
 };
 
@@ -90,6 +106,8 @@ users.users.${"user"} = { isNormalUser = true;
     packages = with pkgs; [ tilix bc ];
     hashedPasswordFile = config.sops.secrets.pw.path;
 };
+#users.users."nextcloud" = { isSystemUser = true; group = "nextcloud";};
+#users.groups.nextcloud = {};
 fonts.packages = with pkgs; [
     fira fira-code fira-code-nerdfont
     noto-fonts noto-fonts-cjk-sans
@@ -110,6 +128,10 @@ networking = {
   hostName = "nix-homelab";
   networkmanager.enable = true;
   firewall.enable = true;
+  firewall.allowedTCPPorts = [ 80 ]; #TODO ports
+  firewall.allowedUDPPorts = [ 80 ];
+
+
 };
 boot.loader = {
     systemd-boot.enable = true;
