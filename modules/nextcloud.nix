@@ -12,20 +12,6 @@ in
   };
 
   config = lib.mkIf cfg.enable {
-    fileSystems = {
-     #"/".device = "/dev/sda2";
-     #"/var/lib/nextcloud/5tb" = {
-     # label = "5tb";
-     #  device = "/dev/disk/by-uuid/cbbd80d8-68e0-4288-afcd-b040c8865dd8";
-     #  options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
-     #};
-
-        #options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
-        #label = "usb";
-      #"/var/lib/nextcloud" = {
-      #  device = "/dev/disk/by-uuid/ace3495c-8cff-4084-89b5-85c7b5789b3a";
-      #};
-    };
 
 
     services.nginx = {

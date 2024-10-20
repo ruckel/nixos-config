@@ -4,6 +4,7 @@
     ../modules/autorandr.nix
     ../modules/customscripts.nix
     ../modules/adb.nix
+    ../modules/docker.nix
     ../modules/dwm.nix
     ../modules/experimental.nix
     ../modules/ffsyncserver.nix
