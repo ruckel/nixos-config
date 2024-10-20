@@ -1,6 +1,8 @@
 { lib, pkgs, config, ... }:
 with lib;
-let cfg = config.nc;
+let
+cfg = config.nc;
+ncversion = "29";
 in
 {
   options.nc.enable = mkEnableOption "";
@@ -59,7 +61,7 @@ in
     };
     services.nextcloud = {
       enable = true;
-      package = pkgs.nextcloud28;
+      package = pkgs.nextcloud${ncversion};
       maxUploadSize = "1G";
 
       #https = true;
@@ -87,7 +89,6 @@ in
         secret = "Uf6KwmcYdtW1WkvlvNrOaoLdvhH8EDsPZWnG66/ALHU17fAO";
         logfile = "/var/log/nextcloud";
         dbtype = "mysql";
-        #version = "26.0.13.1";
         dbtableprefix = "oc_";
         mysqlutf8mb' =" tru";
         installed = "ru";
@@ -136,7 +137,7 @@ in
       };
       extraAppsEnable = true;
       extraApps ={
-        inherit (pkgs.nextcloud28Packages.apps)
+        inherit (pkgs.nextcloud${ncversion}Packages.apps)
         bookmarks
         calendar
         contacts
