@@ -36,10 +36,10 @@ in
      # security.acme.certs.moln.kevin.dybeck.com.webroot,
      # security.acme.certs.moln.kevin.dybeck.com.listenHTTP
      # security.acme.certs.moln.kevin.dybeck.com.s3Bucket
-  # services.jellyfin = {
-  #   enable = true;
-  #   openFirewall = true;
-  # };
+    services.jellyfin = {
+      enable = true;
+      openFirewall = true;
+    };
 
     networking.firewall = {
       allowedTCPPorts = [ 80 443 ]; #TODO ports
