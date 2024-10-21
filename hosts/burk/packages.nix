@@ -35,6 +35,7 @@ surf /* browser */
 brightnessctl
 #busybox
 clinfo
+deno #node alternative
 ddclient
 dmenu networkmanager_dmenu
 easyeffects helvum vesktop

@@ -106,6 +106,10 @@ fonts.packages = with pkgs; [
 xdg = {
   autostart.enable = true;
   icons.enable = true;
+  portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk]
+  };
   };
 services.displayManager.autoLogin = {
   enable = true;

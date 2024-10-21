@@ -14,8 +14,8 @@ adb = {
 autorandr.enable    = true;
 scripts.enable      = true;
 customkbd.enable    = true;
-docker.enable       = true;
-docker.user         = "korv";
+#docker.enable       = true;
+#docker.user         = "korv";
 dwm = {
   enable            = true;
   user              = "korv";
@@ -119,6 +119,10 @@ fonts.packages = with pkgs; [
 xdg = {
   autostart.enable = true;
   icons.enable = true;
+  portal = {
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+  };
   };
 services.displayManager.autoLogin = {
   enable = true;

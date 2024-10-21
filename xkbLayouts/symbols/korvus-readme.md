@@ -27,7 +27,7 @@ org: `key <AD12> {[dead_diaeresis, dead_circumflex, dead_tilde, asciicircum]}`
 ## apostrophe-key
 *lower left of return*
 [ ` *, {, }, } ` ]
-key <BKSL> {[ apostrophe, braceleft, braceright, braceright ]};
+key <BKSL> {[ apostrophe, asterisk, braceleft, braceright ]};
 org: `key <BKSL> {[apostrophe, asterisk, acute, multiply]}`
 
 
