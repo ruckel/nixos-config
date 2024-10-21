@@ -39,5 +39,6 @@
     x11vnc tigervnc
     vim
     tilix
+    tmux
 ];
 }
