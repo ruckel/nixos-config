@@ -39,6 +39,8 @@ in
     services.jellyfin = {
       enable = true;
       openFirewall = true;
+      group = "nextcloud";
+      dataDir = "/var/lib/nextcloud/5tb/nextcloud/data/korv/files/videofiles/";
     };
 
     networking.firewall = {
