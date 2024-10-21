@@ -4,6 +4,6 @@ key <TLDE> {[ slash, backslash, apostrophe, apostrophe ]};
 key <AE12> {[ grave, asciitilde, plusminus, notsign ]};
 key <AD12> {[ asciitilde, dead_circumflex, dead_diaeresis, asciicircum ]};
 key <SPCE> {[ space, space, U200B, U200C ]};
-key <BKSL> {[ apostrophe, braceleft, braceright, braceright ]};
+key <BKSL> {[ apostrophe, asterisk, braceleft, braceright ]};
 key <AB06> {[ n, N, n, ntilde ]};
 };
