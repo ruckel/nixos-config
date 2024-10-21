@@ -34,8 +34,8 @@ in
         -v $HOME/simplex/smp/logs:/var/opt/simplex:z
         ''];
       volumes = [
-       "/path/on/host:/home/${cfg.user}/simplex/smp/config:/etc/opt/simplex:z"
-       "/path/on/host:/home/${cfg.user}/simplex/smp/logs:/var/opt/simplex:z"
+      #"/path/on/host:/home/${cfg.user}/simplex/smp/config:/etc/opt/simplex:z"
+      #"/path/on/host:/home/${cfg.user}/simplex/smp/logs:/var/opt/simplex:z"
       ];
     };
     virtualisation.oci-containers.containers.xftp = lib.mkIf cfg.xftp {
@@ -50,9 +50,9 @@ in
         -v $HOME/simplex/xftp/files:/srv/xftp:z \
         ''];
       volumes = [
-        "/path/on/host:/home/${cfg.user}/simplex/smp/config:/etc/opt/simplex-xftp:z"
-        "/path/on/host:/home/${cfg.user}/simplex/smp/logs:/var/opt/simplex-xftp:z"
-        "/path/on/host:/home/${cfg.user}/simplex/xftp/files:/srv/xftp:z"
+      # "/path/on/host:/home/${cfg.user}/simplex/smp/config:/etc/opt/simplex-xftp:z"
+      # "/path/on/host:/home/${cfg.user}/simplex/smp/logs:/var/opt/simplex-xftp:z"
+      # "/path/on/host:/home/${cfg.user}/simplex/xftp/files:/srv/xftp:z"
       ];
     };
   };
