@@ -48,6 +48,7 @@
         ];
         allowedUDPPorts = [
           # 5900 #vnc
+            5555 #adb
         ];
         allowedTCPPortRanges = [
             { from = 1714; to = 1764; } #adb
@@ -241,43 +242,44 @@
     };
 
     /* This config uses X11 as the display server, wayland can still be buggy/incompatible */
-    services.xserver = {
-    enable = true;
-    };
+    services.xserver.enable = true;
+
     /* Display manager, which handles and starts a window manager like gnome/dwm */
     services.xserver.displayManager.gdm = {
-    enable = true;
-    wayland = false;
+        enable = true;
+        wayland = false;
     };
 
     networking.networkmanager.enable = true;
     networking.firewall.enable = true;
     boot.plymouth.enable = true; /* enables boot splash, I.E no wall of text. Press `esc` to show verbose output during boot */
+
     nix.gc = { /* garbage collection of junk files once a week */ /* Remove "Mo" for daily */
-    automatic = true;
-    dates = "Mo 04:00";
+        automatic = true;
+        dates = "Mo 04:00";
     };
+
     system.autoUpgrade = {
          enable = true;
          allowReboot = false; #true;
          channel = "https://channels.nixos.org/nixos-24.05-small";
     };
-    /* rör du, dör du. fast os:et */
-    system.stateVersion = "24.05"; /* läs på innan ändring av denna. om det måstes göras */
     console.keyMap = "sv-latin1";
     time.timeZone = "Europe/Stockholm";
     i18n = {
-    defaultLocale = "en_US.UTF-8";
-    extraLocaleSettings = {
-          LC_ADDRESS = "sv_SE.UTF-8";
-          LC_IDENTIFICATION = "sv_SE.UTF-8";
-          LC_MEASUREMENT = "sv_SE.UTF-8";
-          LC_MONETARY = "sv_SE.UTF-8";
-          LC_NAME = "sv_SE.UTF-8";
-          LC_NUMERIC = "sv_SE.UTF-8";
-          LC_PAPER = "sv_SE.UTF-8";
-          LC_TELEPHONE = "sv_SE.UTF-8";
-          LC_TIME = "sv_SE.UTF-8";
+        defaultLocale = "en_US.UTF-8";
+        extraLocaleSettings = {
+            LC_ADDRESS = "sv_SE.UTF-8";
+            LC_IDENTIFICATION = "sv_SE.UTF-8";
+            LC_MEASUREMENT = "sv_SE.UTF-8";
+            LC_MONETARY = "sv_SE.UTF-8";
+            LC_NAME = "sv_SE.UTF-8";
+            LC_NUMERIC = "sv_SE.UTF-8";
+            LC_PAPER = "sv_SE.UTF-8";
+            LC_TELEPHONE = "sv_SE.UTF-8";
+            LC_TIME = "sv_SE.UTF-8";
+        };
     };
-    };
+    /* rör du, dör du. fast os:et */
+    system.stateVersion = "24.05"; /* läs på innan ändring av denna. om det måstes göras */
 }
