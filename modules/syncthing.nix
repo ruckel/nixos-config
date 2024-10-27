@@ -12,6 +12,7 @@ in {
     };
 
   config = lib.mkIf cfg.enable {
+    networking.firewall.allowedTCPPorts = [ 21027 ];
     systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
     services.syncthing = {
       enable = true;

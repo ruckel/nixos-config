@@ -6,6 +6,8 @@ let vars = import "${inputs.vars}"; in
   ./packages.nix
   ];
 
+
+
 adb = {
   enable            = true;
   user              = "korv";
@@ -21,7 +23,10 @@ dwm = {
   user              = "korv";
 };
 #ffsyncserver.enable = true;
+hyprland.enable     = true;
 gnomeWM.enable      = true;
+kanata.enable       = true;
+kanata.user         = "korv";
 localization.enable = true;
 #mysql.enable        = true;
 #nc.enable           = true;
@@ -31,7 +36,7 @@ pcon = {
   gscon = false;
   kde = true;
 };
-#pythonconf.enable   = true;
+pythonconf.enable   = true;
 soundconf.enable    = true;
 soundconf.user      = "korv";
 ssh = {
@@ -65,6 +70,7 @@ experimental = {
   enableVncFirewall       = true;
 };
 
+programs.java.enable      = true;
 
 services.displayManager.defaultSession = "none+dwm"; # "gnome"
 
@@ -113,8 +119,10 @@ users.users."korv" = { isNormalUser = true;
     hashedPasswordFile = config.sops.secrets.pw.path;
 };
 fonts.packages = with pkgs; [
+    aileron /* helvetica in 9 weights */
     fira fira-code fira-code-nerdfont
     noto-fonts noto-fonts-cjk-sans
+    comic-mono comic-relief
 ];
 xdg = {
   autostart.enable = true;
@@ -135,7 +143,11 @@ services.xserver.displayManager.gdm = {
 networking = {
   hostName = "nixburk";#vars.host.burk;
   networkmanager.enable = true;
-  firewall.enable = true;
+  firewall = {
+    enable = true;
+    allowedTCPPorts = [ 443 ]; #TODO ports
+    allowedTCPPortRanges = [{ from = 40000; to = 65535; }];
+  };
 };
 boot.plymouth = { enable = true;
  #themePackages = [ ];

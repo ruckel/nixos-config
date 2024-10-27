@@ -9,7 +9,9 @@
     ../modules/experimental.nix
     ../modules/ffsyncserver.nix
     ../modules/gnomeWM.nix
+    /home/korv/nixos-cfg/modules/hyprland.nix
     ../modules/customkbd.nix
+    /home/korv/nixos-cfg/modules/kanata.nix
     ../modules/localization.nix
     ../modules/mysql.nix
     ../modules/nextcloud.nix
