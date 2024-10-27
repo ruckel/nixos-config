@@ -4,6 +4,18 @@
         ./hardware-configuration.nix
         ./packages.nix
     ];
+
+    # IMPORTANT! Make sure the boot loader configuration matches the already installed one at /etc/nixos/configuration.nix
+    # EITHER systemd or grub, not both
+    boot.loader = {
+        systemd-boot.enable = true;
+        efi.canTouchEfiVariables = true;
+    };
+    boot.loader.grub = {
+        enable = true;
+        boot.loader.grub.device = /*"/dev/sda"*/;
+        boot.loader.grub.useOSProber = false;
+    };
     /* USERNAME setup consolidated */
 #   services.syncthing.dataDir = "/home/USERNAME/syncthing"; # FIXME: Set username
 #   services.syncthing.configDir = "/home/USERNAME/.config/syncthing"; # FIXME: Set username
@@ -22,11 +34,6 @@
     };
     networking.hostName = "hoops";
 
-    boot.loader.grub = {
-        enable = true;
-        boot.loader.grub.device = "/dev/sda";
-        boot.loader.grub.useOSProber = false;
-    };
     services.displayManager.autoLogin = {
         enable = true;
         user = "USERNAME";
