@@ -22,17 +22,17 @@
 #   users.users."USERNAME".openssh.authorizedKeys.keys = [];
 #   services.syncthing.user = "USERNAME";
 
+    networking.hostName = "hoops";
     users.users."USERNAME" = { isNormalUser = true;
-        description = "user";
+        description = "user"; #displayname
         extraGroups = [
             "networkmanager"
             "wheel"
-            "adbusers"
-            "syncthing"
+          # "adbusers"
+          # "syncthing"
         ];
         packages = with pkgs; [ tilix bc ];
     };
-    networking.hostName = "hoops";
 
     services.displayManager.autoLogin = {
         enable = true;
