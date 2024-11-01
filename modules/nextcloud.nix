@@ -52,7 +52,7 @@ in
       package = pkgs."nextcloud${ncversion}";
       maxUploadSize = "1G";
 
-      #https = true;
+      https = true;
       hostName = "moln.kevindybeck.com";
       #home = "";
       datadir = "/var/lib/nextcloud/5tb/nextcloud";
