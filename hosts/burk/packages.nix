@@ -5,6 +5,7 @@
     bash.vteIntegration = true;
     firefox.enable = true;
     steam.enable = true;
+    thunderbird.enable = true;
     gnupg.agent = {
       enable = true;
     # enableSSHSupport = true;
@@ -16,14 +17,14 @@
       plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin thunar-media-tags-plugin ];
     };
     vim = {
-      #enable = true;
+      enable = true;
       defaultEditor = true;
     };
     xfconf.enable = true;
   };
   environment.systemPackages = with pkgs; [
     #args.textfile
-    #android-studio /* android ide */
+  # android-studio /* android ide */
     appimage-run /* appimage compability wrapper */
     arandr /* gui randr editor */
     brave /* browser */
@@ -33,7 +34,8 @@
     #bitwig-studio /* audio editor */
     #audacity /* audio editor */
     brightnessctl
-    #busybox
+    busybox /* lsusb */
+    birdtray /* thunderbird tray */
     clinfo
     deno #node alternative
     ddclient
@@ -41,7 +43,8 @@
     easyeffects helvum vesktop
     efibootmgr
     endeavour
-    jetbrains.webstorm /* ide / code editor */
+    inkscape /* svg editor  */
+    jetbrains.idea-community /* ide / code editor */
     feh qimgv nomacs
     ferdium element-desktop
     ffmpegthumbnailer
@@ -54,7 +57,7 @@
     gradience
     gscreenshot
     keepassxc git-credential-keepassxc cryptsetup
-    lazygit  
+    lazygit
     libgnomekbd
     libsForQt5.kleopatra
     libreoffice
@@ -72,16 +75,17 @@
     simplex-chat-desktop /* E2E-encrypted chat */
     #spacedrive
     sops /* secret manager */
-    spotify spotify-tray spotifywm spotifyd spotify-player mlterm
+    spotify spotify-tray spotifywm spotifyd 
+    spotify-player mlterm
     super-productivity /* task manager / pomodoro timer */
     taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
     tiramisu toastify #ntfy-sh
     dunst libnotify
-    transmission #_3
+    transmission_4
     tmux
     tuxguitar /* guitar pro-like */
+    tealdeer
     veracrypt scrypt cryptsetup #rage /* encryption tools */
-    thunderbird birdtray /* email client */
     ots /* onetimesecret cli */
     vscodium-fhs /* code editor */
     wine
@@ -89,6 +93,7 @@
     zed-editor
     firebase-tools
     yazi
-   #kitty    
+   #kitty
+    bluez-tools
 ];
 }

@@ -26,5 +26,6 @@
     ../modules/ollama.nix
     ../modules/xprofile.nix
     #./nixscripts/helloWorld.nix
+    #/home/korv/nixos-cfg/modules/desktopitem.nix
   ];
 }
