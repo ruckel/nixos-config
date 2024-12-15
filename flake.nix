@@ -1,5 +1,5 @@
 {
-  description = "A template that shows all standard flake outputs";
+  description = "";
     inputs = {
       nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
       nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
