@@ -1,4 +1,13 @@
-{pkgs, ...}:{
+{pkgs, lib, ...}:{
+/*  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+    "obsidian"
+    "jetbrains.webstorm"
+    "spotify"
+    "veracrypt"
+    "steam"
+    "steam-original"
+  ];*/
+  nixpkgs.config.allowUnfree = true;
   services.transmission.enable = true;
   programs = {
     appimage.binfmt = true;
@@ -40,7 +49,7 @@ dmenu networkmanager_dmenu
 easyeffects helvum vesktop
 efibootmgr
 endeavour
-jetbrains.webstorm /* ide / code editor */
+#jetbrains.webstorm /* ide / code editor */
 feh qimgv nomacs
 ferdium element-desktop
 ffmpegthumbnailer
@@ -52,6 +61,7 @@ gparted
 gradience
 gscreenshot
 keepassxc git-credential-keepassxc cryptsetup
+lazygit
 libgnomekbd
 libsForQt5.kleopatra
 libreoffice
@@ -81,5 +91,6 @@ thunderbird birdtray /* email client */
 ots /* onetimesecret cli */
 vscodium-fhs /* code editor */
 xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
+jellyfin-media-player
 ];
 }
