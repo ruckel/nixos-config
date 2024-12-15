@@ -6,7 +6,12 @@ let vars = import "${inputs.vars}"; in
   ./packages.nix
   ];
 
-
+  boot.extraModulePackages = with config.boot.kernelPackages; [ v4l2loopback ];
+  boot.kernelModules = [ "v4l2loopback" ];
+  boot.extraModprobeConfig = ''
+    options v4l2loopback devices=1 video_nr=1 card_label="OBS Cam" exclusive_caps=1
+  '';
+  security.polkit.enable = true;
 
 adb = {
   enable            = true;
@@ -14,6 +19,7 @@ adb = {
   #ports             = vars.adbports;
 };
 autorandr.enable    = true;
+#autorandr.extraconf = true;
 scripts.enable      = true;
 customkbd.enable    = true;
 #docker.enable       = true;
@@ -37,8 +43,12 @@ pcon = {
   kde = true;
 };
 pythonconf.enable   = true;
-soundconf.enable    = true;
-soundconf.user      = "korv";
+soundconf = {
+  enable            = true;
+  user              = "korv";
+  lowLatency        = true;
+  combine           = true;
+};
 ssh = {
   enable            = true;
   user              = "korv";
@@ -56,7 +66,7 @@ ssh = {
 syncthing.enable    = true;
 syncthing.user      = "korv";
 systemdconf.enable  = true;
-#ollama.enable       = true;
+ # ollama.enable       = true;
 xprofile.enable     = true;
 xprofile.user       = "korv";
 
@@ -72,7 +82,7 @@ experimental = {
 
 programs.java.enable      = true;
 
-services.displayManager.defaultSession = "none+dwm"; # "gnome"
+services.displayManager.defaultSession = /*"none+dwm"*/ /**/"gnome"/**/  ;
 
 systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
   "getty@tty1".enable = false;
@@ -94,7 +104,7 @@ sops = {
   secrets.pw.neededForUsers = true;
   secrets.nc-admin-pw = {};
  #secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
-  #secrets.data = {};
+ #secrets.data = {};
 };
 environment.etc."test/test".source = config.sops.secrets."pw".path;
 
@@ -114,7 +124,7 @@ services.xserver = {
 services.mullvad-vpn.enable = true;
 users.users."korv" = { isNormalUser = true;
     description = "korv";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "transmission" ];
     packages = with pkgs; [ tilix bc ];
     hashedPasswordFile = config.sops.secrets.pw.path;
 };
@@ -145,7 +155,7 @@ networking = {
   networkmanager.enable = true;
   firewall = {
     enable = true;
-    allowedTCPPorts = [ 443 ]; #TODO ports
+    allowedTCPPorts = [ 443 3000 ]; #TODO ports
     allowedTCPPortRanges = [{ from = 40000; to = 65535; }];
   };
 };

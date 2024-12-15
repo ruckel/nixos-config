@@ -55,7 +55,7 @@ in {
       #TODO: Expand fail2ban
     };
     environment.etc."xprofile2".text = lib.mkIf cfg.vncbg ''${thewhole.shebang}
-x11vnc -forever -noxdamage  -passwdfile ~/.vnc/passwd &
+x11vnc -forever -noxdamage  -rfbauth ~/.vnc/passwd &
 '';
   };
 }

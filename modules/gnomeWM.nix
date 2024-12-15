@@ -9,7 +9,7 @@ in {
     services.xserver.desktopManager.gnome.enable = true;
     environment.systemPackages = with pkgs; [
       gnome-browser-connector
-      gnome.dconf-editor
+      dconf-editor
       gnomeExtensions.allow-locked-remote-desktop
       gnomeExtensions.appindicator
       gnomeExtensions.arc-menu

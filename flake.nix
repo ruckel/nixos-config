@@ -2,9 +2,10 @@
   description = "A template that shows all standard flake outputs";
     inputs = {
       nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-      nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.05";
-      nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-24.05-small";
+      nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+      nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-24.11-small";
       sops-nix.url = "github:Mic92/sops-nix";
+      # dcowsay = "./nixscripts/dcowsay";
       vars = {
         url = "/etc/vars.nix";
         flake = false;
@@ -17,6 +18,7 @@
     nixpkgs-stable,
     nixpkgs-small,
     sops-nix,
+    # dcowsay,
     ...
   } @ inputs: let
   inherit (self) outputs;
