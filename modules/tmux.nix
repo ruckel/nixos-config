@@ -22,7 +22,7 @@ in {
      };
     conf.preplugin = mkOption {
       description = "sets /etc/tmux.conf";
-      type = types.lines
+      type = types.lines;
       default = ''
         ##switch pane w/ Alt-arrow
         bind -n M-Left select-pane -L
@@ -36,7 +36,7 @@ in {
      };
     conf.postplugin = mkOption {
       description = "sets /etc/tmux.conf";
-      type = types.lines
+      type = types.lines;
       default = ''
 
        '';
@@ -57,7 +57,7 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.unsecureSocket {
       programs.tmux.secureSocket = false;
-    })
+    });
     programs.tmux = {
       enable = true;
       keyMode = "vi"; #"emacs" "vi"
