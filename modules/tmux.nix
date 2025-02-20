@@ -57,8 +57,8 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.unsecureSocket {
       programs.tmux.secureSocket = false;
-    });
-    programs.tmux = {
+    })
+    ({programs.tmux = {
       enable = true;
       keyMode = "vi"; #"emacs" "vi"
       clock24 = true;
@@ -69,6 +69,6 @@ in {
       plugins = cfg.plugins;
       extraConfigBeforePlugins = cfg.conf.preplugin;
       extraConfig = cfg.conf.postplugin;
-     };
+    };})
    ]);
 }

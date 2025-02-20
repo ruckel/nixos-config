@@ -78,4 +78,5 @@ alias chawan=cha
 alias blurtoggle=~/scripts/blurwindows
 alias torrent='transmission-remote --add'
 
-alias mux="tmux a"
+alias tmux="tmux a"
+alias mux="tmux"
