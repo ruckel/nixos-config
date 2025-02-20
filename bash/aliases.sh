@@ -1,14 +1,24 @@
 alias sudoa='sudo -A'
-alias ls='ls -Ah'
-alias lsl='ls -lAh'
+
+alias ekit=exit
+alias ex="exit;alert"
+
+alias ls='ls --color=auto  --almost-all --human-readable -1 --group-directories-first --classify=auto --hyperlink=auto'
+alias l='ls -C'
+alias ll='ls -l'
+#alias lsl='ls -l'
+
 alias cl='clear'
 alias mv='mv -v'
 alias rm='trash'
 
 alias printtime='echo $(date +%H:%M)'
 
+alias trademark='echo ™'
+alias dunno='echo ¯\_(ツ)_/¯'
+alias invisiblecharacter='printf "​" | xclip -sel clip && echo "copied invisible char to clipboard: [​]"'
+
 alias noti='sleep 5; echo'
-alias alert=/home/korv/scripts/alert
 
 alias ..bashrc='. ~/.bashrc'
 alias grepinverted="grep -v"
@@ -29,8 +39,8 @@ alias nfindgnomeext=~/scripts/nix/gnomefindext.sh
 
 alias nixshellp="nix-shell -p"
 
-alias nixswitchburk='sudo -A nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
-alias nixtestburk='sudo -A nixos-rebuild test --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
+alias nixswitchburk='sudo -A nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# -p korvus; alert $PIPESTATUS'
+alias nixtestburk='sudo -A nixos-rebuild test --fast --impure --flake ~/nixos-cfg/# -p korvus; alert $PIPESTATUS'
 
 alias tilixwidth='dconf write /com/gexperts/Tilix/quake-width-percent'
 alias tilixheight='dconf write /com/gexperts/Tilix/quake-height-percent'
@@ -44,6 +54,7 @@ alias poweroffgnome='gnome-session-quit --no-prompt --power-off'
 alias shutdowngnome='gnome-session-quit --no-prompt --power-off'
 alias rebootgnome='gnome-session-quit --no-prompt --reboot'
 alias logoutgnome='gnome-session-quit --logout'
+alias gnome-console=kgx
 
 alias sshmoln='ssh moln'
 alias sshburk='ssh burk'

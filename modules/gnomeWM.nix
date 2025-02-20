@@ -17,11 +17,9 @@ in {
       gnomeExtensions.blur-my-shell
       gnomeExtensions.burn-my-windows
       gnomeExtensions.dash-to-dock
-      gnomeExtensions.dash-to-dock-toggle
-      gnomeExtensions.dash-to-plank
       gnomeExtensions.desktop-clock
       gnomeExtensions.do-not-disturb-while-screen-sharing-or-recording
-      gnomeExtensions.fuzzy-clock-2
+      # gnomeExtensions.fuzzy-clock-2
       gnomeExtensions.grand-theft-focus
       gnomeExtensions.just-perfection
       gnomeExtensions.launcher
@@ -35,7 +33,7 @@ in {
       gnomeExtensions.space-bar
       gnomeExtensions.system-monitor
       gnomeExtensions.task-widget
-      gnomeExtensions.todotxt
+    # gnomeExtensions.todotxt
       gnomeExtensions.tray-icons-reloaded
       gnomeExtensions.volume-scroller-2
       gnomeExtensions.window-title-is-back

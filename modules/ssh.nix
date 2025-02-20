@@ -9,6 +9,8 @@ in {
     user = mkOption { default = "user";
       type = types.str;
     };
+    askPass = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
+    startAgent = true;
     ports = mkOption { default = [ ];
       type = with types; listOf int;
     };

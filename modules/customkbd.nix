@@ -19,6 +19,6 @@ in {
       };
 
     };
-  environment.etc."xprofile2".text = ''setxkbmap korvus'';
+  # environment.etc."xprofile2".text = ''setxkbmap korvus'';
   };
 }

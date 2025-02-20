@@ -40,7 +40,7 @@ in {
                 "factory.name" = "support.null-audio-sink";
                 "node.name" = "in-sink";
                 "node.description" = "mic sink";
-                "media.class" = /*"Audio/Source/Virtual"*/ /*"Audio/Source"*/ /*"Audio/Sink"*/ "Audio/Duplex"  ;
+                "media.class" = "Audio/Source/Virtual" /*"Audio/Source"*/ /*"Audio/Sink"*/ /*"Audio/Duplex"*/  ;
                 "audio.position" = "MONO";
               };
             }{ ## A default dummy driver. This handles nodes marked with the "node.always-driver"
