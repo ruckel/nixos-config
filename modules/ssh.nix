@@ -9,8 +9,6 @@ in {
     user = mkOption { default = "user";
       type = types.str;
     };
-    askPass = "${pkgs.x11_ssh_askpass}/libexec/x11-ssh-askpass";
-    startAgent = true;
     ports = mkOption { default = [ ];
       type = with types; listOf int;
     };
@@ -57,7 +55,7 @@ in {
       #TODO: Expand fail2ban
     };
     environment.etc."xprofile2".text = lib.mkIf cfg.vncbg ''${thewhole.shebang}
-x11vnc -forever -noxdamage  -rfbauth ~/.vnc/passwd &
+x11vnc -forever -noxdamage  -passwdfile ~/.vnc/passwd &
 '';
   };
 }

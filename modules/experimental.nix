@@ -31,7 +31,7 @@ in
     services.xserver = lib.mkIf cfg.enableVirtualScreen {
       virtualScreen = { x = 1720; y = 1440; };
     };
- /*   services.rustdesk-server = {
+/*    services.rustdesk-server = {
       enable = cfg.enableRustdeskServer;
       openFirewall = true;
       relayIP = "127.0.0.1";
