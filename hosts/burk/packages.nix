@@ -98,6 +98,7 @@
     tealdeer
     veracrypt scrypt cryptsetup #rage /* encryption tools */
     ots /* onetimesecret cli */
+    upscayl
     vscodium-fhs /* code editor */
     wine wine64 wine64Packages.stable winetricks
     xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
