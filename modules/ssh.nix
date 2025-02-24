@@ -16,7 +16,10 @@ in {
       type = with types; listOf str;
       description = "authorization keys";
       };
-    pwauth = mkEnableOption "enable password authentication";
+    pwauth = mkOption { default = false;
+          type = types.bool;
+          description =  "enable password authentication";
+     };
     x11fw = mkOption { default = true;
       type = types.bool;
       description = "enable x11 forwarding";
