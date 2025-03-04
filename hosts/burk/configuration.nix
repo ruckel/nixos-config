@@ -13,10 +13,10 @@ let vars = import "${inputs.vars}"; in
     # ports               = vars.adbports;
    };
   autorandr.enable      = true;
-  autorandr.enableProfile = {
-    "tv" = true;
-    "def" = true;
-  };
+ #autorandr.enableProfile = {
+ #  "tv" = true;
+ #  "def" = true;
+ #};
   scripts.enable        = true;
   customkbd.enable      = true;
   # docker = { enable     = true;
@@ -44,8 +44,8 @@ let vars = import "${inputs.vars}"; in
   soundconf = {
     enable            = true;
     user              = "korv";
-    lowLatency        = true;
-    combine           = true;
+   #lowLatency        = true;
+   #combine           = true;
    };
   ssh = {
     enable            = true;

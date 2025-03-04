@@ -16,7 +16,7 @@
       plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin thunar-media-tags-plugin ];
     };
     vim = {
-      #enable = true;
+      enable = true;
       defaultEditor = true;
     };
     xfconf.enable = true;
@@ -31,13 +31,17 @@
     ungoogled-chromium /* browser */
     surf /* browser */
     #bitwig-studio /* audio editor */
-    #audacity /* audio editor */
+    audacity /* audio editor */
+    bat
     brightnessctl
     #busybox
     clinfo
+    chatterino2
     deno #node alternative
     ddclient
+    delta
     dmenu networkmanager_dmenu
+    drawio
     easyeffects helvum vesktop
     efibootmgr
     endeavour
@@ -47,6 +51,8 @@
     ffmpegthumbnailer
     firebase-tools
     fswebcam
+    fortune
+    gdu
     gimp openshot-qt obs-studio pinta
     git gh gitg
     gnupg
@@ -54,41 +60,47 @@
     gradience
     gscreenshot
     keepassxc git-credential-keepassxc cryptsetup
-    lazygit  
+    lazygit merge-fmt
     libgnomekbd
     libsForQt5.kleopatra
     libreoffice
     mdp
     menulibre
     mpv media-downloader vlc playerctl helvum
-    mullvad-vpn /* duh */
+    #mullvad-vpn /* duh */
     networkmanagerapplet
     nextcloud-client syncthing rymdport
     nix-plugins
     nodejs-slim nodePackages.npm dum
     obsidian /* note editor */
-    openshot-qt gnome-photos digikam shotwell
+    openshot-qt gnome-photos digikam shotwell libsForQt5.libopenshot
     signal-desktop /* E2E-encrypted chat */
     simplex-chat-desktop /* E2E-encrypted chat */
     #spacedrive
     sops /* secret manager */
     spotify spotify-tray spotifywm spotifyd spotify-player mlterm
     super-productivity /* task manager / pomodoro timer */
+    streamlink
     taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
     tiramisu toastify #ntfy-sh
     dunst libnotify
     transmission #_3
     tmux
     tuxguitar /* guitar pro-like */
+    usbutils
+    upscayl
     veracrypt scrypt cryptsetup #rage /* encryption tools */
     thunderbird birdtray /* email client */
     ots /* onetimesecret cli */
     vscodium-fhs /* code editor */
     wine
     xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
+    xscreensaver
+    xorg.xkill
     zed-editor
     firebase-tools
     yazi
-   #kitty    
+   #kitty
+    bruez-tools
 ];
 }

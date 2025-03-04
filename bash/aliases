@@ -4,6 +4,7 @@ alias lsl='ls -lAh'
 alias cl='clear'
 alias mv='mv -v'
 alias rm='trash'
+alias cat=bat
 
 alias printtime='echo $(date +%H:%M)'
 
@@ -66,4 +67,3 @@ alias neofetch='nix-shell -p fastfetch --command fastfetch'
 alias chawan=cha
 alias blurtoggle=~/scripts/blurwindows
 alias torrent='transmission-remote --add'
-
