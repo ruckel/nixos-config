@@ -17,8 +17,8 @@ in {
       gnomeExtensions.blur-my-shell
       gnomeExtensions.burn-my-windows
       gnomeExtensions.dash-to-dock
-      gnomeExtensions.dash-to-dock-toggle
-      gnomeExtensions.dash-to-plank
+      #gnomeExtensions.dash-to-dock-toggle
+      #gnomeExtensions.dash-to-plank
       gnomeExtensions.desktop-clock
       gnomeExtensions.do-not-disturb-while-screen-sharing-or-recording
       gnomeExtensions.fuzzy-clock-2
