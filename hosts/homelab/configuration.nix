@@ -37,12 +37,13 @@ dwm = {
   user              = "user";
 };
 #docker.enable       = true;
+ fail2ban.enable     = true;
  gnomeWM.enable      = true;
  kodi.enable         = true;
  localization.enable = true;
  mysql.enable        = true;
  nc.enable           = true;
-nc.pwfile	    = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
+ nc.pwfile	    = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
   soundconf = { enable      = true;
     user                    = "user";
     disablehdmi             = true;

@@ -6,6 +6,7 @@
     ../modules/docker.nix
     ../modules/dwm.nix
     ../modules/experimental.nix
+    ../modules/fail2ban.nix
     ../modules/ffsyncserver.nix
     ../modules/gnomeWM.nix
     ../modules/hyprland.nix
