@@ -101,6 +101,6 @@
     firebase-tools
     yazi
    #kitty
-    bruez-tools
+    bluez-tools
 ];
 }

@@ -28,7 +28,7 @@
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
-          ./hosts/burk/burk-configuration.nix
+          ./hosts/burk/configuration.nix
           sops-nix.nixosModules.sops
         ];
       };
