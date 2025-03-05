@@ -17,6 +17,7 @@ programs = {
 #
 environment.systemPackages = with pkgs; [
   surf /* browser */
+  bat
   brave
   brightnessctl
   cryptsetup
