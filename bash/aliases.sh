@@ -11,6 +11,7 @@ alias ll='ls -l'
 alias cl='clear'
 alias mv='mv -v'
 alias rm='trash'
+alias cat=bat
 
 alias printtime='echo $(date +%H:%M)'
 
@@ -19,6 +20,7 @@ alias dunno='echo ¯\_(ツ)_/¯'
 alias invisiblecharacter='printf "​" | xclip -sel clip && echo "copied invisible char to clipboard: [​]"'
 
 alias noti='sleep 5; echo'
+alias alert=/home/korv/scripts/alert
 
 alias ..bashrc='. ~/.bashrc'
 alias grepinverted="grep -v"
@@ -39,8 +41,9 @@ alias nfindgnomeext=~/scripts/nix/gnomefindext.sh
 
 alias nixshellp="nix-shell -p"
 
-alias nixswitchburk='sudo -A nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# -p korvus; alert $PIPESTATUS'
-alias nixtestburk='sudo -A nixos-rebuild test --fast --impure --flake ~/nixos-cfg/# -p korvus; alert $PIPESTATUS'
+alias nixswitchburk='sudo -A nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
+alias nixtestburk='sudo -A nixos-rebuild test --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
+alias nixnwitchhomelab='sudo printf; LASTPWD=$PWD && cd ~/nixos-cfg && git pull && sudo nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# ; cd $LASTPWD'
 
 alias tilixwidth='dconf write /com/gexperts/Tilix/quake-width-percent'
 alias tilixheight='dconf write /com/gexperts/Tilix/quake-height-percent'
