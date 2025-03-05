@@ -32,6 +32,7 @@ alias nixshellp="nix-shell -p"
 
 alias nixswitchburk='sudo -A nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
 alias nixtestburk='sudo -A nixos-rebuild test --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
+alias nixnwitchhomelab='sudo printf; LASTPWD=$PWD && cd ~/nixos-cfg && git pull && sudo nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# ; cd $LASTPWD'
 
 alias tilixwidth='dconf write /com/gexperts/Tilix/quake-width-percent'
 alias tilixheight='dconf write /com/gexperts/Tilix/quake-height-percent'
