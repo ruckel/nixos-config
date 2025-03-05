@@ -30,72 +30,34 @@ in
       recommendedTlsSettings = true;
     };
     services.nginx.virtualHosts."192.168.1.12" = {
-    # forceSSL = true;
-     #enableACME = true;
-    #locations."/" = {
-     # proxyPass = "http://moln.kevindybeck.com";
-     # proxyPass = "http://127.0.0.1:8096";
-    #};
       locations."/bio".return = "302 $scheme://$host/bio/";
       locations."/bio/" = {
-      # proxyPass = "http://bio.kevindybeck.com/bio/";
-      ##  proxyPass = "http://127.0.0.1:8096/bio";
-        proxyPass = "http://127.0.0.1:8096";
+        proxyPass = "http://127.0.0.1:8920";
       };
     };
     services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
       ## /* moln.kevindybeck.com */
       forceSSL = true;
       enableACME = true;
-      locations."/bio".return = "302 $scheme://$host/bio/";
-      locations."/bio/".proxyPass = "https://127.0.0.1:8920";
     };
     services.nginx.virtualHosts.${cfg.jf.hostName} = {
       ## /* tv.korv.lol */
       forceSSL = true;
       enableACME = true;
+      #locations."/".proxyPass = "https://127.0.0.1:8920"; #https
       locations."/".proxyPass = "http://127.0.0.1:8096";
-      locations."/bio".return = "302 $scheme://$host/bio/";
-      locations."/bio/".proxyPass = "https://127.0.0.1:8920";
-    };
-    services.nginx.virtualHosts."bajs.korv.lol" = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/".proxyPass = "http://127.0.0.1:1337";
-    };
-    services.nginx.virtualHosts."react.korv.lol" = {
-      forceSSL = true;
-      enableACME = true;
-    # locations."/".proxyPass = "http://127.0.0.1:3000";
-      locations."/".proxyPass = "http://192.168.1.10:3000";
-    };
-    services.nginx.virtualHosts."smp.korv.lol" = {
-      forceSSL = true;
-      enableACME = true;
-      locations."/".proxyPass = "http://127.0.0.1:8000";
-     #locations."/".proxyPass = "https://127.0.0.1:5223";
-    };
-    services.nginx.virtualHosts."xftp.korv.lol" = {
-      forceSSL = true;
-      enableACME = true;
-     #locations."/".proxyPass = "http://127.0.0.1:8443";
-      locations."/".proxyPass = "https://127.0.0.1:8443";
     };
     security.acme = {
       acceptTerms = true;
       defaults.email = cfg.email;
       certs = {
-        ${config.services.nextcloud.hostName}.email =   cfg.email;
+        ${config.services.nextcloud.hostName} = {
+	  email =   cfg.email;
+	 #webroot = "/var/lib/moln.kevindybeck.com";
+   	 };
         ${cfg.jf.hostName}.email =                      cfg.email;
-        "bajs.korv.lol".email =                         cfg.email;
-        "react.korv.lol".email =                        cfg.email;
       };
     };
-     # - Exactly one of the options
-  # security.acme.certs.moln.kevin.dybeck.com.dnsProvider`,
-  # security.acme.certs.moln.kevin.dybeck.com.webroot,
-  # security.acme.certs.moln.kevin.dybeck.com.listenHTTP
-  # security.acme.certs.moln.kevin.dybeck.com.s3Bucket
     services.jellyfin = {
       enable = true;
       openFirewall = true;
@@ -119,7 +81,7 @@ in
       package = pkgs."nextcloud${ncversion}";
       maxUploadSize = "1G";
 
-      https = true;
+      https = false; #HTTPS for generated links
       hostName = "moln.kevindybeck.com";
       #home = "";
       datadir = "/var/lib/nextcloud/5tb/nextcloud";
@@ -153,22 +115,10 @@ in
         #twofactor_enforced_groups = array ();
         "bulkupload.enabled" = "false";
         maintenance = "false";
-        maintenance_window_start = "4";
-        #app_install_overwrite = "array (0 => 'sharerenamer')";
         "htaccess.RewriteBase" = "/";
-        #mail_from_address = "kevin.dybeck";
-        #mail_smtpmode = "smtp";
-        #mail_sendmailmode = "smtp";
-        #mail_domain = "gmail.com";
-        #mail_smtphost = "smtp.gmail.com";
-        #mail_smtpport = "465";
-        #mail_smtpauth = "1";
-        #mail_smtpname = "kevin.dybeck@gmail.com";
-        #mail_smtppassword = "mvki bkbv cnzz nikx";
-        #mail_smtpdebug = "als";
-        #mail_smtpsecure = "ssl";
         theme = "";
       };
+      nginx.recommendedHttpHeaders = false;
       settings = {
         trusted_domains = ["192.168.1.12" "moln.korv.lol" /*"bajs.korv.lol"*/ ];
 	trusted_proxies = ["192.168.1.1"];	
@@ -196,7 +146,7 @@ in
         #inherit ("pkgs.nextcloud${ncversion}Packages.apps")
         inherit (config.services.nextcloud.package.packages.apps) #(pkgs.nextcloud30Packages.apps)
         bookmarks
-        calendar
+       #calendar
         contacts
         cookbook
         cospend

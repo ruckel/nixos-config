@@ -13,9 +13,9 @@ in {
       type = types.port;
      };
     hwVideo = mkEnableOption "Hardware Accelerated Video Transcoding";
-    ml = mkEnableOption "functionality to detect faces and search for objects"
+    ml = mkEnableOption "functionality to detect faces and search for objects";
     domain = mkOption {
-      type = types.str;
+      type = with types; nullOr str;
      };
     };
 
@@ -54,14 +54,14 @@ in {
         enable = true;
         environment = { }; #https://immich.app/docs/install/environment-variables
        };
-     };
     })
     ## https://search.nixos.org/options?show=services.immich.
-    services.immich = {
+    ({services.immich = {
       enable = true;
       port = cfg.port;
-     #mediaLocation = "/var/lib/immich";
-     #secretsFile = "";
+      #mediaLocation = "/var/lib/immich";
+      #secretsFile = "";
       users.users.immich.extraGroups = [ "nextcloud" ];
+     };})
   ]);
 }
