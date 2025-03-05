@@ -36,7 +36,7 @@ dwm = {
   enable            = true;
   user              = "user";
 };
- docker.enable       = true;
+#docker.enable       = true;
  gnomeWM.enable      = true;
  kodi.enable         = true;
  localization.enable = true;
@@ -100,7 +100,7 @@ sops = {
   age.generateKey = true;
   secrets.pw.neededForUsers = true;
   secrets.nc-admin-pw = {};
-  secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
+ #secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
  #secrets.nc-admin-pw.neededForUsers = true;
   #secrets.data = {};
 };

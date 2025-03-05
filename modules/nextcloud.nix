@@ -29,24 +29,55 @@ in
       recommendedProxySettings = true;
       recommendedTlsSettings = true;
     };
-    services.nginx.virtualHosts."192.168.1.12" = {
-      locations."/bio".return = "302 $scheme://$host/bio/";
-      locations."/bio/" = {
-        proxyPass = "http://127.0.0.1:8920";
-      };
-    };
+   #services.nginx.virtualHosts."192.168.1.12" = {
+     # forceSSL = true;
+     # enableACME = true;
+     # locations."/" = {
+        # proxyPass = "http://moln.kevindybeck.com";
+     #   proxyPass = "http://127.0.0.1:80";
+     #  };
+    # root = "/var/lib/nextcloud/nginx";
+    #};
     services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
       ## /* moln.kevindybeck.com */
       forceSSL = true;
       enableACME = true;
+     #locations."/".proxyPass = "http://127.0.0.1:8920";
+     #locations."/bio".return = "302 $scheme://$host/bio/";
+     #locations."/bio/".proxyPass = "https://127.0.0.1:8920";
     };
     services.nginx.virtualHosts.${cfg.jf.hostName} = {
       ## /* tv.korv.lol */
       forceSSL = true;
       enableACME = true;
       #locations."/".proxyPass = "https://127.0.0.1:8920"; #https
-      locations."/".proxyPass = "http://127.0.0.1:8096";
+      locations."/".proxyPass = "http://127.0.0.1:8096"; #http
+     #locations."/bio".return = "302 $scheme://$host/bio/";
+     #locations."/bio/".proxyPass = "https://127.0.0.1:8920";
     };
+   #services.nginx.virtualHosts."bajs.korv.lol" = {
+   #  forceSSL = true;
+   #  enableACME = true;
+   #  locations."/".proxyPass = "http://127.0.0.1:1337";
+   #};
+   #services.nginx.virtualHosts."react.korv.lol" = {
+   #  forceSSL = true;
+   #  enableACME = true;
+   ## locations."/".proxyPass = "http://127.0.0.1:3000";
+   #  locations."/".proxyPass = "http://192.168.1.10:3000";
+   #};
+   #services.nginx.virtualHosts."smp.korv.lol" = {
+   #  forceSSL = true;
+   #  enableACME = true;
+   #  locations."/".proxyPass = "http://127.0.0.1:8000";
+   # #locations."/".proxyPass = "https://127.0.0.1:5223";
+   #};
+   #services.nginx.virtualHosts."xftp.korv.lol" = {
+   #  forceSSL = true;
+   #  enableACME = true;
+   # #locations."/".proxyPass = "http://127.0.0.1:8443";
+   #  locations."/".proxyPass = "https://127.0.0.1:8443";
+   #};
     security.acme = {
       acceptTerms = true;
       defaults.email = cfg.email;
@@ -56,8 +87,15 @@ in
 	 #webroot = "/var/lib/moln.kevindybeck.com";
    	 };
         ${cfg.jf.hostName}.email =                      cfg.email;
+       #"bajs.korv.lol".email =                         cfg.email;
+       #"react.korv.lol".email =                        cfg.email;
       };
     };
+     # - Exactly one of the options
+  # security.acme.certs.moln.kevin.dybeck.com.dnsProvider`,
+  # security.acme.certs.moln.kevin.dybeck.com.webroot,
+  # security.acme.certs.moln.kevin.dybeck.com.listenHTTP = true;
+  # security.acme.certs.moln.kevin.dybeck.com.s3Bucket
     services.jellyfin = {
       enable = true;
       openFirewall = true;
@@ -81,7 +119,7 @@ in
       package = pkgs."nextcloud${ncversion}";
       maxUploadSize = "1G";
 
-      https = false; #HTTPS for generated links
+      https = true; #HTTPS for generated links
       hostName = "moln.kevindybeck.com";
       #home = "";
       datadir = "/var/lib/nextcloud/5tb/nextcloud";
@@ -120,7 +158,7 @@ in
       };
       nginx.recommendedHttpHeaders = false;
       settings = {
-        trusted_domains = ["192.168.1.12" "moln.korv.lol" /*"bajs.korv.lol"*/ ];
+        trusted_domains = ["192.168.1.12" "moln.korv.lol" /*"bajs.korv.lol"*/ "80.216.24.170" ];
 	trusted_proxies = ["192.168.1.1"];	
       # skeletondirectory "";
         loglevel = 1; # [0:debug, 1:info, 2:warn, 3:error, 4:fatal]
