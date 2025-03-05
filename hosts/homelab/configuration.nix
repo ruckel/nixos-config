@@ -59,7 +59,7 @@ nc.pwfile	    = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIa8dGCkZtulhJ7Peg2XvdryhAowWpL0hVMAS+i0I1t5 root@debian-homelab"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpTIZfMSLWJBzkvSZyCthrU40R0CB8GjRi0WUMxi62z korv@pixel"
   ];
-  pwauth            = true;
+  pwauth            = false;
   x11fw             = true;
   vncbg             = true;
 };
