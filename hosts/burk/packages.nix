@@ -84,6 +84,7 @@
     taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
     tiramisu toastify #ntfy-sh
     dunst libnotify
+    tealdeer
     transmission #_3
     tmux
     tuxguitar /* guitar pro-like */
