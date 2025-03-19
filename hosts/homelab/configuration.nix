@@ -127,7 +127,8 @@ users.users.${"user"} = { isNormalUser = true;
 #users.users."nextcloud" = { isSystemUser = true; group = "nextcloud";};
 #users.groups.nextcloud = {};
 fonts.packages = with pkgs; [
-    fira fira-code fira-code-nerdfont
+    # nerdfonts /* All nerdfonts */
+    fira fira-code nerd-fonts.fira-code
     noto-fonts noto-fonts-cjk-sans
 ];
 xdg = {

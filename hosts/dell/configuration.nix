@@ -77,7 +77,8 @@ users.users.${"korv"} = { isNormalUser = true;
     packages = with pkgs; [ tilix bc ];
 };
 fonts.packages = with pkgs; [
-    fira fira-code fira-code-nerdfont
+    # nerdfonts /* All nerdfonts */
+    fira fira-code nerd-fonts.fira-code
     noto-fonts noto-fonts-cjk-sans
 ];
 xdg = {

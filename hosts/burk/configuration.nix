@@ -136,8 +136,9 @@ let vars = import "${inputs.vars}"; in
     hashedPasswordFile = config.sops.secrets.pw.path;
    };
   fonts.packages = with pkgs; [
+    # nerdfonts /* All nerdfonts */
     aileron /* helvetica in 9 weights */
-    fira fira-code fira-code-nerdfont
+    fira fira-code nerd-fonts.fira-code
     noto-fonts noto-fonts-cjk-sans
     comic-mono comic-relief
    ];
