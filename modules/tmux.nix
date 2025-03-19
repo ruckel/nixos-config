@@ -9,7 +9,7 @@ in {
       type = with types; nullOr listOf str;
      };
     shortcut = mkOption { default = "q";
-       type = types.string;
+       type = types.str;
        description = "key to press after Ctrl for prefix. Def: b";
      };
     term = mkOption { default = "screen-256color";
