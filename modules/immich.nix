@@ -23,7 +23,7 @@ in {
     (mkIf cfg.hwVideo {
       # `null` will give access to all devices.
       # You may want to restrict this by using something like `[ "/dev/dri/renderD128" ]`
-      services.immich.accelerationDevices = null;
+      # services.immich.accelerationDevices = null;
 
       hardware.graphics = {
        # ...
