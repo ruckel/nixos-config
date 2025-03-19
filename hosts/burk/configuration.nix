@@ -44,8 +44,8 @@ let vars = import "${inputs.vars}"; in
   soundconf = {
     enable            = true;
     user              = "korv";
-   #lowLatency        = true;
-   #combine           = true;
+    lowLatency        = true;
+    combine           = true;
    };
   ssh = {
     enable            = true;
