@@ -10,6 +10,7 @@
     ../modules/ffsyncserver.nix
     ../modules/gnomeWM.nix
     ../modules/hyprland.nix
+    ../modules/immich.nix
     ../modules/customkbd.nix
    #/home/korv/nixos-cfg/modules/kanata.nix
     ../modules/kodi.nix

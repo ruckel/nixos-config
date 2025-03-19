@@ -39,6 +39,11 @@ dwm = {
 #docker.enable       = true;
  fail2ban.enable     = true;
  gnomeWM.enable      = true;
+ immich = { enable   = true;
+    domain           = "immich.korv.lol";
+   #hwVideo          = true;
+   #ml               = true;
+  };
  kodi.enable         = true;
  localization.enable = true;
  mysql.enable        = true;
