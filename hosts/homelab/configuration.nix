@@ -51,9 +51,6 @@ dwm = {
  nc.pwfile	    = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
   soundconf = { enable      = true;
     user                    = "user";
-    disablehdmi             = true;
-    linkout                 = false;
-    headless                = true;
   };
   ssh = {
   enable            = true;
