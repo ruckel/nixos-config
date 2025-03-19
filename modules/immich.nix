@@ -56,12 +56,14 @@ in {
        };
     })*/
     ## https://search.nixos.org/options?show=services.immich.
-    ({services.immich = {
+    ({
+    services.immich = {
       enable = true;
       port = cfg.port;
       #mediaLocation = "/var/lib/immich";
       #secretsFile = "";
+     };
       users.users.immich.extraGroups = [ "nextcloud" ];
-     };})
+     })
   ]);
 }
