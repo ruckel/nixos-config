@@ -40,6 +40,7 @@
     deno #node alternative
     ddclient
     delta
+    desktop-file-utils
     dmenu networkmanager_dmenu
     drawio
     easyeffects helvum vesktop
@@ -59,6 +60,7 @@
     gparted
     gradience
     gscreenshot
+    htop
     keepassxc git-credential-keepassxc cryptsetup
     lazygit merge-fmt
     libgnomekbd
@@ -83,6 +85,7 @@
     streamlink
     taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
     tiramisu toastify #ntfy-sh
+    tealdeer
     dunst libnotify
     tealdeer
     transmission #_3
@@ -101,7 +104,7 @@
     zed-editor
     firebase-tools
     yazi
-   #kitty
+    kitty
     bluez-tools
 ];
 }
