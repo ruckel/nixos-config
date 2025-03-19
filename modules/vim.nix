@@ -9,34 +9,41 @@ options.vim = {
   };
   };
 config = mkIf cfg.enable {
- /* vim = { enable = true;
-   defaultEditor = true;
-   }; */
   environment.variables = { EDITOR = "vim"; };
   environment.systemPackages = with pkgs; [
     ((vim_configurable.override {  }).customize{
       name = "vim";
-      # Install plugins for example for syntax highlighting of nix files
       vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
         start = [ vim-nix vim-lastplace ];
         opt = [];
        };
-      vimrcConfig.customRC = ''
-        set nocompatible
-        set backspace=indent,eol,start
+       /* remaps
+        all modes:    [ :map, :noremap ]
+        normal mode:  [ :nmap, :nnoremap ] 
+        visual mode:  [ :vmap, :vnoremap ]
 
+        :help recursive_mapping
+        :help :map-modes
+       */
+       # colors: see /usr/share/vim/vim{version}/syntax/
+      vimrcConfig.customRC = ''
+        syntax on
+        set expandtab               "space instead of tabs
         set shiftwidth=2
         set tabstop=2
-        set expandtab " Use space characters instead of tabs.
+        set number
 
-        syntax on
-
-        map <F10> :set number!<CR> "! for toggle, nonumber for off
+        map <F10> :set number!<CR>  "! for toggle, nonumber for off
         map <F9> :set rnu!<CR>
-        set number "relativenumber
+
         noremap <leader>y "+y
         noremap <leader>p "+p
-        '';
+
+        set foldmethod=indent
+        nnoremap <space> za         " toggle folds with spacebar
+        highlight Folded ctermbg=17
+        highlight Folded ctermfg=14
+       '';
        }
      )];
  };
