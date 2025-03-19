@@ -15,7 +15,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     security.rtkit.enable = true;     # pipewire realtime priotitizing
-    services.pulseaudio.enable = false;
+   # services.pulseaudio.enable = false;
     services.pipewire = {
       enable = true;
       alsa.enable = true;
