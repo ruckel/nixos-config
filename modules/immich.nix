@@ -49,12 +49,12 @@ in {
         };
       };
     })
-    (mkIf cfg.ml {
+    /*(mkIf cfg.ml {
       machine-learning = {
         enable = true;
         environment = { }; #https://immich.app/docs/install/environment-variables
        };
-    })
+    })*/
     ## https://search.nixos.org/options?show=services.immich.
     ({services.immich = {
       enable = true;
