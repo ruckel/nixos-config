@@ -88,7 +88,7 @@
     tealdeer
     dunst libnotify
     tealdeer
-    transmission #_3
+    transmission_3
     tmux
     tuxguitar /* guitar pro-like */
     usbutils
