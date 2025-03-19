@@ -32,7 +32,7 @@ in {
 
       users.users.immich.extraGroups = [ "video" "render" ];
     })
-    (mkIf cfg.domain {
+    (/*mkIf cfg.domain*/ {
       services.nginx.virtualHosts."${cfg.domain}" = {
         enableACME = true;
         forceSSL = true;
