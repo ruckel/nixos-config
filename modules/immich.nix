@@ -60,7 +60,7 @@ in {
     services.immich = {
       enable = true;
       port = cfg.port;
-      #mediaLocation = "/var/lib/immich";
+      mediaLocation = "/var/lib/nextcloud/5tb/immich";
       #secretsFile = "";
      };
       users.users.immich.extraGroups = [ "nextcloud" ];
