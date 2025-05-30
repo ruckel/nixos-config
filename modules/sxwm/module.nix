@@ -1,8 +1,5 @@
 { config, lib, pkgs, ... }:
-# github.com/uint23/sxwm
-#with lib;
-
-{
+# github.com/uint23/sxwm{
   options.sxwm.enable = lib.mkEnableOption "SXWM window manager";
 
   config = lib.mkIf config.sxwm.enable {
