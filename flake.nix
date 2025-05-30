@@ -9,6 +9,7 @@
         url = "/etc/vars.nix";
         flake = false;
       };*/
+      sxwm.url = "path:./modules/sxwm";
   };
 
   outputs = {
@@ -17,6 +18,7 @@
     nixpkgs-stable,
     nixpkgs-small,
     sops-nix,
+    sxwm,
     ...
   } @ inputs: let
   inherit (self) outputs;
@@ -30,6 +32,7 @@
         modules = [
           ./hosts/burk/configuration.nix
           sops-nix.nixosModules.sops
+          sxwm.nixosModules.sxwm
         ];
       };
       nixdell = nixpkgs-stable.lib.nixosSystem {

@@ -65,6 +65,7 @@ let vars = import "${inputs.vars}"; in
     user                = "korv";
    };
   systemdconf.enable    = true;
+  sxwm.enable           = true;
   # ollama.enable       = true;
   tmux.enable           = true;
   vim.enable            = true;
