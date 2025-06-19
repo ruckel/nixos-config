@@ -6,7 +6,27 @@ let vars = import "${inputs.vars}"; in
     ./hardware-configuration.nix
     ./packages.nix
    ];
-
+/*
+environment.etc = {
+  "xdg/user-dirs.defaults".text = ''
+    # Format: XDG_xxx_DIR="$HOME/$USERDIR"
+    # USERDIR = [ homedir-relative path | absolute path ]
+    #
+    # Doesn't change already created user-dirs.
+    # For that; see:
+    #   ~/.config/user-dirs.dirs
+    #   man xdg-user-dirs-update
+    DESKTOP="$HOME/files/desktop"
+    DOWNLOAD="$HOME/files/downloads"
+    DOCUMENTS="$HOME/files/Documents"
+    MUSIC="$HOME/files/music"
+    PICTURES="$HOME/files/pictures"
+    VIDEOS="$HOME/files/videos"
+    PUBLICSHARE="$HOME/files/public"
+    TEMPLATES="/media/some/other/dir"
+  '';
+};
+*/
 /* custom services */
   adb = { enable        = true;
     user                = "korv";
@@ -31,7 +51,7 @@ let vars = import "${inputs.vars}"; in
   # kanata.enable         = true;
   # kanata.user           = "korv";
   localization.enable   = true;
-  # mysql.enable        = true;
+  mysql.enable        = true;
   # nc.enable           = true;
   obsStudio.enable      = true;
   pcon = {
@@ -65,7 +85,7 @@ let vars = import "${inputs.vars}"; in
     user                = "korv";
    };
   systemdconf.enable    = true;
-  sxwm.enable           = true;
+  #sxwm.enable           = true;
   # ollama.enable       = true;
   tmux.enable           = true;
   vim.enable            = true;
@@ -86,10 +106,14 @@ let vars = import "${inputs.vars}"; in
 
   programs.java.enable      = true;
 
-  services.displayManager.defaultSession = "gnome"
+  services.displayManager.defaultSession = "gnome-xorg"
     # "none+dwm"
     # "gnome"
+    # "none+sxwm"
+    # "gnome-xorg"
    ;
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
 
   systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     "getty@tty1".enable = false;
@@ -118,7 +142,7 @@ let vars = import "${inputs.vars}"; in
 
 /* Constants */
   environment.localBinInPath = true;
-  system.stateVersion = "24.05";
+  system.stateVersion = "24.05"; /* DONT toush */
   services.devmon.enable = true; /* automatic device mounting daemon */
   services.gvfs.enable = true; /* Mount, trash, and other functionalities */
   services.tumbler.enable = true; /* Thumbnail support for images */
@@ -179,6 +203,11 @@ let vars = import "${inputs.vars}"; in
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
    };
+  boot.tmp = {
+    cleanOnBoot = false;
+    useTmpfs = false;
+    tmpfsSize = "50%";
+   };
   nix.gc = { /* garbage collection */
     automatic = true;
     dates = "06:00";
@@ -186,7 +215,7 @@ let vars = import "${inputs.vars}"; in
   system.autoUpgrade = {
     enable = true;
     allowReboot = false; #true;
-    channel = "https://channels.nixos.org/nixos-24.11";
+    channel = "https://channels.nixos.org/nixos-25.05";
    };
 /* end constants */
 }

@@ -1,7 +1,9 @@
 alias sudoa='sudo -A'
+alias suda='sudo -A'
 
 alias ekit=exit
 alias ex="exit;alert"
+alias :q=exit
 
 alias ls='ls --color=auto  --almost-all --human-readable -1 --group-directories-first --classify=auto --hyperlink=auto'
 alias l='ls -C'
@@ -11,7 +13,6 @@ alias ll='ls -l'
 alias cl='clear'
 alias mv='mv -v'
 alias rm='trash'
-alias cat=bat
 
 alias printtime='echo $(date +%H:%M)'
 
@@ -21,9 +22,16 @@ alias invisiblecharacter='printf "​" | xclip -sel clip && echo "copied invisib
 
 alias noti='sleep 5; echo'
 alias alert=/home/korv/scripts/alert
+alias test-term-bell='echo -en "\007"'
+alias bell-term-test='echo -en "\007"'
 
 alias ..bashrc='. ~/.bashrc'
 alias grepinverted="grep -v"
+
+alias diff="diff --color=always"
+alias diffwithoutbloat='diff --suppress-common-lines -sU 0'
+
+alias grep='grep --color=$GREPCOL'
 
 alias hist=history
 alias histgrep="history | grep -v grep | grep"
@@ -41,6 +49,7 @@ alias nfindgnomeext=~/scripts/nix/gnomefindext.sh
 
 alias nixshellp="nix-shell -p"
 
+alias nixswitchstd='sudo -A nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# ; alert'
 alias nixswitch-burk='sudo -A nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
 alias nixtestburk='sudo -A nixos-rebuild test --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
 alias nixswitch-homelab='sudo printf ''; LASTPWD=$PWD && cd ~/nixos-cfg && git pull && sudo nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# ; cd $LASTPWD'
@@ -51,6 +60,7 @@ alias tilixautohide='/home/korv/scripts/tilixautohide'
 alias tilixmonitor='dconf write /com/gexperts/Tilix/quake-specific-monitor 0'
 alias tilixmonitor1='dconf write /com/gexperts/Tilix/quake-specific-monitor 1'
 alias tilixmonitor2='dconf write /com/gexperts/Tilix/quake-specific-monitor 2'
+alias tilixpreferences='tilix --preferences'
 
 alias lock='xdg-screensaver lock'
 alias poweroffgnome='gnome-session-quit --no-prompt --power-off'
@@ -83,3 +93,8 @@ alias torrent='transmission-remote --add'
 
 alias tmux="tmux a"
 alias mux="tmux"
+vimrc="vim ~/.config/vim/.vimrc"
+
+alias drp='deno run preview'
+alias drd='deno run start'
+

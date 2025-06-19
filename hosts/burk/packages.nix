@@ -36,20 +36,23 @@
     brightnessctl
     #busybox
     clinfo
-    chatterino2
+    chatterino7 alsa-lib
     deno #node alternative
     ddclient
     delta
     desktop-file-utils
     dmenu networkmanager_dmenu
     drawio
+    docker docker-compose
     easyeffects helvum vesktop
     efibootmgr
     endeavour
     jetbrains.webstorm /* ide / code editor */
+    jetbrains.pycharm-community-bin
     feh qimgv nomacs
     ferdium element-desktop
     ffmpegthumbnailer
+    figma-linux
     firebase-tools
     fswebcam
     fortune
@@ -61,11 +64,13 @@
     gradience
     gscreenshot
     htop
+    kdocker
     keepassxc git-credential-keepassxc cryptsetup
     lazygit merge-fmt
     libgnomekbd
     libsForQt5.kleopatra
     libreoffice
+    lsof showmethekey trashy termimage place-cursor-at mktemp
     mdp
     menulibre
     mpv media-downloader vlc playerctl helvum
@@ -74,8 +79,12 @@
     nextcloud-client syncthing rymdport
     nix-plugins
     nodejs-slim nodePackages.npm dum
+    ngrok jq
+    ntfy-sh
     obsidian /* note editor */
-    openshot-qt gnome-photos digikam shotwell libsForQt5.libopenshot
+    gnome-photos digikam shotwell libsForQt5.libopenshot
+    photoqt previewqt
+    qutebrowser
     signal-desktop /* E2E-encrypted chat */
     simplex-chat-desktop /* E2E-encrypted chat */
     #spacedrive
@@ -83,12 +92,14 @@
     spotify spotify-tray spotifywm spotifyd spotify-player mlterm
     super-productivity /* task manager / pomodoro timer */
     streamlink
+    shotcut /*openshot-qt*/
     taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
     tiramisu toastify #ntfy-sh
     tealdeer
     dunst libnotify
     tealdeer
     transmission_3
+    translate-shell
     tmux
     tuxguitar /* guitar pro-like */
     usbutils
@@ -98,9 +109,9 @@
     ots /* onetimesecret cli */
     vscodium-fhs /* code editor */
     wine
-    xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
-    xscreensaver
-    xorg.xkill
+    xorg.xev xorg.xmodmap xorg.xkill
+    xscreensaver 
+    xclip xprintidle xdotool
     zed-editor
     firebase-tools
     yazi

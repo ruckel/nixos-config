@@ -30,7 +30,7 @@ in {
         dash-to-plank
         desktop-clock
         do-not-disturb-while-screen-sharing-or-recording
-        fuzzy-clock-2
+        fuzzy-clock-3
         grand-theft-focus
         gsconnect
         just-perfection
