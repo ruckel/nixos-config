@@ -1,5 +1,8 @@
 {pkgs, ...}:{
-  services.transmission.enable = true;
+  services = {
+    transmission.enable = true;
+    tumbler.enable = true; # image thumbnail support for thunar
+  };
   programs = {
     appimage.binfmt = true;
     bash.vteIntegration = true;
@@ -33,6 +36,7 @@
     #bitwig-studio /* audio editor */
     bluez-tools
     brightnessctl
+    brave
     #busybox
     chatterino7 alsa-lib
     clinfo
@@ -44,13 +48,16 @@
     digikam
     dmenu networkmanager_dmenu
     docker docker-compose
+    dunst
     drawio
     easyeffects helvum vesktop
     efibootmgr
     element-desktop
     endeavour
+    fastfetch
     feh qimgv nomacs
     ferdium element-desktop
+    ffmpeg
     ffmpegthumbnailer
     figma-linux
     firebase-tools
@@ -59,23 +66,25 @@
     fswebcam
     gdu
     gh
-    gimp 
+    gimp
     git gh gitg
     gnupg
+    go2rtc
     gparted
     gradience
     gscreenshot
     helvum
     htop
     hydrapaper
-    jdocker
+    i3lock xss-lock
+    insomnia
     jetbrains.pycharm-community-bin
     jetbrains.webstorm /* ide / code editor */
     jq
     kdocker
     keepassxc git-credential-keepassxc cryptsetup
     kitty
-    lazygit 
+    lazygit
     libgnomekbd
     libnotify
     libreoffice
@@ -83,14 +92,14 @@
     libusb-compat-0_1
     libusb1
     libusbp
-    lsof 
+    lsof
     mdp
-    media-downloader 
+    media-downloader
     menulibre
     merge-fmt
     mktemp
     mlterm
-    mpv 
+    mpv
     #mullvad-vpn /* duh */
     networkmanagerapplet
     nextcloud-client
@@ -99,40 +108,41 @@
     nodePackages.npm dum
     nodejs-slim nodePackages.npm dum
     ntfy-sh
-    obs-studio 
+    obs-studio
     obsidian /* note editor */
     ots /* onetimesecret cli */
     photoqt
     pinta
-    place-cursor-at 
+    place-cursor-at
     playerctl
     previewqt
     ptask /* taskwarrior plugin */
     qutebrowser
     rkflashtool libusb1 libusbp libusb-compat-0_1
-    rymport
+    rymdport
     scrypt cryptsetup #rage /* encryption tools */
-    showmethekey 
+    showmethekey
     shotcut /*openshot-qt*/
     shotwell
     signal-desktop /* E2E-encrypted chat */
     simplex-chat-desktop /* E2E-encrypted chat */
     sops /* secret manager */
     #spacedrive
-    spotify spotify-tray spotifywm spotifyd spotify-player mlterm
+    #spotify spotify-tray spotifywm spotifyd spotify-player
     streamlink
     super-productivity /* task manager / pomodoro timer */
     surf /* browser */
     syncthing
     taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
     tealdeer
-    termimage 
+    termimage
     thunderbird birdtray /* email client */
     tiramisu toastify
     tmux
+    tor-browser
     translate-shell
     transmission_3
-    trashy 
+    trashy
     tuxguitar /* guitar pro-like */
     ungoogled-chromium /* browser */
     upscayl
@@ -143,8 +153,9 @@
     wine
     xclip xprintidle xdotool
     xorg.xev xorg.xmodmap xorg.xkill
-    xscreensaver 
+    xscreensaver
     yazi
     zed-editor
+    zoneminder
 ];
 }

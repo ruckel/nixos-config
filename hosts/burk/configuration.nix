@@ -6,6 +6,9 @@ let vars = import "${inputs.vars}"; in
     ./hardware-configuration.nix
     ./packages.nix
    ];
+  services.zoneminder.enable = true;
+  services.zoneminder.database.createLocally = true;
+  services.zoneminder.database.username = "zoneminder";
 /*
 environment.etc = {
   "xdg/user-dirs.defaults".text = ''
@@ -44,6 +47,9 @@ environment.etc = {
    # };
   dwm = { enable        = true;
     user                  = "korv";
+   };
+  dunst-service = { enable = true;
+    user                   = "korv";
    };
   # ffsyncserver.enable   = true;
   hyprland.enable       = true;
@@ -143,6 +149,7 @@ environment.etc = {
 /* Constants */
   environment.localBinInPath = true;
   system.stateVersion = "24.05"; /* DONT toush */
+  services.printing.enable = true;
   services.devmon.enable = true; /* automatic device mounting daemon */
   services.gvfs.enable = true; /* Mount, trash, and other functionalities */
   services.tumbler.enable = true; /* Thumbnail support for images */
@@ -215,7 +222,7 @@ environment.etc = {
   system.autoUpgrade = {
     enable = true;
     allowReboot = false; #true;
-    channel = "https://channels.nixos.org/nixos-25.05";
+    channel = "https://channels.nixos.org/nixos-unstable";
    };
 /* end constants */
 }

@@ -3,7 +3,7 @@
   
   inputs = {
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-    #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-25.05";
     #nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-24.11-small";
     sops-nix.url = "github:Mic92/sops-nix";
     /* vars = {
@@ -11,6 +11,7 @@
        flake = false;
     };*/
     #sxwm.url = "path:/home/korv/nixos-cfg/modules/sxwm"; #"path:./modules/sxwm";
+    spotify.url = "path:/home/korv/nixos-cfg/modules/spotify";
   };
 
   outputs = {
@@ -20,6 +21,7 @@
     #nixpkgs-small,
     sops-nix,
     #sxwm,
+    spotify,
     ...
   } @ inputs: let
   inherit (self) outputs;
@@ -27,13 +29,14 @@
   in
   {
     nixosConfigurations = {
-      nixburk = nixpkgs-unstable.lib.nixosSystem {
+      nixburk  = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
           ./hosts/burk/configuration.nix
           sops-nix.nixosModules.sops
           #sxwm.nixosModules.sxwm
+          spotify.nixosModules.default
         ];
       };
       /*nixdell = nixpkgs-stable.lib.nixosSystem {
