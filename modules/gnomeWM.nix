@@ -10,6 +10,7 @@ in {
     environment.systemPackages = with pkgs; [
       gnome-browser-connector
       dconf-editor
+      gnome-tweaks
       gnomeExtensions.allow-locked-remote-desktop
       gnomeExtensions.appindicator
       gnomeExtensions.arc-menu
@@ -23,6 +24,7 @@ in {
       gnomeExtensions.do-not-disturb-while-screen-sharing-or-recording
       gnomeExtensions.fuzzy-clock-2
       gnomeExtensions.grand-theft-focus
+      #gnomeExtensions.gsconnect
       gnomeExtensions.just-perfection
       gnomeExtensions.launcher
       gnomeExtensions.mock-tray
