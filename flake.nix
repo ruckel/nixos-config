@@ -26,13 +26,23 @@
   } @ inputs: let
   inherit (self) outputs;
   system = "x86_64-linux";
+  specialArgs = {
+    inherit inputs system;
+    user = "korv"; 
+  };
+  spotifyOut = (import ./spotify/flake.nix).outputs { 
+    inherit system specialArgs;
+  };
   in
   {
+    packages.${system}.spotifyApp = spotifyOut.packages.${system}.default;
     nixosConfigurations = {
       nixburk  = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
-        specialArgs = { inherit inputs outputs; };
-        specialArgs.user = "korv";
+        specialArgs = { 
+          inherit inputs outputs;
+          user = "korv";
+        };
         modules = [
           ./hosts/burk/configuration.nix
           sops-nix.nixosModules.sops

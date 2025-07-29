@@ -32,10 +32,27 @@
         "type": "github"
       }
     },
+    "nixpkgs_2": {
+      "locked": {
+        "lastModified": 1753489912,
+        "narHash": "sha256-uDCFHeXdRIgJpYmtcUxGEsZ+hYlLPBhR83fdU+vbC1s=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "13e8d35b7d6028b7198f8186bc0347c6abaa2701",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "spotify": "spotify"
       }
     },
     "sops-nix": {
@@ -54,6 +71,21 @@
         "owner": "Mic92",
         "repo": "sops-nix",
         "type": "github"
+      }
+    },
+    "spotify": {
+      "inputs": {
+        "nixpkgs": "nixpkgs_2"
+      },
+      "locked": {
+        "lastModified": 1753752836,
+        "narHash": "sha256-Uj4RlBjJOma7cFDegj4NUWhaNPxelKuKNiSwq4mLxGA=",
+        "path": "/home/korv/nixos-cfg/modules/spotify",
+        "type": "path"
+      },
+      "original": {
+        "path": "/home/korv/nixos-cfg/modules/spotify",
+        "type": "path"
       }
     }
   },
