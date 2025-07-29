@@ -6,9 +6,12 @@ let vars = import "${inputs.vars}"; in
     ./hardware-configuration.nix
     ./packages.nix
    ];
-  services.zoneminder.enable = true;
-  services.zoneminder.database.createLocally = true;
-  services.zoneminder.database.username = "zoneminder";
+  services.zoneminder = { enable = true;
+    database = {
+      createLocally =   true;
+      username =        "zoneminder";
+    }; 
+   };
 /*
 environment.etc = {
   "xdg/user-dirs.defaults".text = ''
