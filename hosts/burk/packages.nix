@@ -128,7 +128,7 @@
     #simplex-chat-desktop /* E2E-encrypted chat */
     sops /* secret manager */
     #spacedrive
-    #spotify spotify-tray spotifywm spotifyd spotify-player
+    spotify #spotify-tray spotifywm spotifyd spotify-player
     streamlink
     super-productivity /* task manager / pomodoro timer */
     surf /* browser */
