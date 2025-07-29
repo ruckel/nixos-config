@@ -7,7 +7,7 @@
     appimage.binfmt = true;
     bash.vteIntegration = true;
     firefox.enable = true;
-    steam.enable = true;
+    steam.enable = false;
     gnupg.agent = {
       enable = true;
     # enableSSHSupport = true;
@@ -26,50 +26,50 @@
   };
   environment.systemPackages = with pkgs; [
     alsa-lib
-    android-studio
+    #android-studio
     appimage-run /* appimage compability wrapper */
     arandr /* gui randr editor */
     #args.textfile
-    audacity /* audio editor */
+    #audacity /* audio editor */
     bat
     birdtray /* email client */
     #bitwig-studio /* audio editor */
-    bluez-tools
-    brightnessctl
+    #bluez-tools
+    #brightnessctl
     brave
     #busybox
     chatterino7 alsa-lib
-    clinfo
+    #clinfo
     cryptsetup #rage /* encryption tools */
-    ddclient
+    #ddclient
     delta
     deno #node alternative
     desktop-file-utils
     digikam
     dmenu networkmanager_dmenu
-    docker docker-compose
+    #docker docker-compose
     dunst
     drawio
-    easyeffects helvum vesktop
-    efibootmgr
-    element-desktop
-    endeavour
+    easyeffects helvum
+    #efibootmgr
+    #endeavour
     fastfetch
     feh qimgv nomacs
-    ferdium element-desktop
+    ferdium
     ffmpeg
     ffmpegthumbnailer
-    figma-linux
-    firebase-tools
+    #figma-linux
+    #firebase-tools
     floorp /* browser */
-    fortune
+    #fortune
     fswebcam
+    fzf
     gdu
     gh
     gimp
     git gh gitg
     gnupg
-    go2rtc
+    #go2rtc
     gparted
     gradience
     gscreenshot
@@ -77,11 +77,11 @@
     htop
     hydrapaper
     i3lock xss-lock
-    insomnia
-    jetbrains.pycharm-community-bin
+    #insomnia
+    #jetbrains.pycharm-community-bin
     jetbrains.webstorm /* ide / code editor */
     jq
-    kdocker
+    #kdocker
     keepassxc git-credential-keepassxc cryptsetup
     kitty
     lazygit
@@ -95,7 +95,7 @@
     libusbp
     lsof
     mdp
-    media-downloader
+    #media-downloader
     menulibre
     merge-fmt
     mktemp
@@ -106,26 +106,26 @@
     nextcloud-client
     ngrok jq
     nix-plugins
-    nodePackages.npm dum
-    nodejs-slim nodePackages.npm dum
+    #nodePackages.npm dum
+    #nodejs-slim nodePackages.npm dum
     ntfy-sh
-    obs-studio
+    #obs-studio
     obsidian /* note editor */
-    ots /* onetimesecret cli */
+    #ots /* onetimesecret cli */
     photoqt
     pinta
     place-cursor-at
     playerctl
     previewqt
     qutebrowser
-    rkflashtool libusb1 libusbp libusb-compat-0_1
-    rymdport
+    #rkflashtool libusb1 libusbp libusb-compat-0_1
+    #rymdport
     scrypt cryptsetup #rage /* encryption tools */
     showmethekey
     shotcut /*openshot-qt*/
     shotwell
-    signal-desktop /* E2E-encrypted chat */
-    simplex-chat-desktop /* E2E-encrypted chat */
+    #signal-desktop /* E2E-encrypted chat */
+    #simplex-chat-desktop /* E2E-encrypted chat */
     sops /* secret manager */
     #spacedrive
     #spotify spotify-tray spotifywm spotifyd spotify-player
@@ -138,23 +138,24 @@
     thunderbird birdtray /* email client */
     tiramisu toastify
     tmux
-    tor-browser
-    translate-shell
+    #tor-browser
+    #translate-shell
     transmission_3
     trashy
-    tuxguitar /* guitar pro-like */
+    #tuxguitar /* guitar pro-like */
     ungoogled-chromium /* browser */
     upscayl
     usbutils
     veracrypt scrypt cryptsetup #rage /* encryption tools */
+    vesktop
     vlc
-    vscodium-fhs /* code editor */
-    wine
+    #vscodium-fhs
+    #wine
     xclip xprintidle xdotool
     xorg.xev xorg.xmodmap xorg.xkill
     xscreensaver
-    yazi
-    zed-editor
-    zoneminder
+    #yazi
+    #zed-editor
+    #zoneminder
 ];
 }
