@@ -85,6 +85,7 @@
     keepassxc git-credential-keepassxc cryptsetup
     kitty
     lazygit
+    libadwaita
     libgnomekbd
     libnotify
     libreoffice

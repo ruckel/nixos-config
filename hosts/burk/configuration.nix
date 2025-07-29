@@ -193,6 +193,7 @@ environment.etc = {
     enable = true;
     wayland = false;
    };
+  qt.style = "adwaita-dark";
   networking = {
     hostName = "nixburk";#vars.host.burk;
     networkmanager.enable = true;
