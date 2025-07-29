@@ -32,6 +32,8 @@ config = mkIf cfg.enable {
         set shiftwidth=2
         set tabstop=2
         set number
+        "set ignorecase
+        set smartcase               "ignores case unless search contains uppercase letters
 
         map <F10> :set number!<CR>  "! for toggle, nonumber for off
         map <F9> :set rnu!<CR>
