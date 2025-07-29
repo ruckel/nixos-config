@@ -1,28 +1,28 @@
 {pkgs, ...}:{
   services = {
     transmission.enable = true;
-    tumbler.enable = true; # image thumbnail support for thunar
+    tumbler.enable =      true; # image thumbnail support for thunar
   };
   programs = {
-    appimage.binfmt = true;
+    appimage.binfmt =     true;
     bash.vteIntegration = true;
-    firefox.enable = true;
-    steam.enable = false;
-    gnupg.agent = {
-      enable = true;
-    # enableSSHSupport = true;
-    # enableBrowserSocket = true;
-    # enableExtraSocket = true;
-    # pinentryPackage = null;
+    firefox.enable =      true;
+    steam.enable =        true;
+    gnupg.agent = { 
+      enable =            true;
+    #enableSSHSupport =   true;
+    #enableBrowserSocket =true;
+    #enableExtraSocket =  true;
+    #pinentryPackage =    null;
     };
-    thunar = { enable = true;
+    thunar = { enable =   true;
       plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin thunar-media-tags-plugin ];
     };
     vim = {
-      enable = true;
-      defaultEditor = true;
+      enable =            true;
+      defaultEditor =     true;
     };
-    xfconf.enable = true;
+    xfconf.enable =       true;
   };
   environment.systemPackages = with pkgs; [
     alsa-lib
@@ -34,10 +34,10 @@
     bat
     birdtray /* email client */
     #bitwig-studio /* audio editor */
-    #bluez-tools
-    #brightnessctl
+    bluez-tools
+    brightnessctl
     brave
-    #busybox
+    busybox
     chatterino7 alsa-lib
     #clinfo
     cryptsetup #rage /* encryption tools */
@@ -95,7 +95,7 @@
     libusbp
     lsof
     mdp
-    #media-downloader
+    media-downloader
     menulibre
     merge-fmt
     mktemp
@@ -106,12 +106,12 @@
     nextcloud-client
     ngrok jq
     nix-plugins
-    #nodePackages.npm dum
-    #nodejs-slim nodePackages.npm dum
+    nodePackages.npm dum
+    nodejs-slim nodePackages.npm dum
     ntfy-sh
-    #obs-studio
+    obs-studio
     obsidian /* note editor */
-    #ots /* onetimesecret cli */
+    ots /* onetimesecret cli */
     photoqt
     pinta
     place-cursor-at
@@ -119,7 +119,7 @@
     previewqt
     qutebrowser
     #rkflashtool libusb1 libusbp libusb-compat-0_1
-    #rymdport
+    rymdport
     scrypt cryptsetup #rage /* encryption tools */
     showmethekey
     shotcut /*openshot-qt*/
@@ -128,7 +128,7 @@
     #simplex-chat-desktop /* E2E-encrypted chat */
     sops /* secret manager */
     #spacedrive
-    spotify #spotify-tray spotifywm spotifyd spotify-player
+    spotify spotify-tray #spotifywm spotifyd spotify-player
     streamlink
     super-productivity /* task manager / pomodoro timer */
     surf /* browser */
@@ -138,8 +138,8 @@
     thunderbird birdtray /* email client */
     tiramisu toastify
     tmux
-    #tor-browser
-    #translate-shell
+    tor-browser
+    translate-shell
     transmission_3
     trashy
     #tuxguitar /* guitar pro-like */
@@ -150,12 +150,12 @@
     vesktop
     vlc
     #vscodium-fhs
-    #wine
+    wine
     xclip xprintidle xdotool
     xorg.xev xorg.xmodmap xorg.xkill
     xscreensaver
-    #yazi
+    yazi
     #zed-editor
-    #zoneminder
+    zoneminder
 ];
 }
