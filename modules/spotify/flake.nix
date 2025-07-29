@@ -1,12 +1,11 @@
 {
-  description = "Spotify flake";
-
-  inputs = {
+  /*inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-  };
+  };*/
 
+  description = "spotify flake";
+  inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
   outputs = { self, nixpkgs, ... }: {
-    /*nixosModules.default = import ./module.nix;*/
     nixosModules.default = { config, lib, ... } @ args:
       let
         system = args.specialArgs.system or "x86_64-linux";
