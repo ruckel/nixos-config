@@ -2,3 +2,4 @@ vars.nix
 result*
 localbin
 .version-suffix
+.lock
