@@ -6,6 +6,6 @@
   };
 
   config = /*lib.mkIf config.services.spotify.enable*/ {
-    environment.systemPackages = [ pkgs.spotify ];
+    environment.systemPackages = with pkgs; [ spotify ];
   };
 }
