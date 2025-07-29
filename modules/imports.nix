@@ -5,6 +5,7 @@
     ../modules/adb.nix
     ../modules/docker.nix
     ../modules/dwm.nix
+    ../modules/dunst.nix
     ../modules/experimental.nix
     ../modules/fail2ban.nix
     ../modules/ffsyncserver.nix
