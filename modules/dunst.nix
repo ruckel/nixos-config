@@ -1,8 +1,8 @@
 { lib, pkgs, config, ... } :
 with lib;
-let cfg = config.dunst;
+let cfg = config.dunst-service;
 in {
-  options.dunst = {
+  options.dunst-service = {
     ## types = {attrs, bool, path, int, port, str, lines, commas}
     enable = mkEnableOption "DESCRIPTION";
 
@@ -12,12 +12,12 @@ in {
     strings = mkOption {
       description = "";
       type = with types; nullOr listOf str;
-     };
+      };
    };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf {})
-    (mkIf {})
+    #(mkIf {})
+    #(mkIf {})
     ({
       environment.systemPackages = with pkgs; [ dunst ];
     })
