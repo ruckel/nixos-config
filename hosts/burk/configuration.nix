@@ -131,7 +131,8 @@ environment.etc = {
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [ "libsoup-2.74.3" "spotify" ];
-   }; 
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "spotify" ];
+   };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   sops = {
     defaultSopsFile = /*/home/korv/nixos-cfg*/../../secrets/secrets.yaml;
