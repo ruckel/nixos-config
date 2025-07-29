@@ -22,7 +22,7 @@ in {
       #gnomeExtensions.dash-to-plank
       gnomeExtensions.desktop-clock
       gnomeExtensions.do-not-disturb-while-screen-sharing-or-recording
-      gnomeExtensions.fuzzy-clock-2
+      gnomeExtensions.fuzzy-clock-3
       gnomeExtensions.grand-theft-focus
       #gnomeExtensions.gsconnect
       gnomeExtensions.just-perfection
