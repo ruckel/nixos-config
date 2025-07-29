@@ -117,7 +117,6 @@
     place-cursor-at
     playerctl
     previewqt
-    ptask /* taskwarrior plugin */
     qutebrowser
     rkflashtool libusb1 libusbp libusb-compat-0_1
     rymdport
@@ -134,7 +133,6 @@
     super-productivity /* task manager / pomodoro timer */
     surf /* browser */
     syncthing
-    taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
     tealdeer
     termimage
     thunderbird birdtray /* email client */

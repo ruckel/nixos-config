@@ -32,7 +32,6 @@
     networkmanagerapplet
     nextcloud-client
     spotify-player mlterm
-    #taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
     xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
     x11vnc tigervnc
     vim
