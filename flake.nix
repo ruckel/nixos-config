@@ -11,7 +11,7 @@
        flake = false;
     };*/
     #sxwm.url = "path:/home/korv/nixos-cfg/modules/sxwm"; #"path:./modules/sxwm";
-    #spotify.url = "path:./modules/spotify"/*"path:/home/korv/nixos-cfg/modules/spotify"*/;
+    spotify.url = "path:./modules/spotify"/*"path:/home/korv/nixos-cfg/modules/spotify"*/;
   };
 
   outputs = {
@@ -21,7 +21,7 @@
     #nixpkgs-small,
     sops-nix,
     #sxwm,
-    #spotify,
+    spotify,
     ...
   } @ inputs: let
   inherit (self) outputs;
@@ -44,7 +44,7 @@
           ./hosts/burk/configuration.nix
           sops-nix.nixosModules.sops
           #sxwm.nixosModules.sxwm
-          #spotify.nixosModules.default
+          spotify.nixosModules.default
         ];
       };
       /*nixdell = nixpkgs-stable.lib.nixosSystem {
