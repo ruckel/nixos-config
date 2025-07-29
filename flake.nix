@@ -11,7 +11,7 @@
        flake = false;
     };*/
     #sxwm.url = "path:/home/korv/nixos-cfg/modules/sxwm"; #"path:./modules/sxwm";
-    #spotify.url = "path:/home/korv/nixos-cfg/modules/spotify";
+    spotify.url = "path:/home/korv/nixos-cfg/modules/spotify";
   };
 
   outputs = {
@@ -21,7 +21,7 @@
     #nixpkgs-small,
     sops-nix,
     #sxwm,
-    #spotify,
+    spotify,
     ...
   } @ inputs: let
   inherit (self) outputs;
@@ -31,14 +31,14 @@
     inherit inputs system;
     user = "korv"; 
   };
-  spotify = import ./modules/spotify { 
+  /*spotify = import ./modules/spotify { 
     #self = null;
     inherit system user ;
     nixpkgs = nixpkgs-unstable;
-  };
+  };*/
   in
   {
-    packages.${system}.spotifyApp = spotify.package;
+    #packages.${system}.spotify = spotify.package;
     nixosConfigurations = {
       nixburk  = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
