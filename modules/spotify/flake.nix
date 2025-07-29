@@ -1,17 +1,16 @@
 #{ system, user, ... }:
-{
-description = "Spotify system module, flake";
+{ description = "Spotify system module, flake";
 inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-outputs = { self, nixpkgs, system, user }: 
-let
-  pkgs = nixpkgs.legacyPackages.${system};
-in {
-  nixosModules = {
-    default = {
-      config = {
-        #environment.systemPackages = [ pkgs.spotify ];
-      };
-    };
+outputs = inputs@{ self, nixpkgs, ... }:{
+  packages.${inputs.specialArgs.system} = {
+    default = let
+      pkgs   = import nixpkgs { system = inputs.specialArgs.system; };
+      user   = inputs.specialArgs.user or "user";
+      system = inputs.specialArgs.system;
+  in
+    pkgs.writeShellScriptBin "spotify-hello" ''
+      echo "Hello, ${user}! System: ${system}"
+    '';
   };
 };
 }

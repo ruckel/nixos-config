@@ -32,6 +32,7 @@
       nixburk  = nixpkgs-unstable.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
+        specialArgs.user = "korv";
         modules = [
           ./hosts/burk/configuration.nix
           sops-nix.nixosModules.sops
