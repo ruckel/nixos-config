@@ -1,16 +1,19 @@
-#{ system, user, ... }:
+{ system, user, nixpkgs, ... }:
+let
+  pkgs = import nixpkgs {inherit system; };
+in
 { description = "Spotify system module, flake";
-inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
-outputs = inputs@{ self, nixpkgs, ... }:{
-  packages.${inputs.specialArgs.system} = {
-    default = let
+#inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+#outputs = { self, nixpkgs, ... }@inputs:{
+  package = #s.${inputs.specialArgs.system} = {
+    /*default = let
       pkgs   = import nixpkgs { system = inputs.specialArgs.system; };
       user   = inputs.specialArgs.user or "user";
       system = inputs.specialArgs.system;
-  in
+  in*/
     pkgs.writeShellScriptBin "spotify-hello" ''
       echo "Hello, ${user}! System: ${system}"
     '';
-  };
-};
+#  };
+#};
 }
