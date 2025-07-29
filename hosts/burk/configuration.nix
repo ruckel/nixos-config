@@ -130,8 +130,8 @@ environment.etc = {
    };
   nixpkgs.config = {
     allowUnfree = true;
-    permittedInsecurePackages = [ /*"python3.11-youtube-dl-2021.12.17"*/ ];
-   };
+    permittedInsecurePackages = [ "libsoup-2.74.3" "spotify" ];
+   }; 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   sops = {
     defaultSopsFile = /*/home/korv/nixos-cfg*/../../secrets/secrets.yaml;
@@ -185,14 +185,15 @@ environment.etc = {
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
      };
    };
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "korv";
+  services.displayManager = {
+    gdm = {
+      enable = true;
+      wayland = false;
+    };
+    autoLogin = { enable = true;
+      user = "korv";
    };
-  services.xserver.displayManager.gdm = {
-    enable = true;
-    wayland = false;
-   };
+  };
   qt.style = "adwaita-dark";
   networking = {
     hostName = "nixburk";#vars.host.burk;
