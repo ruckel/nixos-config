@@ -6,7 +6,8 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.desktopManager.gnome.enable = true;
+    #services.desktopManager.gnome.enable = true; /* pkgs-unstable */
+    services.xserver.desktopManager.gnome.enable = true; /* pkgs-25.05 */
     environment.systemPackages = with pkgs; [
       gnome-browser-connector
       dconf-editor
