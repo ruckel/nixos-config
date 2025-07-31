@@ -47,7 +47,7 @@
           #spotify.nixosModules.default
         ];
       };
-      /*nixdell = nixpkgs-stable.lib.nixosSystem {
+      dell = nixpkgs-stable.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
@@ -55,7 +55,7 @@
           sops-nix.nixosModules.sops
         ];
       };
-      nixvaio = nixpkgs-small.lib.nixosSystem {
+      /*nixvaio = nixpkgs-small.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
