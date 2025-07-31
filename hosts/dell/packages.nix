@@ -80,7 +80,6 @@
     sops /* secret manager */
     spotify spotify-tray spotifywm spotifyd spotify-player mlterm
     super-productivity /* task manager / pomodoro timer */
-    taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
     tealdeer
     tiramisu toastify #ntfy-sh
     dunst libnotify
