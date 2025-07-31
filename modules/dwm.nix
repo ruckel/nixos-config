@@ -19,6 +19,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [ dmenu networkmanager_dmenu ];
+    programs.slock.enable = true;
     #services.dwm-status.enable = true;
     #services.dwm-status.order = [ "audio" "backlight" "battery" "cpu_load" "network" "time" ];
     services.xserver.windowManager.dwm = {
@@ -28,18 +29,23 @@ in {
         #src = /home/korv/dwm;#TODO dynamic
         src = /home/${cfg.user}/dwm-conf;
         patches = [
+          # fakefullscreen
           (pkgs.fetchpatch {
             url = "https://dwm.suckless.org/patches/fakefullscreen/dwm-fakefullscreen-20210714-138b405.diff";
             hash = "sha256-7AHooplO1c/W4/Npyl8G3drG0bA34q4DjATjD+JcSzI=";})
+          #  statusallmons
           (pkgs.fetchpatch {
             url = "https://dwm.suckless.org/patches/statusallmons/dwm-statusallmons-6.2.diff";
             hash = "sha256-AdngAZTKzICfwAx66sOdWD3IdsoJN8UW8eXa/o+X5/4=";})
+          # activemonitor
           (pkgs.fetchpatch {
             url = "https://dwm.suckless.org/patches/activemonitor/dwm-activemonitor-20230825-e81f17d.diff";
             hash = "sha256-MEF/vSN3saZlvL4b26mp/7XyKG3Lp0FD0vTYPULuQXA=";})
+          # noborder
           (pkgs.fetchpatch {
             url = "https://dwm.suckless.org/patches/noborder/dwm-noborderfloatingfix-6.2.diff";
             hash = "sha256-CrKItgReKz3G0mEPYiqCHW3xHl6A3oZ0YiQ4oI9KXSw=";})
+          # tilewide
           (pkgs.fetchpatch {
             url = "https://dwm.suckless.org/patches/tilewide/dwm-tilewide-6.4.diff";
             hash = "sha256-l8QDEb8X32LlnGpidaE4xKyd0JmT8+Oodi5qVXg1ol4=";})

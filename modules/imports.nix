@@ -13,7 +13,7 @@
     ../modules/hyprland.nix
     ../modules/immich.nix
     ../modules/customkbd.nix
-   #/home/korv/nixos-cfg/modules/kanata.nix
+    ../modules/kde.nix
     ../modules/kodi.nix
     ../modules/localization.nix
     ../modules/mysql.nix
