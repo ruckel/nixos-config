@@ -16,7 +16,7 @@
       plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin thunar-media-tags-plugin ];
     };
     vim = {
-      #enable = true;
+      enable = true;
       defaultEditor = true;
     };
     xfconf.enable = true;
@@ -24,7 +24,7 @@
   environment.systemPackages = with pkgs; [
     i3lock i3lock-blur i3lock-color i3lock-fancy i3lock-fancy-rapid xss-lock
     #args.textfile
-    android-studio /* android ide */
+    #android-studio /* android ide */
     appimage-run /* appimage compability wrapper */
     arandr /* gui randr editor */
     brave /* browser */
@@ -43,11 +43,13 @@
     easyeffects helvum vesktop
     efibootmgr
     endeavour
-    jetbrains.idea-community /* ide / code editor */
+    #jetbrains.idea-community /* ide / code editor */
+    fastfetch
     feh qimgv nomacs
     ferdium element-desktop
     ffmpegthumbnailer
     fswebcam
+    gdu
     gimp openshot-qt obs-studio pinta
     git gh gitg
     gnupg
@@ -83,7 +85,7 @@
     tealdeer
     tiramisu toastify #ntfy-sh
     dunst libnotify
-    transmission #_3
+    transmission_4
     tuxguitar /* guitar pro-like */
     veracrypt scrypt cryptsetup #rage /* encryption tools */
     thunderbird birdtray /* email client */
@@ -91,6 +93,6 @@
     vscodium-fhs /* code editor */
     xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
     jellyfin-media-player
-    zed-editor nodejs_23
+    zed-editor
 ];
 }
