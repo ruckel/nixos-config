@@ -19,6 +19,7 @@ dwm.enable          = true;
 dwm.user            = "korv";
 #ffsyncserver.enable = false;
 gnomeWM.enable      = true;
+#kde.enable	    = true;
 localization.enable = true;
 #mysql.enable        = false;
 #nc.enable           = true;
@@ -62,6 +63,7 @@ experimental = {
   enableVncFirewall       = false;
 };
 /* Constants */
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
 environment.localBinInPath = true;
 system.stateVersion = "23.11";
 services.devmon.enable = true; /* automatic device mounting daemon */
@@ -71,12 +73,15 @@ services.udisks2 = { enable = true; #settings = {};
   mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
   };
 services.xserver.enable = true;
-services.mullvad-vpn.enable = true;
+#services.mullvad-vpn.enable = true;
 users.users."korv" = { isNormalUser = true;
     description = "korv";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ tilix bc ];
 };
+#environment.etc = {
+#  "profile.d/vte.sh".source = "${pkgs.vte}/etc/profile.d/vte.sh";
+#};
 fonts.packages = with pkgs; [
     fira fira-code fira-code-nerdfont
     noto-fonts noto-fonts-cjk-sans
@@ -104,7 +109,7 @@ nix.gc = {        # nix store garbage collection
 networking = {
   hostName = "dell";
   networkmanager.enable = true;
-  firewall.enable = true;
+ #firewall.enable = true;
 };
 boot.loader = {
   systemd-boot.enable = true;
