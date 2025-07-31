@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, pkgs, lib, inputs, ... }:
 let vars = import "${inputs.vars}"; in
 { imports = [
   ../../modules/imports.nix
@@ -16,6 +16,7 @@ autorandr.enable    = false;
 scripts.enable      = true;
 customkbd.enable    = true;
 dwm.enable          = true;
+dwm.user            = "korv";
 ffsyncserver.enable = false;
 gnomeWM.enable      = true;
 #kde.enable	    = true;
@@ -62,6 +63,11 @@ experimental = {
   enableVncFirewall       = true;
 };
 /* Constants */
+nixpkgs.config = {
+  allowUnfree = true;
+  permittedInsecurePackages = [ "libsoup-2.74.3" "spotify" ];
+  allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "spotify" ];
+ };
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
 environment.localBinInPath = true;
 system.stateVersion = "23.11";
