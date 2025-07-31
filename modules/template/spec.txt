@@ -1,0 +1,7 @@
+buildInputs = [
+  pkgs.xorg.libX11
+  pkgs.xorg.libXinerama
+  pkgs.libgcc
+  pkgs.gnumake
+];
+sudo nixos-rebuild switch

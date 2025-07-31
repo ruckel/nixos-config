@@ -1,9 +1,10 @@
 { config, pkgs, lib, inputs, ... }:
-let vars = import "${inputs.vars}"; in
+#let vars = import "${inputs.vars}"; in
 { imports = [
   ../../modules/imports.nix
   /etc/nixos/hardware-configuration.nix
   ./packages.nix
+ #/etc/nixos/cachix.nix
   ];
 
 #networking.firewall = {
@@ -21,20 +22,37 @@ fileSystems = {
   };
 };
 
+  # remember to keep the cachix keys updated for nvidia: while using cachix for the nvidia latest packages
+  # do this by running `cachix use cuda-maintainers`
+  nix.settings = {
+    substituters = [ "https://cuda-maintainers.cachix.org" ];
+    trusted-public-keys = [ "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E=" ];
+  };
+  environment.systemPackages = [ pkgs.cachix ];
+
 scripts.enable      = true;
 customkbd.enable    = true;
 dwm = {
   enable            = true;
   user              = "user";
 };
-docker.enable       = true;
-localization.enable = true;
-mysql.enable        = true;
-nc.enable           = true;
-nc.pwfile	    = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
-soundconf.enable    = true;
-soundconf.user      = "user";
-ssh = {
+#docker.enable       = true;
+ fail2ban.enable     = true;
+ gnomeWM.enable      = true;
+ immich = { enable   = true;
+    domain           = "immich.korv.lol";
+   #hwVideo          = true;
+   #ml               = true;
+  };
+ kodi.enable         = true;
+ localization.enable = true;
+ mysql.enable        = true;
+ nc.enable           = true;
+ nc.pwfile	    = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
+  soundconf = { enable      = true;
+    user                    = "user";
+  };
+  ssh = {
   enable            = true;
   user              = "user";
   ports             = [ 6842 6843 6844 ];
@@ -44,16 +62,17 @@ ssh = {
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIa8dGCkZtulhJ7Peg2XvdryhAowWpL0hVMAS+i0I1t5 root@debian-homelab"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpTIZfMSLWJBzkvSZyCthrU40R0CB8GjRi0WUMxi62z korv@pixel"
   ];
-  pwauth            = true;
+  pwauth            = false;
   x11fw             = true;
   vncbg             = true;
 };
-syncthing.enable    = true;
-syncthing.user      = "user";
-systemdconf.enable  = true;
-#ollama.enable       = true;
-xprofile.enable     = true;
-xprofile.user       = "user";
+ syncthing.enable    = true;
+ syncthing.user      = "user";
+ systemdconf.enable  = true;
+ tmux.enable         = true;
+ ollama.enable       = true;
+ xprofile.enable     = true;
+ xprofile.user       = "user";
 
 experimental = {
   enable                  = true;
@@ -85,7 +104,7 @@ sops = {
   age.generateKey = true;
   secrets.pw.neededForUsers = true;
   secrets.nc-admin-pw = {};
-  secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
+ #secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
  #secrets.nc-admin-pw.neededForUsers = true;
   #secrets.data = {};
 };
@@ -100,7 +119,7 @@ services.udisks2 = { enable = true; #settings = {};
   mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
   };
 services.xserver.enable = true;
-services.mullvad-vpn.enable = true;
+#services.mullvad-vpn.enable = true;
 users.users.${"user"} = { isNormalUser = true;
     description = "user";
     extraGroups = [ "networkmanager" "wheel" ];
@@ -116,10 +135,10 @@ fonts.packages = with pkgs; [
 xdg = {
   autostart.enable = true;
   icons.enable = true;
-  portal = {
-    enable = true;
-    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-  };
+#  portal = {
+#    enable = true;
+#    extraPortals = [pkgs.xdg-desktop-portal-gtk];
+#  };
   };
 services.displayManager.autoLogin = {
   enable = true;
@@ -149,6 +168,6 @@ nix.gc = { /* garbage collection */
 system.autoUpgrade = {
    enable = true;
    allowReboot = true;
-   channel = "https://channels.nixos.org/nixos-24.05-small";
+   channel = "https://channels.nixos.org/nixos-unstable";
 };
 }

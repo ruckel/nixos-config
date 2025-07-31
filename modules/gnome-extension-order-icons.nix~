@@ -1,0 +1,45 @@
+{
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  glib,
+  gettext,
+  substituteAll,
+  gnome-menus,
+}:
+with import <nixpkgs> {};
+stdenv.mkDerivation rec {
+  pname = "gnome-shell-extension-order-icons";
+  version = "1";
+  owner = "ruckel";
+  repoName = "order-icons";
+  rev "",
+  hash = "";
+
+  src = fetchFromGitHub {
+    owner = owner;
+    repo = repoName;
+    rev = rev;
+    hash = hash;
+  };
+
+  buildInputs = [
+    gettext
+    glib
+  ];
+
+  makeFlags = [ "INSTALLBASE=${placeholder "out"}/share/gnome-shell/extensions" ];
+
+  passthru = {
+    extensionUuid = "${repoName}@korv.lol";
+    extensionPortalSlug = repoName;
+  };
+
+  meta = with lib; {
+    description = "a description";
+    license = licenses.gpl2Plus;
+    maintainers = with maintainers; [ ];
+    homepage = "https://github.com/${owner}/${repoName}";
+  };
+}

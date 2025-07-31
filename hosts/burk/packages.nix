@@ -5,7 +5,6 @@
     bash.vteIntegration = true;
     firefox.enable = true;
     steam.enable = true;
-    thunderbird.enable = true;
     gnupg.agent = {
       enable = true;
     # enableSSHSupport = true;
@@ -23,77 +22,129 @@
     xfconf.enable = true;
   };
   environment.systemPackages = with pkgs; [
-    #args.textfile
-  # android-studio /* android ide */
+    alsa-lib
+    android-studio
     appimage-run /* appimage compability wrapper */
     arandr /* gui randr editor */
-    brave /* browser */
-    floorp /* browser */
-    ungoogled-chromium /* browser */
-    surf /* browser */
+    #args.textfile
+    audacity /* audio editor */
+    bat
+    birdtray /* email client */
     #bitwig-studio /* audio editor */
-    #audacity /* audio editor */
+    bluez-tools
     brightnessctl
-    busybox /* lsusb */
-    birdtray /* thunderbird tray */
+    #busybox
+    chatterino7 alsa-lib
     clinfo
-    deno #node alternative
+    cryptsetup #rage /* encryption tools */
     ddclient
+    delta
+    deno #node alternative
+    desktop-file-utils
+    digikam
     dmenu networkmanager_dmenu
+    docker docker-compose
+    drawio
     easyeffects helvum vesktop
     efibootmgr
+    element-desktop
     endeavour
-    inkscape /* svg editor  */
-    jetbrains.idea-community /* ide / code editor */
     feh qimgv nomacs
     ferdium element-desktop
     ffmpegthumbnailer
+    figma-linux
     firebase-tools
+    floorp /* browser */
+    fortune
     fswebcam
-    gimp openshot-qt obs-studio pinta
+    gdu
+    gh
+    gimp 
     git gh gitg
     gnupg
     gparted
     gradience
     gscreenshot
+    helvum
+    htop
+    hydrapaper
+    jdocker
+    jetbrains.pycharm-community-bin
+    jetbrains.webstorm /* ide / code editor */
+    jq
+    kdocker
     keepassxc git-credential-keepassxc cryptsetup
-    lazygit
+    kitty
+    lazygit 
     libgnomekbd
-    libsForQt5.kleopatra
+    libnotify
     libreoffice
+    libsForQt5.kleopatra
+    libusb-compat-0_1
+    libusb1
+    libusbp
+    lsof 
     mdp
+    media-downloader 
     menulibre
-    mpv media-downloader vlc playerctl helvum
-    mullvad-vpn /* duh */
+    merge-fmt
+    mktemp
+    mlterm
+    mpv 
+    #mullvad-vpn /* duh */
     networkmanagerapplet
-    nextcloud-client syncthing rymdport
+    nextcloud-client
+    ngrok jq
     nix-plugins
+    nodePackages.npm dum
     nodejs-slim nodePackages.npm dum
+    ntfy-sh
+    obs-studio 
     obsidian /* note editor */
-    openshot-qt gnome-photos digikam shotwell
+    ots /* onetimesecret cli */
+    photoqt
+    pinta
+    place-cursor-at 
+    playerctl
+    previewqt
+    ptask /* taskwarrior plugin */
+    qutebrowser
+    rkflashtool libusb1 libusbp libusb-compat-0_1
+    rymport
+    scrypt cryptsetup #rage /* encryption tools */
+    showmethekey 
+    shotcut /*openshot-qt*/
+    shotwell
     signal-desktop /* E2E-encrypted chat */
     simplex-chat-desktop /* E2E-encrypted chat */
-    #spacedrive
     sops /* secret manager */
-    spotify spotify-tray spotifywm spotifyd 
-    spotify-player mlterm
+    #spacedrive
+    spotify spotify-tray spotifywm spotifyd spotify-player mlterm
+    streamlink
     super-productivity /* task manager / pomodoro timer */
+    surf /* browser */
+    syncthing
     taskwarrior3 /* task manager */ ptask /* taskwarrior plugin */
-    tiramisu toastify #ntfy-sh
-    dunst libnotify
-    transmission_4
-    tmux
-    tuxguitar /* guitar pro-like */
     tealdeer
+    termimage 
+    thunderbird birdtray /* email client */
+    tiramisu toastify
+    tmux
+    translate-shell
+    transmission_3
+    trashy 
+    tuxguitar /* guitar pro-like */
+    ungoogled-chromium /* browser */
+    upscayl
+    usbutils
     veracrypt scrypt cryptsetup #rage /* encryption tools */
-    ots /* onetimesecret cli */
+    vlc
     vscodium-fhs /* code editor */
     wine
-    xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
-    zed-editor
-    firebase-tools
+    xclip xprintidle xdotool
+    xorg.xev xorg.xmodmap xorg.xkill
+    xscreensaver 
     yazi
-   #kitty
-    bluez-tools
+    zed-editor
 ];
 }

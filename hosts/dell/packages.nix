@@ -1,13 +1,4 @@
-{pkgs, lib, ...}:{
-/*  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "obsidian"
-    "jetbrains.webstorm"
-    "spotify"
-    "veracrypt"
-    "steam"
-    "steam-original"
-  ];*/
-  nixpkgs.config.allowUnfree = true;
+{pkgs, ...}:{
   services.transmission.enable = true;
   programs = {
     appimage.binfmt = true;

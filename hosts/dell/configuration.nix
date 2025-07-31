@@ -2,7 +2,7 @@
 let vars = import "${inputs.vars}"; in
 { imports = [
   ../../modules/imports.nix
-  /etc/nixos/hardware-configuration.nix
+  ./hardware-configuration.nix
   ./packages.nix
   ];
 
@@ -12,18 +12,17 @@ adb = {
   user              = "korv";
   #ports             = vars.adbports;
 };
-#autorandr.enable    = false;
+autorandr.enable    = false;
 scripts.enable      = true;
 customkbd.enable    = true;
 dwm.enable          = true;
-dwm.user            = "korv";
-#ffsyncserver.enable = false;
+ffsyncserver.enable = false;
 gnomeWM.enable      = true;
 #kde.enable	    = true;
 localization.enable = true;
-#mysql.enable        = false;
-#nc.enable           = true;
-#qemu.enable         = true;
+mysql.enable        = false;
+nc.enable           = true;
+qemu.enable         = true;
 pcon = {
   enable = true;
   gscon = false;
@@ -48,7 +47,7 @@ ssh = {
 };
 syncthing.enable    = true;
 syncthing.user      = "korv";
-#systemdconf.enable  = true;
+systemdconf.enable  = true;
 #ollama.enable       = true;
 xprofile.enable     = true;
 xprofile.user       = "korv";
@@ -60,7 +59,7 @@ experimental = {
   enableAvahi             = true;
   enableRustdeskServer    = false;
   enableVirtualScreen     = false;
-  enableVncFirewall       = false;
+  enableVncFirewall       = true;
 };
 /* Constants */
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -83,15 +82,16 @@ users.users."korv" = { isNormalUser = true;
 #  "profile.d/vte.sh".source = "${pkgs.vte}/etc/profile.d/vte.sh";
 #};
 fonts.packages = with pkgs; [
-    fira fira-code fira-code-nerdfont
+    # nerdfonts /* All nerdfonts */
+    fira fira-code nerd-fonts.fira-code
     noto-fonts noto-fonts-cjk-sans
 ];
 xdg = {
   autostart.enable = true;
   icons.enable = true;
   portal = {
- #  enable = true;
- #  extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    enable = true;
+    extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
   };
 services.displayManager.autoLogin = {
@@ -119,6 +119,6 @@ boot.plymouth.enable = true;
 system.autoUpgrade = {
   enable = true;
   allowReboot = true;
-  channel = "https://channels.nixos.org/nixos-24.11";
+  channel = "https://channels.nixos.org/nixos-24.05";
 };
 }

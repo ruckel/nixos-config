@@ -15,7 +15,7 @@ in {
 
   config = lib.mkIf cfg.enable {
     security.rtkit.enable = true;     # pipewire realtime priotitizing
-    hardware.pulseaudio.enable = false;
+   # services.pulseaudio.enable = false;
     services.pipewire = {
       enable = true;
       alsa.enable = true;
@@ -40,7 +40,7 @@ in {
                 "factory.name" = "support.null-audio-sink";
                 "node.name" = "in-sink";
                 "node.description" = "mic sink";
-                "media.class" = /*"Audio/Source/Virtual"*/ /*"Audio/Source"*/ /*"Audio/Sink"*/ "Audio/Duplex"  ;
+                "media.class" = "Audio/Source/Virtual" /*"Audio/Source"*/ /*"Audio/Sink"*/ /*"Audio/Duplex"*/  ;
                 "audio.position" = "MONO";
               };
             }{ ## A default dummy driver. This handles nodes marked with the "node.always-driver"

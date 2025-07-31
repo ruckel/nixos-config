@@ -8,14 +8,14 @@ options.ollama.enableWebui = mkEnableOption "";
 
 config = lib.mkIf cfg.enable {
   networking.firewall = {
-    allowedTCPPorts = [ 11434 ]; #TODO ports
-    allowedUDPPorts = [ 11434 ];
+    allowedTCPPorts = [ 1337 ]; #TODO ports
+    allowedUDPPorts = [ 1337 ];
   };
 hardware.amdgpu.opencl.enable = true;
  #hardware.opengl.extraPackages = [ rocmPackages.clr.icd ];
   services.ollama = {
     enable = true;
-#    acceleration = "rocm";
+    acceleration = false;
 #/* environmentVariables = {
 #     HIP_VISIBLE_DEVICES = "0,1";
 #     OLLAMA_LLM_LIBRARY = "cpu";
@@ -37,7 +37,7 @@ hardware.amdgpu.opencl.enable = true;
       SCARF_NO_ANALYTICS = "True";
       # OLLAMA_API_BASE_URL = "http://127.0.0.1:11434";
       ## Disable authentication
-      WEBUI_AUTH = "False";
+      WEBUI_AUTH = "True";
     };
    openFirewall = true;
   };

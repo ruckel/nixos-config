@@ -1,24 +1,25 @@
 {
-  description = "";
-    inputs = {
-      nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
-      nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
-      nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-24.11-small";
-      sops-nix.url = "github:Mic92/sops-nix";
-      # dcowsay = "./nixscripts/dcowsay";
-      vars = {
-        url = "/etc/vars.nix";
-        flake = false;
-      };
+  description = "A template that shows all standard flake outputs";
+  
+  inputs = {
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
+    #nixpkgs-stable.url = "github:NixOS/nixpkgs/nixos-24.11";
+    #nixpkgs-small.url = "github:NixOS/nixpkgs/nixos-24.11-small";
+    sops-nix.url = "github:Mic92/sops-nix";
+    /* vars = {
+      url = "/etc/vars.nix";
+       flake = false;
+    };*/
+    #sxwm.url = "path:/home/korv/nixos-cfg/modules/sxwm"; #"path:./modules/sxwm";
   };
 
   outputs = {
     self,
     nixpkgs-unstable,
-    nixpkgs-stable,
-    nixpkgs-small,
+    #nixpkgs-stable,
+    #nixpkgs-small,
     sops-nix,
-    # dcowsay,
+    #sxwm,
     ...
   } @ inputs: let
   inherit (self) outputs;
@@ -30,11 +31,12 @@
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
-          ./hosts/burk/burk-configuration.nix
+          ./hosts/burk/configuration.nix
           sops-nix.nixosModules.sops
+          #sxwm.nixosModules.sxwm
         ];
       };
-      nixdell = nixpkgs-stable.lib.nixosSystem {
+      /*nixdell = nixpkgs-stable.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
         modules = [
@@ -57,7 +59,7 @@
           ./hosts/homelab/configuration.nix
           sops-nix.nixosModules.sops
         ];
-      };
+      };*/
     };
   };
 }

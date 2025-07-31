@@ -15,10 +15,13 @@ in
   config = lib.mkIf cfg.enable {
   environment.etc."xprofile".text = ''
     #!/bin/sh
+    runDunst(){
+    dunst &
+    }
     if [ -z _XPROFILE_SOURCED ]; then
       export _XPROFILE_SOURCED=True
       . /etc/xprofile2 &
-      dunst &
+      #if [ $DESKTOP_SESSION != "gnome" ];then runDunst ;fi
       toastify send -a 'xserver' -t 1000 -u normal 'loaded' '.xprofile'
     else
       echo already sourced
