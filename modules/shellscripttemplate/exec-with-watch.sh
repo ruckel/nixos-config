@@ -1,10 +1,11 @@
 #!/usr/bin/env bash
 
 #example use:
-#./exec-with-watch.sh bash -c 'sudo nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# && cowsay-scriptus'
+EXAMPLE="exec-with-watch bash -c 'sudo nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# && cowsay-scriptus'"
 
 if [ -z "$1" ];then
-  echo no arg
+  echo "usage: ${EXAMPLE}"
+  echo "or: exec-with-bash lol"
   exit 1
 fi
 
@@ -13,9 +14,15 @@ fi
 run=$1
 while true; do 
   #watch -g 'ls i-lR --time-style=full-iso' &> /dev/null
-  inotifywait -r -e modify,create,delete,attrib . &>/dev/null
-  echo -e " $(date +%H:%M.%S)\nchange, e: $*\n"
-  #bash -c "$@"
+  #listenForFileChange=$(inotifywait -r -e modify,create,delete,attrib . &>/dev/null)
+  changed_file=$(inotifywait -r -e modify,create,delete,attrib --format '%w%f' . 2>/dev/null)
+
+  if [[ "$changed_file" == *.swp ]]; then continue; fi
+  echo -e " $(date +%H:%M.%S)\n\`$changed_file\` changed, running: \`$*\`\n"
+
   "$@"
+  #bash -c "$@"
+  #if [ !$1 == 'lol' ]; then "$@" ;else echo lol; fi
+
   echo -n '###'
 done
