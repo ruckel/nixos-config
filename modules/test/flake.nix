@@ -1,15 +1,29 @@
 {
   description = "A very basic flake";
 
-  inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-  };
+#  inputs = {
+#    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+#  };
 
   outputs = { self, nixpkgs }: {
+    defaultPackage.x86_64-linux = self.packages.x86_64-linux.cowsay-scriptus;
+    packages.x86_64-linux.cowsay-scriptus =
+      let
+        pkgs = import nixpkgs { system = "x86_64-linux"; };
+      in
+      pkgs.writeShellScriptBin "cowsay-scriptus" (builtins.readFile ./script.sh);
+      /*pkgs.writeShellScriptBin "cowsay-scriptus" ''
+        DATE="$(${pkgs.ddate}/bin/ddate +'the %e of %B%, %Y')"
+        ${pkgs.cowsay}/bin/cowsay Hello, world! Today is $DATE.
+      '';*/
 
-    packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
-
-    packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+nixosModules.default = { config, pkgs, lib, ... }: {
+      config = {
+        environment.systemPackages = [
+          self.packages.${pkgs.system}.cowsay-scriptus
+        ];
+      };
+    };
 
   };
 }
