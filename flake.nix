@@ -6,13 +6,13 @@
     nixpkgs-stable.url    = "github:NixOS/nixpkgs/nixos-25.05";
     #nixpkgs-small.url     = "github:NixOS/nixpkgs/nixos-24.11-small";
     sops-nix.url          = "github:Mic92/sops-nix";
+    #sxwm.url = "path:/home/korv/nixos-cfg/modules/sxwm"; #"path:./modules/sxwm";
+    #spotify.url = "path:./modules/spotify"/*"path:/home/korv/nixos-cfg/modules/spotify"*/;
+    shellScripts.url = "path:./modules/shellscripts";
     /* vars = {
       url = "/etc/vars.nix";
        flake = false;
     };*/
-    #sxwm.url = "path:/home/korv/nixos-cfg/modules/sxwm"; #"path:./modules/sxwm";
-    #spotify.url = "path:./modules/spotify"/*"path:/home/korv/nixos-cfg/modules/spotify"*/;
-    cowsay-scriptus.url = "path:./modules/shellscripttemplate";
   };
 
   outputs = {
@@ -23,7 +23,7 @@
     sops-nix,
     #sxwm,
     #spotify,
-    cowsay-scriptus,
+    shellScripts,
     ...
   } @ inputs: let
   inherit (self) outputs;
@@ -47,6 +47,7 @@
           sops-nix.nixosModules.sops
           #sxwm.nixosModules.sxwm
           #spotify.nixosModules.default
+          shellScripts.nixosModules.default
         ];
       };
       dell = nixpkgs-stable.lib.nixosSystem {
@@ -55,12 +56,7 @@
         modules = [
           ./hosts/dell/configuration.nix
           sops-nix.nixosModules.sops
-          /*({ config, pkgs, ... }: {
-            environment.systemPackages = [
-              cowsay-scriptus.packages.${pkgs.system}.my-script
-            ];
-          })*/
-          cowsay-scriptus.nixosModules.default
+          shellScripts.nixosModules.default
         ];
       };
       /*nixvaio = nixpkgs-small.lib.nixosSystem {
