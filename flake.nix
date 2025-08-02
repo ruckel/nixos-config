@@ -12,6 +12,7 @@
     };*/
     #sxwm.url = "path:/home/korv/nixos-cfg/modules/sxwm"; #"path:./modules/sxwm";
     #spotify.url = "path:./modules/spotify"/*"path:/home/korv/nixos-cfg/modules/spotify"*/;
+    cowsay-scriptus.url = "path:./modules/shellscripttemplate";
   };
 
   outputs = {
@@ -22,6 +23,7 @@
     sops-nix,
     #sxwm,
     #spotify,
+    cowsay-scriptus,
     ...
   } @ inputs: let
   inherit (self) outputs;
@@ -53,6 +55,12 @@
         modules = [
           ./hosts/dell/configuration.nix
           sops-nix.nixosModules.sops
+          /*({ config, pkgs, ... }: {
+            environment.systemPackages = [
+              cowsay-scriptus.packages.${pkgs.system}.my-script
+            ];
+          })*/
+          cowsay-scriptus.nixosModules.default
         ];
       };
       /*nixvaio = nixpkgs-small.lib.nixosSystem {
