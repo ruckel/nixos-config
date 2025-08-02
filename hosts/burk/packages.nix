@@ -69,6 +69,7 @@
     gh
     gimp
     git gh gitg
+    glow /* cli markdown renderer  */
     gnupg
     #go2rtc
     gparted
@@ -80,6 +81,7 @@
     #insomnia
     #jetbrains.pycharm-community-bin
     jetbrains.webstorm /* ide / code editor */
+    jless
     jq
     #kdocker
     keepassxc git-credential-keepassxc cryptsetup
