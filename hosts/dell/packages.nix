@@ -4,6 +4,7 @@
     appimage.binfmt = true;
     bash.vteIntegration = true;
     firefox.enable = true;
+    i3lock.enable = true;
     steam.enable = true;
     gnupg.agent = {
       enable = true;
@@ -22,7 +23,7 @@
     xfconf.enable = true;
   };
   environment.systemPackages = with pkgs; [
-    i3lock i3lock-blur i3lock-color i3lock-fancy i3lock-fancy-rapid xss-lock
+    #i3lock i3lock-blur i3lock-color i3lock-fancy i3lock-fancy-rapid xss-lock
     #args.textfile
     #android-studio /* android ide */
     appimage-run /* appimage compability wrapper */
@@ -49,6 +50,7 @@
     ferdium element-desktop
     ffmpegthumbnailer
     fswebcam
+    fzf
     gdu
     gimp openshot-qt obs-studio pinta
     git gh gitg
@@ -71,6 +73,7 @@
     networkmanagerapplet
     nextcloud-client syncthing rymdport
     nix-plugins
+    nixos-option
     nodejs-slim nodePackages.npm dum
     obsidian /* note editor */
     openshot-qt gnome-photos digikam shotwell
