@@ -7,6 +7,7 @@
     appimage.binfmt =     true;
     bash.vteIntegration = true;
     firefox.enable =      true;
+    i3.enable =           true;
     steam.enable =        true;
     gnupg.agent = { 
       enable =            true;
@@ -76,7 +77,6 @@
     helvum
     htop
     hydrapaper
-    i3lock xss-lock
     #insomnia
     #jetbrains.pycharm-community-bin
     jetbrains.webstorm /* ide / code editor */
@@ -154,6 +154,7 @@
     xclip xprintidle xdotool
     xorg.xev xorg.xmodmap xorg.xkill
     xscreensaver
+    xss-lock
     yazi
     #zed-editor
     zoneminder
