@@ -1,31 +1,18 @@
 {
   "nodes": {
-    "cowsay-scriptus": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "path": "./modules/shellscripttemplate",
-        "type": "path"
-      },
-      "original": {
-        "path": "./modules/shellscripttemplate",
-        "type": "path"
-      },
-      "parent": []
-    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1754060105,
-        "narHash": "sha256-di5L6e5Iiv+oegS07j9h23FdqEpXn0ZQqMlDOEMw1EY=",
-        "owner": "NixOS",
+        "lastModified": 1754164828,
+        "narHash": "sha256-rs8pEr+F2N5SUhy+BZHyg1Xm8RWla7AfXsVwsF1FvmI=",
+        "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e7eabdc701d7dbb810fd91a97ec358caa4c1fc50",
+        "rev": "7f8a39b08b858bb108fe0c9de4f6920485264736",
         "type": "github"
       },
       "original": {
-        "id": "nixpkgs",
-        "type": "indirect"
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
       }
     },
     "nixpkgs-stable": {
@@ -78,11 +65,25 @@
     },
     "root": {
       "inputs": {
-        "cowsay-scriptus": "cowsay-scriptus",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "shellScripts": "shellScripts",
         "sops-nix": "sops-nix"
       }
+    },
+    "shellScripts": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "path": "./modules/shellscripts",
+        "type": "path"
+      },
+      "original": {
+        "path": "./modules/shellscripts",
+        "type": "path"
+      },
+      "parent": []
     },
     "sops-nix": {
       "inputs": {
