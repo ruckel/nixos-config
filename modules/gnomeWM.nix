@@ -1,14 +1,20 @@
 { lib, config, pkgs, ...}:
 let cfg = config.gnomeWM;
+  hasNewGNOME = lib.hasAttrByPath [ "services" "desktopManager" "gnome" ] config;
+  hasOldGNOME = lib.hasAttrByPath [ "services" "xserver" "desktopManager" "gnome" ] config;
 in {
   options = {
     gnomeWM.enable = lib.mkEnableOption "Enable Module";
   };
 
-  config = lib.mkIf cfg.enable {
-    #services.desktopManager.gnome.enable = true; /* pkgs-unstable */
-    services.xserver.desktopManager.gnome.enable = true; /* pkgs-25.05 */
-    environment.systemPackages = with pkgs; [
+  config = lib.mkIf cfg.enable (lib.mkMerge [
+    (lib.mkIf hasNewGNOME {
+      services.desktopManager.gnome.enable = true; 
+    })
+    (lib.mkIf hasOldGNOME {
+      services.xserver.desktopManager.gnome.enable = true;
+    })
+    { environment.systemPackages = with pkgs; [
       gnome-browser-connector
       dconf-editor
       gnome-tweaks
@@ -42,6 +48,6 @@ in {
       gnomeExtensions.tray-icons-reloaded
       gnomeExtensions.volume-scroller-2
       gnomeExtensions.window-title-is-back
-    ];
-  };
+    ]; }
+  ]);
 }
