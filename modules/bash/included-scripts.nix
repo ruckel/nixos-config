@@ -26,6 +26,10 @@
   name = "watcher";
   file = scripts/watcher.sh;
   deps = with pkgs; [];
+} {
+  name = "i3lock";
+  file = scripts/i3lock.sh;
+  deps = with pkgs; [ i3lock ];
 } 
 ]
 /* template
