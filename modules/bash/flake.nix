@@ -21,6 +21,14 @@
           file = scripts/exec-with-watch.sh;
           deps = with pkgs; [ inotify-tools ];
         }
+        { name = "alert";
+          file = .scripts/alert.sh;
+          deps = with pkgs; [ toastify mpv ];
+        }
+        { name = "files";
+          file = .scripts/thunardark.sh;
+          deps = with pkgs; [ thunar ];
+        }
         #{ name = "";
         #  file = ./x.sh;
         #  deps = with pkgs; [  ];
