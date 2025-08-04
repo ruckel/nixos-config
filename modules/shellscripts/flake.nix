@@ -5,6 +5,9 @@
   inputs.nixpkgs.url = "github:nixos/nixpkgs";
   outputs = { self, nixpkgs }: 
     let
+      system = "x86_64-linux";
+      pkgs = import nixpkgs { inherit system; };
+
       scripts = [
         { name = "cowsay-script";
           file = ./script.sh;
@@ -24,8 +27,6 @@
         #}
       ];
 
-      system = "x86_64-linux";
-      pkgs = import nixpkgs { inherit system; };
       makeScript = { name, file, deps }: pkgs.writeShellScriptBin name ''
         export PATH=${pkgs.lib.makeBinPath deps}
         ${builtins.readFile file}
@@ -50,7 +51,7 @@
         options.programs.shellScripts.enable = lib.mkOption {
           type = lib.types.bool;
           default = true;
-          description = "Install all cowsayScripts tools.";
+          description = "install all shell scripts in systemPackages";
         };
       };
     };
