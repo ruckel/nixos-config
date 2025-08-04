@@ -1,0 +1,18 @@
+#!/bin/sh
+
+state=$(dconf read /org/gnome/shell/extensions/blur-my-shell/applications/blur)
+
+#echo "state: ${state}"
+bool='false'
+unbool='true'
+
+if [[ $state == $bool ]];
+then
+ #echo 1
+  dconf write /org/gnome/shell/extensions/blur-my-shell/applications/blur $unbool
+else
+ #echo 0
+  dconf write /org/gnome/shell/extensions/blur-my-shell/applications/blur $bool
+fi
+
+

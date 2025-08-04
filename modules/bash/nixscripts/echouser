@@ -1,0 +1,10 @@
+#!/bin/sh
+
+if [[ $USER == 'korv' ]];then
+  echo "user: $USER"
+fi
+
+if [[ $USER == 'root' ]];then
+  echo "user: $USER"
+fi
+echo fin~

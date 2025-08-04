@@ -1,0 +1,15 @@
+#!/bin/sh
+
+echo paste: 
+
+read text
+
+
+if [[ $1 == "-a" ]];then
+  qr --ascii "${text}" 
+else
+  qr "${text}"
+fi
+
+echo -e "\e[34m$text
+\e[0m"

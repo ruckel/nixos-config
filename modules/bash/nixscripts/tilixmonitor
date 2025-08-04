@@ -1,0 +1,19 @@
+#!/bin/sh
+
+key='/com/gexperts/Tilix/quake-specific-monitor'
+dread='dconf read'
+dwrite='dconf write'
+
+if [[ $1 != '' ]]; then
+  $dwrite $key $1
+else
+  oldVal=$(${dread} ${key})
+ 
+fi
+
+#echo oldVal: $oldVal
+
+if [[ $oldVal == "0" ]]; then $dwrite $key 1; fi
+if [[ $oldVal == "1" ]]; then $dwrite $key 2; fi
+if [[ $oldVal == "2" ]]; then $dwrite $key 0; fi
+

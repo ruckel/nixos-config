@@ -1,0 +1,4 @@
+#!/bin/sh
+
+playerctl volume 0.05$1
+toastify send vorp $(playerctl volume)
