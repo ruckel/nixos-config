@@ -153,6 +153,7 @@
     vlc
     #vscodium-fhs
     wine
+    wmctrl
     xclip xprintidle xdotool
     xorg.xev xorg.xmodmap xorg.xkill
     xscreensaver

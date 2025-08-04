@@ -93,7 +93,7 @@ environment.etc = {
   syncthing = { enable  = true;
     user                = "korv";
    };
-  systemdconf.enable    = true;
+  lockScreenOnBoot.enable= true;
   #sxwm.enable           = true;
   # ollama.enable       = true;
   tmux.enable           = true;
