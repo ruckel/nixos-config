@@ -27,7 +27,7 @@
         }
         { name = "files";
           file = scripts/thunardark.sh;
-          deps = with pkgs; [ thunar ];
+          deps = with pkgs; [ xfce.thunar ];
         }
         #{ name = "";
         #  file = .scripts/x.sh;
