@@ -1,0 +1,2 @@
+\#\!\/bin\/sh
+mlterm --borderless=true -e 'tail -n 50 -f ~/dunst.log'

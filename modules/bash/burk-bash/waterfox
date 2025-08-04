@@ -1,0 +1,5 @@
+#!/bin/sh
+
+env GTK_THEME=Adwaita-dark
+appimage-run /home/korv/apps/waterfox/waterfox.AppImage
+#'appimage-run /home/korv/apps/waterfox/waterfox.Appimage'

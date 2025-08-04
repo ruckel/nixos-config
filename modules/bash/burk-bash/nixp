@@ -1,0 +1,12 @@
+#!/bin/sh
+
+domain="search.nixos.org/"
+category="packages"
+
+if [[ $1 == "o" ]];then
+  category="options"  
+  q="?query=$2"
+else
+  q="?query=$1"
+fi
+surf "$domain$category$q"

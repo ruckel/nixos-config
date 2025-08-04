@@ -1,0 +1,3 @@
+#/bin/sh
+mlterm --borderless=true -e lazygit -p ~/recruit 
+

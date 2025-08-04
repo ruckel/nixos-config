@@ -22,15 +22,59 @@
           deps = with pkgs; [ inotify-tools ];
         }
         { name = "alert";
-          file = .scripts/alert.sh;
+          file = scripts/alert.sh;
           deps = with pkgs; [ toastify mpv ];
         }
         { name = "files";
-          file = .scripts/thunardark.sh;
+          file = scripts/thunardark.sh;
           deps = with pkgs; [ thunar ];
         }
         #{ name = "";
-        #  file = ./x.sh;
+        #  file = .scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
+        #  deps = with pkgs; [  ];
+        #}
+        #{ name = "";
+        #  file = scripts/x.sh;
         #  deps = with pkgs; [  ];
         #}
       ];

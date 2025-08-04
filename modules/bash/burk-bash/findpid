@@ -1,0 +1,13 @@
+#!/bin/sh
+
+toKill='dontkillanything please'
+if [[ $1 != '' ]];then toKill=$1;fi
+
+#ps -ef | grep $toKill | grep -v grep | awk '{print $2}' | xargs -r kill -15
+
+if [[ $1 == '-t' ]];then
+  ps -ef | grep -v grep | grep $2
+else
+  res=$(ps -e | grep -v grep | grep $1)
+  notify-send -a ps -p "$res" "$res"
+fi

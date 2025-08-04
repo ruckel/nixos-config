@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if [ -z $1 ] || [[ $1 == '-h' ]] || [[ $1 == 'help' ]];then
+  echo -e "usage: kpcli <command> \n\ncommands: \nopen \nclose \nls \nsearch \nshow \nclip"
+else
+  if [[ $1 == 'get' ]]; then arg="show -a password"; else arg=$1; fi
+  if [[ $arg == "copy" ]]; then arg=clip; fi
+  keyfile="-q -k /media/usb/keepAss.key"
+  db=~/nc/keepAss/pckeyfile.kdbx
+  kpcmd=keepassxc-cli
+  if [[ -f ~/.pw ]]; then
+  cat ~/.pw | $kpcmd $arg $keyfile $db "${@:2}"
+  else
+  $kpcmd $arg $keyfile $db "${@:2}"
+  fi
+fi

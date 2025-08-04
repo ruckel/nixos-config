@@ -1,0 +1,30 @@
+#!/bin/sh
+ENTRY=bash
+
+run() {
+  if [[ $1 == 'luks' ]];then
+    luksrun $2
+  elif [[ $1 == 'ssh-key' ]];then
+    standardrun ssh-key-desktop
+  else 
+    standardrun $ENTRY
+  fi
+}
+
+
+standardrun() {
+  keepassxc-cli show \
+  -a password \
+  -k /media/usb/keepAss.key \
+  --no-password \
+  /home/${USER}/nc/keepass/supermini.kdbx \
+  $1
+}
+luksrun(){
+  #echo $1 | xargs
+  keepassxc-cli show \
+  -a password \
+  /home/${USER}/nc/keepass/luks.kdbx \
+  lukssecondary
+}
+run $@

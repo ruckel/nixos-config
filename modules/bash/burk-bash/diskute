@@ -1,0 +1,5 @@
+#!/bin/sh
+#tilix -e "sudo gnome-disks"
+GTK_THEME=Adwaita-dark
+tilix -e "sudo echo"
+tilix -e "gnome-disks"

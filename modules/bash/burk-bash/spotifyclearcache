@@ -1,0 +1,4 @@
+#!/bin/sh
+
+trash ~/cache/spotify/
+spotify

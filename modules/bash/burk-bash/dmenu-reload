@@ -1,0 +1,2 @@
+#!/bin/sh
+trash /home/korv/.cache/dmenu_run

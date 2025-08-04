@@ -1,0 +1,84 @@
+#!/bin/sh
+MOUNTDIR=usb
+verbose=false
+luksdrive=luksdrive
+run(){
+  if [[ $1 == 'u'* ]];then
+    if [[ $2 != '' ]];then luksdrive=$2;fi
+    umountdevice sudoed
+  else
+    mountLUKS
+  fi
+}
+mountLUKS() {
+  cmdres=$(lsblk -lo PATH,RM,SIZE,TYPE,LABEL,MOUNTPOINTS | grep ' 1 \|crypt') #&& echo -e "path  rm  size type label mtpnts\n$cmdres"
+  drive=$(echo $cmdres | awk '{print $1}')
+  if [[ $drive != '' ]];then
+    printf "mount $drive? [Y/n] "
+    read decision
+    if [[ $decision != 'n'* ]] && [[ $decision != 'N'* ]];then
+      sudo cryptsetup luksOpen $drive $luksdrive
+      makeDir
+      mountFS
+      lsblk -lo MOUNTPOINT,NAME,TYPE,SIZE | grep $luksdrive #-B1
+    else
+      echo aborting
+    fi
+  else
+    echo "nothing to mount"
+  fi
+}
+makeDir() {
+  if [[ ! -d /media/$MOUNTDIR ]] && [ -L /dev/mapper/$luksdrive ]; then
+    sudo mkdir /media/$MOUNTDIR && verboseprint "made dir /media/$MOUNTDIR"
+  else
+    echo "err(mDir): $MOUNTDIR"
+    umountdevice
+  fi
+} # @mountLUKS:6
+mountFS() {
+  if [[ -d /media/$MOUNTDIR ]] && [ -L /dev/mapper/$luksdrive ];then
+    sudo mount /dev/mapper/$luksdrive /media/$MOUNTDIR && verboseprint "mounted /dev/mapper/$luksdrive TO /media/$MOUNTDIR"
+  else
+    echo "err(mFS)"
+    umountdevice
+  fi
+} # @mountLUKS:7
+umountdevice(){
+  if [[ $1 == 'sudoed' ]];
+  then
+    if [ -d /media/$MOUNTDIR ]; then
+    sudo -A umount /media/$MOUNTDIR && verboseprint "unmounted /media/$MOUNTDIR"; fi
+    if [ -L /dev/mapper/$luksdrive ];then
+    sudo cryptsetup luksClose $luksdrive && verboseprint "closed luks"; fi
+    rmdir
+  else
+    sudo umount /media/$MOUNTDIR && verboseprint "unmounted /media/$MOUNTDIR"
+    sudo cryptsetup luksClose $luksdrive && verboseprint "closed luks"
+    rmdir
+  fi
+}
+rmdir(){
+  if [ -d /media/$MOUNTDIR ]; then
+    if [ $(dirempty /media/$MOUNTDIR) == True  ]; then
+      sudo 'rm' -r /media/$MOUNTDIR && verboseprint "removed dir /media/$MOUNTDIR"
+    fi
+  fi
+}
+dirempty(){
+  if [ -z "$( ls -A $1 )" ];
+  then
+    printf True
+  else
+    printf False
+  fi
+}
+
+verboseprint(){
+  if [[ $verbose == 'true' ]];then
+    echo "$@"
+  fi
+}
+
+
+run $@

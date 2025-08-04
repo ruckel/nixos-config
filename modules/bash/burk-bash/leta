@@ -1,0 +1,10 @@
+#!/bin/sh
+
+domain="leta.mullvad.net"
+qchars="/?q="
+
+if [[ $1 == "" ]];then
+  surf $domain &
+else
+  surf "$domain$qchars$@" &
+fi

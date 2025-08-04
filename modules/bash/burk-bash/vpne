@@ -1,0 +1,8 @@
+#!/bin/sh
+
+if [[ $1 == '' ]];then
+  q="mullvad.net"
+else
+  q="$1"
+fi
+mullvad-exclude surf $q

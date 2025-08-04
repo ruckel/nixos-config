@@ -1,12 +1,26 @@
 {
   "nodes": {
+    "bash": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "path": "./modules/bash",
+        "type": "path"
+      },
+      "original": {
+        "path": "./modules/bash",
+        "type": "path"
+      },
+      "parent": []
+    },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1754164828,
-        "narHash": "sha256-rs8pEr+F2N5SUhy+BZHyg1Xm8RWla7AfXsVwsF1FvmI=",
+        "lastModified": 1754273551,
+        "narHash": "sha256-bDTzI62sURCRc1PLENhak1w0QS6zasP0QFrdA9ehh2I=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "7f8a39b08b858bb108fe0c9de4f6920485264736",
+        "rev": "c69c902cd373a8834641bc8b2712b19b83b01149",
         "type": "github"
       },
       "original": {
@@ -65,25 +79,11 @@
     },
     "root": {
       "inputs": {
+        "bash": "bash",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
-        "shellScripts": "shellScripts",
         "sops-nix": "sops-nix"
       }
-    },
-    "shellScripts": {
-      "inputs": {
-        "nixpkgs": "nixpkgs"
-      },
-      "locked": {
-        "path": "./modules/shellscripts",
-        "type": "path"
-      },
-      "original": {
-        "path": "./modules/shellscripts",
-        "type": "path"
-      },
-      "parent": []
     },
     "sops-nix": {
       "inputs": {

@@ -1,0 +1,2 @@
+#!/bin/sh
+export env GTK_THEME=Adwaita-dark
