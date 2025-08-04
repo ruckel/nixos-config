@@ -30,7 +30,7 @@
           deps = with pkgs; [ xfce.thunar ];
         }
         { name = "backupfile";
-          file = .scripts/backupfile.sh;
+          file = scripts/backupfile.sh;
           deps = with pkgs; [  ];
         }
         #{ name = "";
