@@ -8,7 +8,7 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
 
-      scripts = import ./included-scripts.nix { inherit system; };
+      scripts = import ./included-scripts.nix { inherit pkgs; };
 
       makeScript = { name, file, deps }: pkgs.writeShellScriptBin name ''
         export PATH=${pkgs.lib.makeBinPath deps}
