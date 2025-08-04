@@ -7,7 +7,7 @@
     appimage.binfmt =     true;
     bash.vteIntegration = true;
     firefox.enable =      true;
-    i3.enable =           true;
+    i3lock.enable =           true;
     steam.enable =        true;
     gnupg.agent = { 
       enable =            true;
