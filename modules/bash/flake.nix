@@ -29,10 +29,10 @@
           file = scripts/thunardark.sh;
           deps = with pkgs; [ xfce.thunar ];
         }
-        #{ name = "";
-        #  file = .scripts/x.sh;
-        #  deps = with pkgs; [  ];
-        #}
+        { name = "backupfile";
+          file = .scripts/backupfile.sh;
+          deps = with pkgs; [  ];
+        }
         #{ name = "";
         #  file = scripts/x.sh;
         #  deps = with pkgs; [  ];
