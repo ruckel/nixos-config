@@ -7,6 +7,7 @@
     appimage.binfmt =     true;
     bash.vteIntegration = true;
     firefox.enable =      true;
+    i3.enable =           true;
     steam.enable =        true;
     gnupg.agent = { 
       enable =            true;
@@ -68,6 +69,7 @@
     gh
     gimp
     git gh gitg
+    glow /* cli markdown renderer  */
     gnupg
     #go2rtc
     gparted
@@ -76,10 +78,10 @@
     helvum
     htop
     hydrapaper
-    i3lock xss-lock
     #insomnia
     #jetbrains.pycharm-community-bin
     jetbrains.webstorm /* ide / code editor */
+    jless
     jq
     #kdocker
     keepassxc git-credential-keepassxc cryptsetup
@@ -154,6 +156,7 @@
     xclip xprintidle xdotool
     xorg.xev xorg.xmodmap xorg.xkill
     xscreensaver
+    xss-lock
     yazi
     #zed-editor
     zoneminder
