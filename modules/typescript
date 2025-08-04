@@ -1,0 +1,30 @@
+Script started on 2025-08-04 05:12:29+02:00 [TERM="xterm-256color" TTY="/dev/pts/15" COLUMNS="56" LINES="59"]
+]666;vte.shell.postexec=0\]7;file://nixburk/home/korv/nixos-cfg/modules\]0;korv@nixburk:~/nixos-cfg/modules\]666;vte.shell.precmd!\[?2004h
+[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m ^C[?2004l[?2004h[?2004l
+]666;vte.shell.postexec=130\]7;file://nixburk/home/korv/nixos-cfg/modules\]0;korv@nixburk:~/nixos-cfg/modules\]666;vte.shell.precmd!\[?2004h
+[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m ls --hide="sxwm" qburk-bash/* --exec bash.url = "path:./modules/bash";[1@'[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C';
+[?2004l]133;C\]666;vte.shell.preexec!\ls: unrecognized option '--exec'
+Try 'ls --help' for more information.
+]666;vte.shell.postexec=2\]7;file://nixburk/home/korv/nixos-cfg/modules\]0;korv@nixburk:~/nixos-cfg/modules\]666;vte.shell.precmd!\[?2004h
+[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m ls --hide="sxwm" burk-bash/* --exec 'bash.url = "path:./modules/bash"';[C[C[C[C';[K[2P"';[K[1P[1P;[A[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[2Pq
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cburk-bash/*[A[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m [C[5Pess flake.nix 
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cl[K[Ks modules/ | grep *.nix[A[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m [C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cl[Ks modules/ | grep *.nix[A[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cop .n[1P[C[C[A[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m man ls[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cls modules/l[C[C[C[C[C[C[C[C[Cs[C[C[C[C[C[C[C[C[C[5Pman lsls modules/ | grop .nix[A[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m [C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cep *.[1@n[C[C[A[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m [C[K
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cless flake.nix [K[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m less flake.nix [K[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m less flake.nix [K[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m less flake.nix [K[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m less flake.nix [K[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m less flake.nix man
+[?2004l]133;C\]666;vte.shell.preexec!\flake.nix: No such file or directory
+man: No such file or directory
+]666;vte.shell.postexec=1\]7;file://nixburk/home/korv/nixos-cfg/modules\]0;korv@nixburk:~/nixos-cfg/modules\]666;vte.shell.precmd!\[?2004h
+[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m /q[Kurl
+[?2004l]133;C\]666;vte.shell.preexec!\bash: /url: No such file or directory
+]666;vte.shell.postexec=127\]7;file://nixburk/home/korv/nixos-cfg/modules\]0;korv@nixburk:~/nixos-cfg/modules\]666;vte.shell.precmd!\[?2004h
+[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m /urlless flake.nix mans --hide="sxwm" burk-bash/* --exec ;!!
+[?2004lls --hide="sxwm" burk-bash/* --exec ;/url
+]133;C\]666;vte.shell.preexec!\ls: unrecognized option '--exec'
+Try 'ls --help' for more information.
+bash: /url: No such file or directory
+]666;vte.shell.postexec=127\]7;file://nixburk/home/korv/nixos-cfg/modules\]0;korv@nixburk:~/nixos-cfg/modules\]666;vte.shell.precmd!\[?2004h
+[1;32m[]0;korv@nixburk: ~/nixos-cfg/moduleskorv@nixburk:~/nixos-cfg/modules]$[0m :q
+[?2004l]133;C\]666;vte.shell.preexec!\exit
+
+Script done on 2025-08-04 05:14:01+02:00 [COMMAND_EXIT_CODE="127"]
