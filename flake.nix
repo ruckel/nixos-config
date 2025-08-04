@@ -8,7 +8,7 @@
     sops-nix.url          = "github:Mic92/sops-nix";
     #sxwm.url = "path:/home/korv/nixos-cfg/modules/sxwm"; #"path:./modules/sxwm";
     #spotify.url = "path:./modules/spotify"/*"path:/home/korv/nixos-cfg/modules/spotify"*/;
-    shellScripts.url = "path:./modules/shellscripts";
+    bash.url = "path:./modules/bash";
     /* vars = {
       url = "/etc/vars.nix";
        flake = false;
@@ -23,7 +23,7 @@
     sops-nix,
     #sxwm,
     #spotify,
-    shellScripts,
+    bash,
     ...
   } @ inputs: let
   inherit (self) outputs;
@@ -47,7 +47,7 @@
           sops-nix.nixosModules.sops
           #sxwm.nixosModules.sxwm
           #spotify.nixosModules.default
-          shellScripts.nixosModules.default
+          bash.nixosModules.default
         ];
       };
       dell = nixpkgs-stable.lib.nixosSystem {
@@ -56,7 +56,7 @@
         modules = [
           ./hosts/dell/configuration.nix
           sops-nix.nixosModules.sops
-          shellScripts.nixosModules.default
+          bash.nixosModules.default
         ];
       };
       /*nixvaio = nixpkgs-small.lib.nixosSystem {
