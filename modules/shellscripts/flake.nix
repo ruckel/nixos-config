@@ -7,15 +7,15 @@
     let
       scripts = [
         { name = "cowsay-script";
-          file = ./script.sh;
+          file = scripts/script.sh;
           deps = with pkgs; [ cowsay ddate ];
         }
         { name = "cowsay-scriptus";
-          file = ./script2.sh;
+          file = scripts/script2.sh;
           deps = with pkgs; [ cowsay ];
         }
         { name = "exec-with-watch";
-          file = ./exec-with-watch.sh;
+          file = scripts/exec-with-watch.sh;
           deps = with pkgs; [ inotify-tools ];
         }
         #{ name = "";
