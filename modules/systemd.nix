@@ -1,22 +1,22 @@
 { lib, pkgs, config, ... } :
 with lib;
-let cfg = config.systemdconf;
+let cfg = config.lockScreenOnBoot;
 in {
-  options.systemdconf = {
+  options.lockScreenOnBoot = {
     enable = mkEnableOption "DESCRIPTION";
-
-    enableLockOnBoot = mkEnableOption "descripting description";
+    lockScreenOnBoot = mkEnableOption "lock screen with i3lock on boot";
   };
 
   config = lib.mkIf cfg.enable {
+    programs.i3lock.enable = true;
     systemd.user.services = {
-      lock-on-boot = lib.mkIf cfg.enableLockOnBoot {
+      lock-screen-on-boot = lib.mkIf cfg.lockScreenOnBoot {
         enable = true;
         after = [ "multi-user.target" "gdm.service" "pipewire-linking.service" ];
         path = [ pkgs.xdg-utils ];
         serviceConfig = {
           Type = "oneshot";
-          ExecStart = ''/home/${vars.user}/scripts/lock.sh''; #TODO: Define lock.sh
+          ExecStart = ''i3lock''; 
           #User = vars.user;
           #Group = "users";
         };
