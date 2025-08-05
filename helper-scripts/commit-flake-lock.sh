@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
-FILEEXISTS=$(git status | grep flake.lock)
-echo "f e : $FILEEXISTS"
+flakeLock=$(git status | grep -F "flake.lock")
+#echo "file exists: <$flakeLock>"
 
-#git commit flake.lock -m 'chore: commit flake.lock'
-
+if [ -z "$flakeLock" ]; then
+  echo "No flake.lock to commit"
+  exit 1
+fi
+git add $flakeLock 
+git commit $flakeLock -m 'chore: commit flake.lock'
