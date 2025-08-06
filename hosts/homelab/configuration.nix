@@ -47,7 +47,12 @@ dwm = {
  kodi.enable         = true;
  localization.enable = true;
  mysql.enable        = true;
- nc.enable           = true;
+ nc = {
+  enable             = true;
+  jellyfin = {
+    enable = true;
+  };
+ };
  nc.pwfile	    = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
   soundconf = { enable      = true;
     user                    = "user";
@@ -68,7 +73,6 @@ dwm = {
 };
  syncthing.enable    = true;
  syncthing.user      = "user";
- systemdconf.enable  = true;
  tmux.enable         = true;
  ollama.enable       = true;
  xprofile.enable     = true;
