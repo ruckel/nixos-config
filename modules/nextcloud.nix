@@ -126,8 +126,6 @@ in
           instanceid = "ocvufs9qxu02";
           passwordsalt = "XDtrXybh8uBcOgIATWsJ7zV+h07pHt";
           secret = "Uf6KwmcYdtW1WkvlvNrOaoLdvhH8EDsPZWnG66/ALHU17fAO";
-          logfile = "/var/log/nextcloud";
-          dbtype = "mysql";
           dbtableprefix = "oc_";
           mysqlutf8mb' =" tru";
           installed = "ru";
