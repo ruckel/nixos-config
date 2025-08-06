@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs-unstable.url  = "github:NixOS/nixpkgs/nixos-unstable";
     nixpkgs-stable.url    = "github:NixOS/nixpkgs/nixos-25.05";
-    #nixpkgs-small.url     = "github:NixOS/nixpkgs/nixos-24.11-small";
+    nixpkgs-small.url     = "github:NixOS/nixpkgs/nixos-25.05-small";
     sops-nix.url          = "github:Mic92/sops-nix";
     #sxwm.url = "path:/home/korv/nixos-cfg/modules/sxwm"; #"path:./modules/sxwm";
     #spotify.url = "path:./modules/spotify"/*"path:/home/korv/nixos-cfg/modules/spotify"*/;
@@ -19,7 +19,7 @@
     self,
     nixpkgs-unstable,
     nixpkgs-stable,
-    #nixpkgs-small,
+    nixpkgs-small,
     sops-nix,
     #sxwm,
     #spotify,
