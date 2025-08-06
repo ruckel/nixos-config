@@ -26,16 +26,20 @@ environment.systemPackages = with pkgs; [
   deno 
   efibootmgr
   feh
+  fzf
   qimgv
   nomacs
   ffmpegthumbnailer
   fswebcam
+  gdu
   git
   gh
   gitg
   git-credential-keepassxc
   gscreenshot
   htop
+  jless
+  jq
   keepassxc
   lazygit
   mpv
