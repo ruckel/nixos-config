@@ -3,12 +3,13 @@ with lib;
 let
   cfg = config.nc;
   ncversion = "30";
+  occ = "${pkgs."nextcloud${ncversion}"}/bin/nextcloud-occ";
   ensureKorvEnabledScript = pkgs.writeShellScript "ensure-korv-enabled" ''
-    set -euo pipefail
-    korvenabled=$(${pkgs.nextcloud-client}/bin/nextcloud-occ user:info korv | grep enabled | tr -d '-' | tr -d ' ' | cut -d : -f 2)
+    set -euo pipefail 
+    korvenabled=$(${occ} user:info korv | grep enabled | tr -d '-' | tr -d ' ' | cut -d : -f 2)
     echo "User enabled: $korvenabled"
     if [ "$korvenabled" = "false" ]; then
-      ${pkgs.nextcloud-client}/bin/nextcloud-occ user:enable korv && date
+      ${occ} user:enable korv && date
     else
       echo "User already enabled"
     fi
