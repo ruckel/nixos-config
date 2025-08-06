@@ -102,8 +102,8 @@ in
       services.nextcloud = {
         enable = true;
         package = pkgs."nextcloud${ncversion}";
-        maxUploadSize = "1G";
-
+        maxUploadSize = "16G";
+        cli.memoryLimit = "2G";
         https = true; #HTTPS for generated links
         hostName = "moln.kevindybeck.com";
         /*home = "";*/
