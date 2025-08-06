@@ -16,15 +16,31 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1754340878,
-        "narHash": "sha256-lgmUyVQL9tSnvvIvBp7x1euhkkCho7n3TMzgjdvgPoU=",
+        "lastModified": 1754496727,
+        "narHash": "sha256-4LagjEqUQZ5dDp78+nJnRaIBWh/kKnaxOrjKkEFPweU=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "cab778239e705082fe97bb4990e0d24c50924c04",
+        "rev": "5c11967c42aee699bdd858b28ab23f0128652c86",
         "type": "github"
       },
       "original": {
         "owner": "nixos",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs-small": {
+      "locked": {
+        "lastModified": 1754472953,
+        "narHash": "sha256-ynYiBIroitf1StqdHjK78rYiw113Z1Wdl3VBRcHe72k=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "910d93e3eed071fd008a0d52d3ef135f0b50e63f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-25.05-small",
         "repo": "nixpkgs",
         "type": "github"
       }
@@ -80,6 +96,7 @@
     "root": {
       "inputs": {
         "bash": "bash",
+        "nixpkgs-small": "nixpkgs-small",
         "nixpkgs-stable": "nixpkgs-stable",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "sops-nix": "sops-nix"
