@@ -1,7 +1,7 @@
 { lib, config, pkgs, ...}:
 let cfg = config.gnomeWM;
   pkgsVersion = pkgs.lib.version or "0.0";
-  useNewGnomePath = lib.versionAtLeast pkgsVersion "25.05";
+  useNewGnomePath = lib.versionAtLeast pkgsVersion "25.11";
 in {
   options = {
     gnomeWM.enable = lib.mkEnableOption "Enable Module";
