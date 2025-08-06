@@ -1,19 +1,20 @@
 { lib, config, pkgs, ...}:
 let cfg = config.gnomeWM;
-  hasNewGNOME = lib.hasAttrByPath [ "services" "desktopManager" "gnome" ] config;
-  hasOldGNOME = lib.hasAttrByPath [ "services" "xserver" "desktopManager" "gnome" ] config;
+  pkgsVersion = pkgs.lib.version or "0.0";
+  useNewGnomePath = lib.versionAtLeast pkgsVersion "25.05";
 in {
   options = {
     gnomeWM.enable = lib.mkEnableOption "Enable Module";
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
-    (lib.mkIf hasNewGNOME {
+    (lib.mkIf useNewGnomePath {
       services.desktopManager.gnome.enable = true; 
     })
-    (lib.mkIf hasOldGNOME {
+    (lib.mkIf (!useNewGnomePath) {
       services.xserver.desktopManager.gnome.enable = true;
     })
+    { programs.gnome-terminal.enable = false; }
     { environment.systemPackages = with pkgs; [
       gnome-browser-connector
       dconf-editor
