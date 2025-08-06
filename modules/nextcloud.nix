@@ -3,7 +3,7 @@ with lib;
 let
   cfg = config.nc;
   ncversion = "30";
-  occ = "${pkgs."nextcloud${ncversion}"}/bin/nextcloud-occ";
+  occ = "nextcloud-occ";
   ensureKorvEnabledScript = pkgs.writeShellScript "ensure-korv-enabled" ''
     set -euo pipefail 
     korvenabled=$(${occ} user:info korv | grep enabled | tr -d '-' | tr -d ' ' | cut -d : -f 2)
@@ -206,12 +206,14 @@ in
       };
     })
     ({
+      environment.systemPackages = with pkgs; [ nextcloud-client ];
       systemd.services.ensure-korv-enabled = {
         description = "Ensure Nextcloud user 'korv' is enabled";
         serviceConfig = {
           Type = "oneshot";
           ExecStart = "${ensureKorvEnabledScript}";
           User = "nextcloud";
+          Environment = "PATH=/run/current-system/sw/bin:/usr/bin:/bin";
         };
       };
       systemd.timers.ensure-korv-enabled = {
