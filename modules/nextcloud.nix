@@ -1,11 +1,21 @@
 { lib, pkgs, config, ... }:
 with lib;
 let
-cfg = config.nc;
-ncversion = "30";
+  cfg = config.nc;
+  ncversion = "30";
+  ensureKorvEnabledScript = pkgs.writeShellScript "ensure-korv-enabled" ''
+    set -euo pipefail
+    korvenabled=$(${pkgs.nextcloud-client}/bin/nextcloud-occ user:info korv | grep enabled | tr -d '-' | tr -d ' ' | cut -d : -f 2)
+    echo "User enabled: $korvenabled"
+    if [ "$korvenabled" = "false" ]; then
+      ${pkgs.nextcloud-client}/bin/nextcloud-occ user:enable korv && date
+    else
+      echo "User already enabled"
+    fi
+  '';
 in
 {
-  options.nc.= {
+  options.nc = {
     enable = mkEnableOption "";
     version = mkOption {
       default = "30";
@@ -195,6 +205,25 @@ in
       };
     })
     ({
+      systemd.services.ensure-korv-enabled = {
+        description = "Ensure Nextcloud user 'korv' is enabled";
+        serviceConfig = {
+          Type = "oneshot";
+          ExecStart = "${ensureKorvEnabledScript}";
+          User = "nextcloud";
+        };
+      };
+      systemd.timers.ensure-korv-enabled = {
+        description = "Run ensure-korv-enabled every 5 minutes";
+        wantedBy = [ "timers.target" ];
+        timerConfig = {
+          OnBootSec = "5min";
+          OnUnitActiveSec = "5min";
+          Unit = "ensure-korv-enabled.service";
+        };
+      };
+    })
+    ({
       /* commented lines */
       /*services.nginx.virtualHosts."192.168.1.12" = {
         forceSSL = true;
@@ -230,9 +259,6 @@ in
       };*/
     })
     /*({
-
-    })
-    ({
 
     })
     ({ 
