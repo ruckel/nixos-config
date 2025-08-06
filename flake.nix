@@ -66,7 +66,7 @@
           ./hosts/vaio/configuration.nix
           sops-nix.nixosModules.sops
         ];
-      };
+      };*/
       nix-homelab = nixpkgs-small.lib.nixosSystem {
         inherit system;
         specialArgs = { inherit inputs outputs; };
@@ -74,7 +74,7 @@
           ./hosts/homelab/configuration.nix
           sops-nix.nixosModules.sops
         ];
-      };*/
+      };
     };
   };
 }
