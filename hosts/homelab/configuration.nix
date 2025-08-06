@@ -39,7 +39,7 @@ dwm = {
 #docker.enable       = true;
  fail2ban.enable     = true;
  gnomeWM.enable      = true;
- immich = { enable   = true;
+ immich = { enable   = false;
     domain           = "immich.korv.lol";
    #hwVideo          = true;
    #ml               = true;
@@ -49,6 +49,7 @@ dwm = {
  mysql.enable        = true;
  nc = {
   enable             = true;
+  version            = "30";
   jellyfin = {
     enable = true;
   };
