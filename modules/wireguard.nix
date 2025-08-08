@@ -151,13 +151,14 @@ in {
         "${cfg.interfaceName}-q" = {
           address = [ "10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
           dns = [ "10.0.0.1" "fdc9:281f:04d7:9ee9::1" ];
-          privateKeyFile = "/root/wireguard-keys/privatekey";
+          privateKeyFile = cfg.client.privateKeyFile;
           
           peers = [
             {
               publicKey = cfg.server.publicKey;
               presharedKeyFile = cfg.server.privateKeyFile;
-              allowedIPs = [ "0.0.0.0/0" "::/0" ];
+              #allowedIPs = [ "0.0.0.0/0" "::/0" ]; # Forward all the traffic via VPN
+              allowedIPs = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ]; # Or forward only particular subnets 
               endpoint = "192.168.1.12:51820";
               persistentKeepalive = 25;
             }
@@ -214,7 +215,7 @@ in {
           listenPort = cfg.port;
           privateKeyFile = cfg.server.privateKeyFile;
  
-          postUp = ''
+          /*postUp = ''
             ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
             ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.0.0.1/24 -o eth0 -j MASQUERADE
             ${pkgs.iptables}/bin/ip6tables -A FORWARD -i wg0 -j ACCEPT
@@ -227,7 +228,7 @@ in {
             ${pkgs.iptables}/bin/ip6tables -D FORWARD -i wg0 -j ACCEPT
             ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o eth0 -j MASQUERADE
           ''; # Undo the above
-
+          */
           peers = [
             { 
               publicKey = cfg.client.publicKey;
