@@ -79,7 +79,7 @@ in {
         type = types.str;
       };
       presharedKeyFile = mkOption {
-        default = "/etc/wireguard-keys/server/server.key";
+        default = "/etc/wireguard-keys/server/server.psk";
         description = "Path (as string) of private server key file";
         type = types.str;
       };
@@ -109,7 +109,7 @@ in {
     };
     client = {
       presharedKeyFile = mkOption {
-        default = "/etc/wireguard-keys/client/client.key";
+        default = "/etc/wireguard-keys/client/client.psk";
         description = "Path (as string) of private server key file";
         type = types.str;
       };
