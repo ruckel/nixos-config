@@ -182,11 +182,11 @@ in {
           address = cfg.server.ips;
           listenPort = cfg.port;
           mtu = cfg.mtu;
-          privateKeyFile = cfg.server.privateKeyFile;
+          #privateKeyFile = cfg.server.privateKeyFile;
           generatePrivateKeyFile = cfg.server.generatePrivateKeyFile;
           autostart = cfg.server.autostart;
           peers = [{ 
-            publicKey = cfg.client.publicKey;
+            #publicKey = cfg.client.publicKey;
             presharedKeyFile = cfg.presharedKeyFile;
             allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
           }];
