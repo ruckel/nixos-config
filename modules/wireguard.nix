@@ -78,6 +78,11 @@ in {
         description = "Ethernet connection name";
         type = types.str;
       };
+      presharedKeyFile = mkOption {
+        default = "/etc/wireguard-keys/server/server.key";
+        description = "Path (as string) of private server key file";
+        type = types.str;
+      };
       privateKeyFile = mkOption {
         default = "/etc/wireguard-keys/server/private";
         description = "Path (as string) of private server key file";
@@ -103,6 +108,11 @@ in {
       enable = mkEnableOption "";
     };
     client = {
+      presharedKeyFile = mkOption {
+        default = "/etc/wireguard-keys/client/client.key";
+        description = "Path (as string) of private server key file";
+        type = types.str;
+      };
       privateKeyFile = mkOption {
         default = "/etc/wireguard-keys/client/private";
         description = "Path (as string) of private client key file";
@@ -158,7 +168,7 @@ in {
           peers = [
             {
               publicKey = cfg.server.publicKey;
-              presharedKeyFile = cfg.server.privateKeyFile;
+              presharedKeyFile = cfg.server.presharedKeyFile;
               #allowedIPs = [ "0.0.0.0/0" "::/0" ]; # Forward all the traffic via VPN
               allowedIPs = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ]; # Or forward only particular subnets 
               endpoint = "192.168.1.12:51666";
@@ -253,7 +263,7 @@ in {
           peers = [
             { 
               publicKey = cfg.client.publicKey;
-              presharedKeyFile = "/etc/wireguard-keys/client/private";
+              presharedKeyFile = cfg.client.presharedKey;
               allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
             }
           ];
