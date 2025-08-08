@@ -12,7 +12,7 @@ set foldmethod=indent
   highlight Folded ctermfg=14
 
 command! Smartcase call ToggleSmartAndIgnoreCase() " ignore case unless uppercase letters
-  function! ToggleSmartAndIgnoreCase()
+  function! ToggleSmartAndIgnoreCase(mkEnableOption "Enable DNS setup";)
     set ignorecase! smartcase!
     function! GetSmartcase()
       set smartcase?
@@ -30,6 +30,7 @@ command! Smartcase call ToggleSmartAndIgnoreCase() " ignore case unless uppercas
   noremap <leader>p "+p
   nmap Q  = ''                 "disable EX mode on Q
   nmap qq = ''                 "disable macre recorcd on q
+  nmap P = prev
 
 ""colors: see /usr/share/vim/vim{version}/syntax/
 function! _comment_block() ""gen info:""

@@ -38,7 +38,7 @@ in {
         type = types.str;
       };
       externalAddress = mkOption {
-        default = "";
+        default = "127.0.0.1";
         description = "Local or public ip address";
         type = types.str;
       };
@@ -62,11 +62,31 @@ in {
         description = "Start with system";
         type = types.bool;
       };
-      rerouteAllTraffic = mkEnableOption "";
-      dns = mkEnableOption "Point DNS to the server";
-      dnsmasq = mkEnableOption "";
-      wg-quick = mkEnableOption "";
-      enable = mkEnableOption "";
+      rerouteAllTraffic = mkOption {
+        default = false;
+        description = "";
+        type = types.bool;
+      };
+      dns =  mkOption {
+        default = false;
+        description = "";
+        type = types.bool;
+      };
+      dnsmasq = mkOption {
+        default = false;
+        description = "";
+        type = types.bool;
+      };
+      wg-quick =  mkOption {
+        default = false;
+        description = "";
+        type = types.bool;
+      };
+      enable =  mkOption {
+        default = false;
+        description = "";
+        type = types.bool;
+      };
     };
     client = {
       privateKeyFile = mkOption {
@@ -89,8 +109,16 @@ in {
         description = "Addresses/subnets of client tunnel interface";
         type = with types; listOf str;
       };
-      wg-quick = mkEnableOption "Enable DNS setup";
-      enable = mkEnableOption "";
+      wg-quick = mkOption {
+        default = false;
+        description = "";
+        type = types.bool;
+      };
+      enable = mkOption {
+        default = false;
+        description = "";
+        type = types.bool;
+      };
     };
   };
 
@@ -103,7 +131,7 @@ in {
       networking.wireguard.interfaces = mkIf (!cfg.client.wg-quick) {
         "${cfg.interfaceName}-c" = {
           privateKeyFile = cfg.client.privateKeyFile; 
-          generatePrivateKeyFile = cfg.client.generatePrivateKeyFile;
+          #generatePrivateKeyFile = cfg.client.generatePrivateKeyFile;
           listenPort = cfg.port;
           ips = cfg.client.ips;
           peers = [
@@ -183,7 +211,7 @@ in {
           listenPort = cfg.port;
           mtu = cfg.mtu;
           #privateKeyFile = cfg.server.privateKeyFile;
-          generatePrivateKeyFile = cfg.server.generatePrivateKeyFile;
+          #generatePrivateKeyFile = cfg.server.generatePrivateKeyFile;
           autostart = cfg.server.autostart;
           peers = [{ 
             #publicKey = cfg.client.publicKey;
