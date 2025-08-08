@@ -131,6 +131,7 @@ in {
   config = (mkMerge [
     (mkIf cfg.client.enable {
       environment.systemPackages = with pkgs; [ wireguard-tools wireguard-ui iptables ];
+      networking.firewall.allowedUDPPorts = [cfg.port];
       networking = {
         wireguard = {
           interfaces."${cfg.interfaceName}" = {
@@ -142,15 +143,16 @@ in {
           };
           enable = true;
         };
-        firewall.allowedUDPPorts = [cfg.port];
       };
     })
 
     (mkIf cfg.client.wg-quick {
+      environment.systemPackages = with pkgs; [ wireguard-tools wireguard-ui iptables ];
+      networking.firewall.allowedUDPPorts = [cfg.port];
       networking.wg-quick.interfaces = {
         "${cfg.interfaceName}-q" = {
           address = [ "10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
-          dns = [ "10.0.0.1" "fdc9:281f:04d7:9ee9::1" ];
+          #dns = [ "10.0.0.1" "fdc9:281f:04d7:9ee9::1" ];
           privateKeyFile = cfg.client.privateKeyFile;
           
           peers = [
@@ -159,7 +161,7 @@ in {
               presharedKeyFile = cfg.server.privateKeyFile;
               #allowedIPs = [ "0.0.0.0/0" "::/0" ]; # Forward all the traffic via VPN
               allowedIPs = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ]; # Or forward only particular subnets 
-              endpoint = "192.168.1.12:51820";
+              endpoint = "192.168.1.12:51666";
               persistentKeepalive = 25;
             }
           ];
@@ -168,7 +170,6 @@ in {
     })
     
     (mkIf cfg.server.enable {
-      environment.systemPackages = with pkgs; [ wireguard-tools wireguard-ui iptables ];
       networking = {
         wireguard = {
           interfaces = {
@@ -191,6 +192,7 @@ in {
         };
         firewall.allowedUDPPorts = [cfg.port];
       };
+      environment.systemPackages = with pkgs; [ wireguard-tools wireguard-ui iptables ];
     })
 
     (mkIf cfg.server.dns {
@@ -209,6 +211,25 @@ in {
     })
 
     (mkIf cfg.server.wg-quick {
+      networking.firewall.allowedUDPPorts = [cfg.port];
+      networking.nat = {
+        enable = true;
+        internalInterfaces = [cfg.interfaceName];
+        externalInterface = cfg.server.externalInterface;
+      };
+      environment.systemPackages = with pkgs; [ wireguard-tools wireguard-ui iptables ];
+        /*networking.wireguard = {
+          enable = true;
+          interfaces."${cfg.interfaceName}" = {
+              listenPort = cfg.port; # Must be accessible by the client
+              privateKeyFile = cfg.server.privateKeyFile;
+              generatePrivateKeyFile = true; #cfg.server.generatePrivateKeyFile;
+              peers = peers.clients;
+              ips = cfg.server.ips;
+              postSetup = serverCmds.postSetup; 
+              postShutdown = serverCmds.postShutdown;
+          };
+        };*/
       networking.wg-quick.interfaces = {
         "${cfg.interfaceName}-q" = { 
           address = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ]; # IP/IPv6 address/subnet of client tunnel interface
