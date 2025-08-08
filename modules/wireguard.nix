@@ -62,14 +62,6 @@ in {
         description = "Start with system";
         type = types.bool;
       };
-      peers = mkOption {
-        default = [{ 
-          publicKey = cfg.client.publicKey;
-          presharedKeyFile = cfg.presharedKeyFile;
-          allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
-        }];
-        type = with types; listOf attrs;
-      };
       rerouteAllTraffic = mkEnableOption "";
       dns = mkEnableOption "Point DNS to the server";
       dnsmasq = mkEnableOption "";
@@ -178,7 +170,11 @@ in {
           mtu = cfg.mtu;
           privateKeyFile = cfg.server.privateKeyFile;
           generatePrivateKeyFile = cfg.server.generatePrivateKeyFile;
-          peers = cfg.server.peers; 
+          peers = [{ 
+            publicKey = cfg.client.publicKey;
+            presharedKeyFile = cfg.presharedKeyFile;
+            allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
+          }];
         };
       };
       networking.wg-quick = mkIf cfg.server.wg-quick {
@@ -189,7 +185,11 @@ in {
           privateKeyFile = cfg.server.privateKeyFile;
           generatePrivateKeyFile = cfg.server.generatePrivateKeyFile;
           autostart = cfg.server.autostart;
-          peers = cfg.server.peers; 
+          peers = [{ 
+            publicKey = cfg.client.publicKey;
+            presharedKeyFile = cfg.presharedKeyFile;
+            allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
+          }];
         };
       }; 
     })
