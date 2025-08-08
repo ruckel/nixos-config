@@ -68,8 +68,8 @@ wg.server = {
   enable = true;
   #publicKey = "";
   #ips = [ "10.100.0.1/24" ];
+  externalInterface = "enp2s0";
 };
-wg.interfaceName = "enp2s0";
 
 xprofile.enable     = true;
 xprofile.user       = "user";
