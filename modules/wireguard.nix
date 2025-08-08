@@ -2,7 +2,7 @@
 { lib, pkgs, config, ... } :
 with lib;
 let 
-  cfg = config.wireguard;
+  cfg = config.wg;
   serverPeers = [
     { 
       name = "Jane Doe"; # optional
@@ -41,10 +41,10 @@ let
     }
   ];
 in {
-  options.wireguard = {
+  options.wg = {
     port = mkOption {
       description = "For both client/peers, which can use same";
-      default = 51820;
+      default = 51666;
       type = types.int;
     };
     interfaceName = mkOption {
@@ -53,44 +53,54 @@ in {
       type = types.string;
     };
     server = {
-      enable = mkOption {
-        default = true;
-        type = types.bool;
-      };
       ips = mkOption {
         default = [ "10.100.0.1/24" ];
         description = "Addresses/subnets of server tunnel interface"
         type = with types; listOf str;
       };
       externalInterface = mkOption {
-        default = "eth0";
+        default = "eno1";
         description = "Ethernet connection name";
         type = types.str;
       };
       privateKeyFile = mkOption {
-        default = "/etc/wireguard-keys/private";
-        description = "";
+        default = "/etc/wireguard-keys/server/private";
+        description = "Path (as string) of private server key file";
         type = types.str;
+      };
+      generatePrivateKeyFile = {
+        default = true;
+        description = "Generate server key file at privateKeyFile";
+        type = types.bool;
       };
       publicKey = mkOption {
         default = "4GKEXr4HkDMTrIB04YB/iJtfjhzVii3e4QkdHxnBzHw=";
-        description = "";
+        description = "Value (not path) of public server key ";
         type = types.str;
       };
       systemd = {
         default = false;
         type = types.bool; 
       };
+      dns = mkEnableOption "Enable DNS setup";
+      wq-quick = mkEnableOption "";
+      dnsmasq = mkEnableOption "";
+      enable = mkEnableOption "";
     };
     client = {
       privateKeyFile = mkOption {
-        default = "/etc/wireguard-keys/private";
-        description = "";
+        default = "/etc/wireguard-keys/client/private";
+        description = "Path (as string) of private client key file";
         type = types.str;
+      };
+      generatePrivateKeyFile = {
+        default = true;
+        description = "Generate client key file at privateKeyFile";
+        type = types.bool;
       };
       publicKey = mkOption {
         default = "4GKEXr4HkDMTrIB04YB/iJtfjhzVii3e4QkdHxnBzHw=";
-        description = "";
+        description = "Value (not path) of public client key ";
         type = types.str;
       }; 
       ips = mkOption {
@@ -98,20 +108,19 @@ in {
         description = "Addresses/subnets of client tunnel interface"
         type = with types; listOf str;
       };
-      enable = mkOption { 
-        default = false;
-        type = types.bool;
-      };
+      dns = mkEnableOption "Enable DNS setup";
+      enable = mkEnableOption "";
     };
   };
 
   config = (mkMerge [
     (mkIf cfg.client.enable {
       environment.systemPackages = with pkgs; [ wireguard-tools iptables ];
+      networking.wireguard.interfaces."${cfg.interfaceName}".generatePrivateKeyFile = false; # at privateKeyFile path
       networking = {
         wireguard = {
           interfaces."${cfg.interfaceName}" = {
-            privateKeyFile = cfg.client.privateKeyFile;
+            privateKeyFile = cfg.client.privateKeyFile; 
             listenPort = cfg.port;
             ips = cfg.client.ips;
             peers = clientPeers;
@@ -119,6 +128,26 @@ in {
           enable = true;
         };
         firewall.allowedUDPPorts = [cfg.port];
+      };
+    })
+
+    (mkIf cfg.client.dns {
+      networking.wg-quick.interfaces = {
+        "${cfg.interfaceName}" = {
+          address = [ "10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
+          dns = [ "10.0.0.1" "fdc9:281f:04d7:9ee9::1" ];
+          privateKeyFile = "/root/wireguard-keys/privatekey";
+          
+          peers = [
+            {
+              publicKey = "{server public key}";
+              presharedKeyFile = "/root/wireguard-keys/preshared_from_peer0_key";
+              allowedIPs = [ "0.0.0.0/0" "::/0" ];
+              endpoint = "{server ip}:51820";
+              persistentKeepalive = 25;
+            }
+          ];
+        };
       };
     })
     
@@ -130,6 +159,7 @@ in {
             "${cfg.interfaceName}" = {
               listenPort = cfg.port; # Must be accessible by the client
               privateKeyFile = cfg.server.privateKeyFile;
+              generatePrivateKeyFile = cfg.server.generatePrivateKeyFile;
               peers = serverPeers;
               ips = cfg.server.ips;
               postSetup = serverCmds.postsetup; 
@@ -144,6 +174,60 @@ in {
           externalInterface = cfg.server.externalInterface;
         };
         firewall.allowedUDPPorts = [cfg.port];
+      };
+    })
+
+    (mkIf cfg.server.dns {
+      networking ={
+        nat = {
+          enable = true;
+          enableIPv6 = true;
+          externalInterface = cfg.server.externalInterface;
+          internalInterfaces = [ cfg.interfaceName ];
+        };
+        firewall = {
+          allowedTCPPorts = [ 53 ];
+          allowedUDPPorts = [ 53 cfg.port ];
+        };
+      }
+    })
+
+    (mkIf cfg.server.wg-quick {
+      networking.wg-quick.interfaces = {
+        "${interfaceName}" = { 
+          address = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ]; # IP/IPv6 address/subnet of client tunnel interface
+          listenPort = cfg.port;
+          privateKeyFile = cfg.server.privateKeyFile;
+ 
+          postUp = ''
+            ${pkgs.iptables}/bin/iptables -A FORWARD -i wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.0.0.1/24 -o eth0 -j MASQUERADE
+            ${pkgs.iptables}/bin/ip6tables -A FORWARD -i wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/ip6tables -t nat -A POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o eth0 -j MASQUERADE
+          ''; # This allows the wireguard server to route your traffic to the internet and hence be like a VPN
+
+          preDown = ''
+            ${pkgs.iptables}/bin/iptables -D FORWARD -i wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.0.0.1/24 -o eth0 -j MASQUERADE
+            ${pkgs.iptables}/bin/ip6tables -D FORWARD -i wg0 -j ACCEPT
+            ${pkgs.iptables}/bin/ip6tables -t nat -D POSTROUTING -s fdc9:281f:04d7:9ee9::1/64 -o eth0 -j MASQUERADE
+          ''; # Undo the above
+
+          peers = [
+            { # peer0
+              publicKey = "{client public key}";
+              presharedKeyFile = "/root/wireguard-keys/preshared_from_peer0_key";
+              allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
+            }
+          ];
+        };
+      };
+    })
+
+    (mkIf cfg.server.dnsmasq {
+      services.dnsmasq = {
+        enable = true;
+        settings.interface = cfg.interfaceName;
       };
     })
 

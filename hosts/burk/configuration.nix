@@ -12,6 +12,16 @@ let vars = import "${inputs.vars}"; in
       username =        "zoneminder";
     }; 
    };
+wg.server = {
+  enable = true;
+  #publicKey = "";
+  #ips = [ "10.100.0.1/24" ];
+};
+wg.client = {
+  enable = false;
+  #publicKey = "";
+  #ips = [ "10.100.0.2/24" ]
+};
 /*
 environment.etc = {
   "xdg/user-dirs.defaults".text = ''
