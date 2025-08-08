@@ -13,12 +13,12 @@ let vars = import "${inputs.vars}"; in
     }; 
    };
 wg.server = {
-  enable = true;
+  enable = false;
   #publicKey = "";
   #ips = [ "10.100.0.1/24" ];
 };
 wg.client = {
-  enable = false;
+  enable = true;
   #publicKey = "";
   #ips = [ "10.100.0.2/24" ]
 };

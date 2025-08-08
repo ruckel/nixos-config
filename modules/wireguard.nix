@@ -15,6 +15,21 @@ let
       ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
     ''; # This undoes the above command
   };
+  peers = {
+    clients = [{ 
+      name = "korv burk"; # optional
+      publicKey = "4GKEXr4HkDMTrIB04YB/iJtfjhzVii3e4QkdHxnBzHw="; # string
+      # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+      allowedIPs = [ "10.100.0.2/32" ];
+    }];
+    servers = [{
+      endpoint = "{server ip}:51666"; # Server IP and port
+      publicKey = "mnOtlPQZXreaaSgXxc5kogXnm7XP3BB7HYZQfdWg52E="; #cfg.server.publicKey; # key of server (str)
+      persistentKeepalive = 25; # Important to keep NAT tables alive
+      allowedIPs = [ "0.0.0.0/0" ]; # Forward all the traffic via VPN
+      #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ]; # Or forward only particular subnets 
+    }];
+  };
   serverPeers = [
     /*{ 
       name = "Jane Doe"; # optional
@@ -43,13 +58,13 @@ let
 in {
   options.wg = {
     port = mkOption {
-      description = "For both client/peers, which can use same";
       default = 51666;
+      description = "For both client/peers, which can use same";
       type = types.int;
     };
     interfaceName = mkOption {
-      description = "For both client/server. Any arbitrary name";
       default = "wg0";
+      description = "For both client/server. Any arbitrary name";
       type = types.str;
     };
     server = {
@@ -74,7 +89,7 @@ in {
         type = types.bool;
       };
       publicKey = mkOption {
-        default = "4GKEXr4HkDMTrIB04YB/iJtfjhzVii3e4QkdHxnBzHw=";
+        default = "mnOtlPQZXreaaSgXxc5kogXnm7XP3BB7HYZQfdWg52E=";
         description = "Value (not path) of public server key ";
         type = types.str;
       };
@@ -123,7 +138,7 @@ in {
             generatePrivateKeyFile = true; #cfg.client.generatePrivateKeyFile;
             listenPort = cfg.port;
             ips = cfg.client.ips;
-            peers = clientPeers;
+            peers = peers.servers;
           };
           enable = true;
         };
@@ -160,7 +175,7 @@ in {
               listenPort = cfg.port; # Must be accessible by the client
               privateKeyFile = cfg.server.privateKeyFile;
               generatePrivateKeyFile = true; #cfg.server.generatePrivateKeyFile;
-              peers = serverPeers;
+              peers = peer.clients;
               ips = cfg.server.ips;
               postSetup = serverCmds.postSetup; 
               postShutdown = serverCmds.postShutdown;
