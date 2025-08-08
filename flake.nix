@@ -65,6 +65,7 @@
         modules = [
           ./hosts/vaio/configuration.nix
           sops-nix.nixosModules.sops
+          bash.nixosModules.default
         ];
       };*/
       nix-homelab = nixpkgs-small.lib.nixosSystem {
@@ -73,6 +74,7 @@
         modules = [
           ./hosts/homelab/configuration.nix
           sops-nix.nixosModules.sops
+          bash.nixosModules.default
         ];
       };
     };
