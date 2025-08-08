@@ -1,0 +1,184 @@
+#types = {attrs, bool, path, int, port, str, lines, commas}
+{ lib, pkgs, config, ... } :
+with lib;
+let 
+  cfg = config.wireguard;
+  serverPeers = [
+    { 
+      name = "Jane Doe"; # optional
+      publicKey = "yyy"; # string
+      # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
+      allowedIPs = [ "10.100.0.2/32" ];
+    }
+    { 
+      publicKey = "yyy"; # string
+      allowedIPs = [ "10.100.0.3/32" ];
+    }
+  ]
+  serverCmds = {
+    /* 
+      This allows the wireguard server to route your traffic to the internet and hence be like a VPN
+      For this to work you have to set the dnsserver IP of your router (or dnsserver of choice) in your clients
+    */
+    postSetup = ''
+      ${pkgs.iptables}/bin/iptables -t nat -A POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+    ''; 
+    postShutdown = ''
+      ${pkgs.iptables}/bin/iptables -t nat -D POSTROUTING -s 10.100.0.0/24 -o eth0 -j MASQUERADE
+    ''; # This undoes the above command
+  };
+  clientPeers = [
+    /* Todo: Route to endpoint not automatically configured 
+      https://wiki.archlinux.org/index.php/WireGuard#Loop_routing 
+      https://discourse.nixos.org/t/solved-minimal-firewall-setup-for-wireguard-client/7577 
+    */
+    {
+      endpoint = "{server ip}:${cfg.port}"; # Server IP and port
+      publicKey = cfg.server.publicKey; # of server (str)
+      persistentKeepalive = 25; # Important to keep NAT tables alive
+      allowedIPs = [ "0.0.0.0/0" ]; # Forward all the traffic via VPN
+      #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ]; # Or forward only particular subnets 
+    }
+  ];
+in {
+  options.wireguard = {
+    port = mkOption {
+      description = "For both client/peers, which can use same";
+      default = 51820;
+      type = types.int;
+    };
+    interfaceName = mkOption {
+      description = "For both client/server. Any arbitrary name";
+      default = "wg0";
+      type = types.string;
+    };
+    server = {
+      enable = mkOption {
+        default = true;
+        type = types.bool;
+      };
+      ips = mkOption {
+        default = [ "10.100.0.1/24" ];
+        description = "Addresses/subnets of server tunnel interface"
+        type = with types; listOf str;
+      };
+      externalInterface = mkOption {
+        default = "eth0";
+        description = "Ethernet connection name";
+        type = types.str;
+      };
+      privateKeyFile = mkOption {
+        default = "/etc/wireguard-keys/private";
+        description = "";
+        type = types.str;
+      };
+      publicKey = mkOption {
+        default = "4GKEXr4HkDMTrIB04YB/iJtfjhzVii3e4QkdHxnBzHw=";
+        description = "";
+        type = types.str;
+      };
+      systemd = {
+        default = false;
+        type = types.bool; 
+      };
+    };
+    client = {
+      privateKeyFile = mkOption {
+        default = "/etc/wireguard-keys/private";
+        description = "";
+        type = types.str;
+      };
+      publicKey = mkOption {
+        default = "4GKEXr4HkDMTrIB04YB/iJtfjhzVii3e4QkdHxnBzHw=";
+        description = "";
+        type = types.str;
+      }; 
+      ips = mkOption {
+        default = [ "10.100.0.2/24" ];
+        description = "Addresses/subnets of client tunnel interface"
+        type = with types; listOf str;
+      };
+      enable = mkOption { 
+        default = false;
+        type = types.bool;
+      };
+    };
+  };
+
+  config = (mkMerge [
+    (mkIf cfg.client.enable {
+      environment.systemPackages = with pkgs; [ wireguard-tools iptables ];
+      networking = {
+        wireguard = {
+          interfaces."${cfg.interfaceName}" = {
+            privateKeyFile = cfg.client.privateKeyFile;
+            listenPort = cfg.port;
+            ips = cfg.client.ips;
+            peers = clientPeers;
+          };
+          enable = true;
+        };
+        firewall.allowedUDPPorts = [cfg.port];
+      };
+    })
+    
+    (mkIf cfg.server.enable {
+      environment.systemPackages = with pkgs; [ wireguard-tools iptables ];
+      networking = {
+        wireguard = {
+          interfaces = {
+            "${cfg.interfaceName}" = {
+              listenPort = cfg.port; # Must be accessible by the client
+              privateKeyFile = cfg.server.privateKeyFile;
+              peers = serverPeers;
+              ips = cfg.server.ips;
+              postSetup = serverCmds.postsetup; 
+              postShutdown = serverCmds.postShutdown;
+            };
+          };
+          enable = true;
+        };
+        nat = {
+          enable = true;
+          internalInterfaces = [cfg.interfaceName];
+          externalInterface = cfg.server.externalInterface;
+        };
+        firewall.allowedUDPPorts = [cfg.port];
+      };
+    })
+
+    (mkIf cfg.server.systemd {
+      environment.systemPackages = with pkgs; [ wireguard-tools iptables ];
+      networking = {
+        firewall.allowedUDPPorts = [cfg.port];
+        useNetworkd = true;  
+      };
+      systemd.network = {
+        netdevs = {
+          "50-${cfg.interfaceName}" = {
+            netdevConfig = {
+              Kind = "wireguard";
+              Name = cfg.interfaceName;
+              MTUBytes = "1300";
+            };
+            wireguardConfig = {
+              PrivateKeyFile = cfg.server.privateKeyFile;
+              ListenPort = cfg.port;
+              RouteTable = "main";
+            };
+            wireguardPeers = serverPeers;
+          };
+        };
+        networks."${cfg.interfaceName}" = {
+          matchConfig.Name = cfg.interfaceName;
+          address = cfg.server.ips;
+          networkConfig = {
+            IPMasquerade = "ipv4";
+            IPForward = true;
+          };
+        };
+        enable = true;
+      };
+    })
+  ]);
+}
