@@ -1,25 +1,37 @@
 { lib, pkgs, config, ... } :
-with lib;
-let 
-cfg = config.vim;
+  with lib;
+  let 
+  cfg = config.vim;
 in {
-options.vim = {
-  enable = mkEnableOption "DESCRIPTION";
-  user = mkOption { default = "user";
-    type = types.str;
+  options.vim = {
+    enable = mkOption { 
+      default = true;
+      type = types.bool;
+    };
+    plugins = mkOption { 
+      default = [ vim-nix vim-lastplace ];
+      type = with types; listOf package;
+    };
+    asDefault = mkOption { 
+      default = true;
+      type = types.bool;
+    };
   };
-};
-config = mkIf cfg.enable {
-  environment.variables = { EDITOR = "vim"; };
-  environment.systemPackages = with pkgs; [
-    ((vim_configurable.override {}).customize{
-      name = "vim";
-      vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
-        start = [ vim-nix vim-lastplace ];
-        opt = [];
-      };
-      vimrcConfig.customRC = builtins.readFile ./vimrc;
-    })
-  ];
-};
+  config = mkIf cfg.enable {
+    programs.vim = {
+      enable =  true;
+      defaultEditor = mkIf asDefault true;
+    };
+    environment.variables = mkIf asDefault { EDITOR = "vim"; };
+    environment.systemPackages = with pkgs; [
+      ((vim_configurable.override {}).customize{
+        name = "vim";
+        vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
+          start = cfg.plugins;
+          opt = [];
+        };
+        vimrcConfig.customRC = builtins.readFile ./vimrc;
+      })
+    ];
+  };
 }
