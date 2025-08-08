@@ -123,7 +123,7 @@ environment.etc = {
    };
 /* end custom services */
 
-  programs.java.enable      = true;
+  programs.java.enable      = false;
 
   services.displayManager.defaultSession = "gnome-xorg"
     # "none+dwm"
@@ -158,7 +158,6 @@ environment.etc = {
     # secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
     # secrets.data = {};
    };
-  environment.etc."test/test".source = config.sops.secrets."pw".path;
 
 /* Constants */
   environment.localBinInPath = true;
