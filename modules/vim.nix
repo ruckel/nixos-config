@@ -27,7 +27,7 @@ in {
       ((vim_configurable.override {}).customize{
         name = "vim";
         vimrcConfig.packages.myplugins = with pkgs.vimPlugins; {
-          start = cfg.plugins;
+          start = [ vim-nix vim-lastplace ];
           opt = [];
         };
         vimrcConfig.customRC = builtins.readFile ./vimrc;
