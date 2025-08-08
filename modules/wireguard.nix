@@ -24,7 +24,7 @@ let
     }];
     servers = [{
       endpoint = "{server ip}:51666"; # Server IP and port
-      publicKey = "mnOtlPQZXreaaSgXxc5kogXnm7XP3BB7HYZQfdWg52E="; #cfg.server.publicKey; # key of server (str)
+      publicKey = "P8PQu5AVJzN9tge3zwT1LZphU1JGRo1q0YeLcDokCi8="; #cfg.server.publicKey; # key of server (str)
       persistentKeepalive = 25; # Important to keep NAT tables alive
       allowedIPs = [ "0.0.0.0/0" ]; # Forward all the traffic via VPN
       #allowedIPs = [ "10.100.0.1" "91.108.12.0/22" ]; # Or forward only particular subnets 
@@ -89,7 +89,7 @@ in {
         type = types.bool;
       };
       publicKey = mkOption {
-        default = "mnOtlPQZXreaaSgXxc5kogXnm7XP3BB7HYZQfdWg52E=";
+        default = "P8PQu5AVJzN9tge3zwT1LZphU1JGRo1q0YeLcDokCi8=";
         description = "Value (not path) of public server key ";
         type = types.str;
       };
