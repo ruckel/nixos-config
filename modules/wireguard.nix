@@ -17,7 +17,7 @@ let
   };
   peers = {
     clients = [{ 
-      name = "korv burk"; # optional
+      name = "korv-burk"; # optional
       publicKey = "4GKEXr4HkDMTrIB04YB/iJtfjhzVii3e4QkdHxnBzHw="; # string
       # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
       allowedIPs = [ "10.100.0.2/32" ];
