@@ -6,21 +6,19 @@ let vars = import "${inputs.vars}"; in
     ./hardware-configuration.nix
     ./packages.nix
    ];
-  services.zoneminder = { enable = true;
-    database = {
-      createLocally =   true;
-      username =        "zoneminder";
-    }; 
-   };
-wg.server = {
-  enable = false;
-  #publicKey = "";
-  #ips = [ "10.100.0.1/24" ];
+wg = {
+  interfaceName = "wg";
+  client = {
+    enable = true;
+    wg-quick = true;
+    #ips = [ "10.100.0.2/24" ]
+  };
 };
-wg.client = {
-  enable = true;
-  #publicKey = "";
-  #ips = [ "10.100.0.2/24" ]
+services.zoneminder = { enable = false;
+  database = {
+    createLocally =   true;
+    username =        "zoneminder";
+  }; 
 };
 /*
 environment.etc = {

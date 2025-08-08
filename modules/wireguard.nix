@@ -42,7 +42,7 @@ in {
         description = "Local or public ip address";
         type = types.str;
       };
-      privateKeyFile = mkOption {
+      /*privateKeyFile = mkOption {
         default = "/etc/wireguard-keys/server/private";
         description = "Path (as string) of private server key file";
         type = types.str;
@@ -56,7 +56,7 @@ in {
         default = "P8PQu5AVJzN9tge3zwT1LZphU1JGRo1q0YeLcDokCi8=";
         description = "Value (not path) of public server key ";
         type = types.str;
-      };
+      };*/
       autostart = mkOption {
         default = true;
         description = "Start with system";
@@ -89,13 +89,13 @@ in {
       };
     };
     client = {
-      privateKeyFile = mkOption {
+      /*privateKeyFile = mkOption {
         default = "/etc/wireguard-keys/client/private";
         description = "Path (as string) of private client key file";
         type = types.str;
       };
       generatePrivateKeyFile = mkOption {
-        default = true;
+        default = false;
         description = "Generate client key file at privateKeyFile";
         type = types.bool;
       };
@@ -103,7 +103,7 @@ in {
         default = "lO286k/nBLBasod2FzKmO8RQwxOALvY3FHvFyuV9BUA=";
         description = "Value (not path) of public client key ";
         type = types.str;
-      }; 
+      };*/ 
       ips = mkOption {
         default = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ];
         description = "Addresses/subnets of client tunnel interface";
@@ -137,7 +137,7 @@ in {
           peers = [
             {
               endpoint = "${cfg.server.externalAddress}:${toString cfg.port}";
-              publicKey = cfg.server.publicKey;
+              #publicKey = cfg.server.publicKey;
               allowedIPs = cfg.client.ips;
               persistentKeepalive = 25;
             }
@@ -148,14 +148,14 @@ in {
         interfaces."${cfg.interfaceName}" = {
           address = [ "10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
           dns = [ "10.0.0.1" "fdc9:281f:04d7:9ee9::1" ];
-          privateKeyFile = cfg.client.privateKeyFile;
-          generatePrivateKeyFile = cfg.client.generatePrivateKeyFile; 
+          #privateKeyFile = cfg.client.privateKeyFile;
+          #generatePrivateKeyFile = cfg.client.generatePrivateKeyFile; 
           peers = [{
               endpoint = "${cfg.server.externalAddress}:${toString cfg.port}";
-              publicKey = cfg.server.publicKey;
+              #publicKey = cfg.server.publicKey;
               allowedIPs = cfg.client.ips;
               persistentKeepalive = 25;
-              presharedKeyFile = cfg.presharedKeyFile;
+              #presharedKeyFile = cfg.presharedKeyFile;
           }];
         };
       };
@@ -165,7 +165,7 @@ in {
       networking.wireguard = mkIf (!cfg.client.wg-quick) {
         interfaces."${cfg.interfaceName}-cr".peers = [{
           endpoint = "${cfg.server.externalAddress}:${toString cfg.port}";
-          publicKey = cfg.server.publicKey;
+          #publicKey = cfg.server.publicKey;
           allowedIPs = [ "0.0.0.0/0" "::/0" ];
           persistentKeepalive = 25;
         }];
@@ -176,7 +176,7 @@ in {
           #publicKey = cfg.server.publicKey;
           allowedIPs = [ "0.0.0.0/0" "::/0" ];
           persistentKeepalive = 25;
-          presharedKeyFile = cfg.presharedKeyFile;
+          #presharedKeyFile = cfg.presharedKeyFile;
         }];
       };
     })
@@ -200,7 +200,7 @@ in {
           #generatePrivateKeyFile = cfg.server.generatePrivateKeyFile;
           peers = [{ 
             #publicKey = cfg.client.publicKey;
-            presharedKeyFile = cfg.presharedKeyFile;
+            #presharedKeyFile = cfg.presharedKeyFile;
             allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
           }];
         };
@@ -215,7 +215,7 @@ in {
           autostart = cfg.server.autostart;
           peers = [{ 
             #publicKey = cfg.client.publicKey;
-            presharedKeyFile = cfg.presharedKeyFile;
+            #presharedKeyFile = cfg.presharedKeyFile;
             allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
           }];
         };
