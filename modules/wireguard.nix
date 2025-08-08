@@ -175,7 +175,7 @@ in {
               listenPort = cfg.port; # Must be accessible by the client
               privateKeyFile = cfg.server.privateKeyFile;
               generatePrivateKeyFile = true; #cfg.server.generatePrivateKeyFile;
-              peers = peer.clients;
+              peers = peers.clients;
               ips = cfg.server.ips;
               postSetup = serverCmds.postSetup; 
               postShutdown = serverCmds.postShutdown;
