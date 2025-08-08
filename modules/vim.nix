@@ -20,9 +20,9 @@ in {
   config = mkIf cfg.enable {
     programs.vim = {
       enable =  true;
-      defaultEditor = mkIf asDefault true;
+      defaultEditor = mkIf cfg.asDefault true;
     };
-    environment.variables = mkIf asDefault { EDITOR = "vim"; };
+    environment.variables = mkIf cfg.asDefault { EDITOR = "vim"; };
     environment.systemPackages = with pkgs; [
       ((vim_configurable.override {}).customize{
         name = "vim";
