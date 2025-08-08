@@ -145,7 +145,7 @@ in {
         };
       };
       networking.wg-quick = mkIf cfg.client.wg-quick {
-        interfaces."${cfg.interfaceName}-qc" = {
+        interfaces."${cfg.interfaceName}" = {
           address = [ "10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
           dns = [ "10.0.0.1" "fdc9:281f:04d7:9ee9::1" ];
           privateKeyFile = cfg.client.privateKeyFile;
