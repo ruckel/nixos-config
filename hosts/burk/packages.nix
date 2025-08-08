@@ -7,7 +7,8 @@
     appimage.binfmt =     true;
     bash.vteIntegration = true;
     firefox.enable =      true;
-    i3lock.enable =           true;
+    i3lock.enable =       true;
+    lazygit.enable =      true;
     steam.enable =        true;
     gnupg.agent = { 
       enable =            true;
@@ -24,6 +25,12 @@
       defaultEditor =     true;
     };
     xfconf.enable =       true;
+  };
+  xdg.terminal-exec = {
+    enable =              true;
+    settings = {
+      default = [ "tilix.desktop" ];
+    };
   };
   environment.systemPackages = with pkgs; [
     alsa-lib
@@ -83,10 +90,9 @@
     jetbrains.webstorm /* ide / code editor */
     jless
     jq
-    #kdocker
+    kdocker
     keepassxc git-credential-keepassxc cryptsetup
     kitty
-    lazygit
     libadwaita
     libgnomekbd
     libnotify
@@ -126,8 +132,8 @@
     showmethekey
     shotcut /*openshot-qt*/
     shotwell
-    #signal-desktop /* E2E-encrypted chat */
-    #simplex-chat-desktop /* E2E-encrypted chat */
+    signal-desktop /* E2E-encrypted chat */
+    simplex-chat-desktop /* E2E-encrypted chat */
     sops /* secret manager */
     #spacedrive
     spotify spotify-tray #spotifywm spotifyd spotify-player
