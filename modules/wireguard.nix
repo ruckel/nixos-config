@@ -209,7 +209,7 @@ in {
 
     (mkIf cfg.server.wg-quick {
       networking.wg-quick.interfaces = {
-        "${interfaceName}" = { 
+        "${cfg.interfaceName}" = { 
           address = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ]; # IP/IPv6 address/subnet of client tunnel interface
           listenPort = cfg.port;
           privateKeyFile = cfg.server.privateKeyFile;
