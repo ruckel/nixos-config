@@ -18,7 +18,7 @@ let
   peers = {
     clients = [{ 
       name = "korv-burk"; # optional
-      publicKey = "4GKEXr4HkDMTrIB04YB/iJtfjhzVii3e4QkdHxnBzHw="; # string
+      publicKey = "lO286k/nBLBasod2FzKmO8RQwxOALvY3FHvFyuV9BUA="; # string
       # List of IPs assigned to this peer within the tunnel subnet. Used to configure routing.
       allowedIPs = [ "10.100.0.2/32" ];
     }];
@@ -119,7 +119,7 @@ in {
         type = types.bool;
       };
       publicKey = mkOption {
-        default = "4GKEXr4HkDMTrIB04YB/iJtfjhzVii3e4QkdHxnBzHw=";
+        default = "lO286k/nBLBasod2FzKmO8RQwxOALvY3FHvFyuV9BUA=";
         description = "Value (not path) of public client key ";
         type = types.str;
       }; 
