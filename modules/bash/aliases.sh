@@ -49,7 +49,6 @@ alias nfindgnomeext=~/scripts/nix/gnomefindext.sh
 
 alias nixshellp="nix-shell -p"
 
-alias nixswitch='sudo -A nixos-rebuild switch --no-reexec --impure --flake ~/nixos-cfg/# ; alert $?'
 alias nixswitchstd='sudo -A nixos-rebuild switch --no-reexec --impure --flake ~/nixos-cfg/# ; alert $?'
 alias nixswitch-burk='sudo -A nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
 alias nixtestburk='sudo -A nixos-rebuild test --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'

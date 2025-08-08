@@ -30,6 +30,10 @@
   name = "i3lock";
   file = scripts/i3lock.sh;
   deps = with pkgs; [ i3lock ];
+} {
+  name = "nixswitch";
+  file = scripts/nixswitch.sh;
+  deps = with pkgs; [];
 } 
 ]
 /* template
