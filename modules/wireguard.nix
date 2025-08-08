@@ -145,7 +145,7 @@ in {
       networking.wg-quick = mkIf cfg.client.wg-quick {
         interfaces."${cfg.interfaceName}-crc".peers = [{
           endpoint = "${cfg.server.externalAddress}:${toString cfg.port}";
-          publicKey = cfg.server.publicKey;
+          #publicKey = cfg.server.publicKey;
           allowedIPs = [ "0.0.0.0/0" "::/0" ];
           persistentKeepalive = 25;
           presharedKeyFile = cfg.presharedKeyFile;
@@ -168,10 +168,10 @@ in {
           ips = cfg.server.ips; 
           listenPort = cfg.port;
           mtu = cfg.mtu;
-          privateKeyFile = cfg.server.privateKeyFile;
-          generatePrivateKeyFile = cfg.server.generatePrivateKeyFile;
+          #privateKeyFile = cfg.server.privateKeyFile;
+          #generatePrivateKeyFile = cfg.server.generatePrivateKeyFile;
           peers = [{ 
-            publicKey = cfg.client.publicKey;
+            #publicKey = cfg.client.publicKey;
             presharedKeyFile = cfg.presharedKeyFile;
             allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
           }];
