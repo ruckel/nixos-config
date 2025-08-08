@@ -67,6 +67,11 @@ in {
       description = "For both client/server. Any arbitrary name";
       type = types.str;
     };
+      presharedKeyFile = mkOption {
+        default = "/etc/wireguard-keys/prekey.psk";
+        description = "Path (as string) of private key file";
+        type = types.str;
+      };
     server = {
       ips = mkOption {
         default = [ "10.100.0.1/24" ];
@@ -76,11 +81,6 @@ in {
       externalInterface = mkOption {
         default = "eno1";
         description = "Ethernet connection name";
-        type = types.str;
-      };
-      presharedKeyFile = mkOption {
-        default = "/etc/wireguard-keys/server/server.psk";
-        description = "Path (as string) of private server key file";
         type = types.str;
       };
       privateKeyFile = mkOption {
@@ -108,11 +108,6 @@ in {
       enable = mkEnableOption "";
     };
     client = {
-      presharedKeyFile = mkOption {
-        default = "/etc/wireguard-keys/client/client.psk";
-        description = "Path (as string) of private server key file";
-        type = types.str;
-      };
       privateKeyFile = mkOption {
         default = "/etc/wireguard-keys/client/private";
         description = "Path (as string) of private client key file";
@@ -168,7 +163,7 @@ in {
           peers = [
             {
               publicKey = cfg.server.publicKey;
-              presharedKeyFile = cfg.server.presharedKeyFile;
+              presharedKeyFile = cfg.presharedKeyFile;
               #allowedIPs = [ "0.0.0.0/0" "::/0" ]; # Forward all the traffic via VPN
               allowedIPs = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ]; # Or forward only particular subnets 
               endpoint = "192.168.1.12:51666";
@@ -223,7 +218,7 @@ in {
     (mkIf cfg.server.wg-quick {
       networking.firewall.allowedUDPPorts = [cfg.port];
       networking.nat = {
-        enable = true;
+        enable = false;
         internalInterfaces = [cfg.interfaceName];
         externalInterface = cfg.server.externalInterface;
       };
@@ -263,7 +258,7 @@ in {
           peers = [
             { 
               publicKey = cfg.client.publicKey;
-              presharedKeyFile = cfg.client.presharedKeyFile;
+              presharedKeyFile = cfg.presharedKeyFile;
               allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
             }
           ];
