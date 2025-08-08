@@ -23,7 +23,7 @@ let
       allowedIPs = [ "10.100.0.2/32" ];
     }];
     servers = [{
-      endpoint = "{server ip}:51666"; # Server IP and port
+      endpoint = "192.168.1.12:51666"; # Server IP and port
       publicKey = "P8PQu5AVJzN9tge3zwT1LZphU1JGRo1q0YeLcDokCi8="; #cfg.server.publicKey; # key of server (str)
       persistentKeepalive = 25; # Important to keep NAT tables alive
       allowedIPs = [ "0.0.0.0/0" ]; # Forward all the traffic via VPN
@@ -123,7 +123,7 @@ in {
         description = "Addresses/subnets of client tunnel interface";
         type = with types; listOf str;
       };
-      dns = mkEnableOption "Enable DNS setup";
+      wg-quick = mkEnableOption "Enable DNS setup";
       enable = mkEnableOption "";
     };
   };
@@ -146,7 +146,7 @@ in {
       };
     })
 
-    /*(mkIf cfg.client.dns {
+    (mkIf cfg.client.wg-quick {
       networking.wg-quick.interfaces = {
         "${cfg.interfaceName}" = {
           address = [ "10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
@@ -164,7 +164,7 @@ in {
           ];
         };
       };
-    })*/
+    })
     
     (mkIf cfg.server.enable {
       environment.systemPackages = with pkgs; [ wireguard-tools wireguard-ui iptables ];
@@ -192,7 +192,7 @@ in {
       };
     })
 
-    /*(mkIf cfg.server.dns {
+    (mkIf cfg.server.dns {
       networking ={
         nat = {
           enable = true;
@@ -205,9 +205,9 @@ in {
           allowedUDPPorts = [ 53 cfg.port ];
         };
       };
-    })*/
+    })
 
-    /*(mkIf cfg.server.wg-quick {
+    (mkIf cfg.server.wg-quick {
       networking.wg-quick.interfaces = {
         "${interfaceName}" = { 
           address = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ]; # IP/IPv6 address/subnet of client tunnel interface
@@ -229,22 +229,22 @@ in {
           ''; # Undo the above
 
           peers = [
-            { # peer0
-              publicKey = "{client public key}";
-              presharedKeyFile = "/root/wireguard-keys/preshared_from_peer0_key";
+            { 
+              publicKey = cfg.client.publicKey;
+              presharedKeyFile = "/etc/wireguard-keys/client/private";
               allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
             }
           ];
         };
       };
-    })*/
+    })
 
-    /*(mkIf cfg.server.dnsmasq {
+    (mkIf cfg.server.dnsmasq {
       services.dnsmasq = {
         enable = true;
         settings.interface = cfg.interfaceName;
       };
-    })*/
+    })
 
     /*(mkIf cfg.server.systemd {
       environment.systemPackages = with pkgs; [ wireguard-tools wireguard-ui iptables ];

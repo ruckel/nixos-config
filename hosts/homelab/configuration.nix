@@ -69,6 +69,9 @@ wg.server = {
   #publicKey = "";
   #ips = [ "10.100.0.1/24" ];
   externalInterface = "enp2s0";
+  dns = true;
+  dnsmasq = true;
+  wg-quick = true;
 };
 
 xprofile.enable     = true;
