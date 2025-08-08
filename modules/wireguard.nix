@@ -148,17 +148,17 @@ in {
 
     (mkIf cfg.client.wg-quick {
       networking.wg-quick.interfaces = {
-        "${cfg.interfaceName}" = {
+        "${cfg.interfaceName}-q" = {
           address = [ "10.0.0.2/24" "fdc9:281f:04d7:9ee9::2/64" ];
           dns = [ "10.0.0.1" "fdc9:281f:04d7:9ee9::1" ];
           privateKeyFile = "/root/wireguard-keys/privatekey";
           
           peers = [
             {
-              publicKey = "{server public key}";
-              presharedKeyFile = "/root/wireguard-keys/preshared_from_peer0_key";
+              publicKey = cfg.server.publicKey;
+              presharedKeyFile = cfg.server.privateKeyFile;
               allowedIPs = [ "0.0.0.0/0" "::/0" ];
-              endpoint = "{server ip}:51820";
+              endpoint = "192.168.1.12:51820";
               persistentKeepalive = 25;
             }
           ];
@@ -209,7 +209,7 @@ in {
 
     (mkIf cfg.server.wg-quick {
       networking.wg-quick.interfaces = {
-        "${cfg.interfaceName}" = { 
+        "${cfg.interfaceName}-q" = { 
           address = [ "10.0.0.1/24" "fdc9:281f:04d7:9ee9::1/64" ]; # IP/IPv6 address/subnet of client tunnel interface
           listenPort = cfg.port;
           privateKeyFile = cfg.server.privateKeyFile;
