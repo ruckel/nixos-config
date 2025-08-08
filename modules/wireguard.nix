@@ -50,7 +50,7 @@ in {
     interfaceName = mkOption {
       description = "For both client/server. Any arbitrary name";
       default = "wg0";
-      type = types.string;
+      type = types.str;
     };
     server = {
       ips = mkOption {
