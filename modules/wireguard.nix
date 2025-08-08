@@ -263,7 +263,7 @@ in {
           peers = [
             { 
               publicKey = cfg.client.publicKey;
-              presharedKeyFile = cfg.client.presharedKey;
+              presharedKeyFile = cfg.client.presharedKeyFile;
               allowedIPs = [ "10.0.0.2/32" "fdc9:281f:04d7:9ee9::2/128" ];
             }
           ];
