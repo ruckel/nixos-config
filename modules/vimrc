@@ -1,45 +1,22 @@
-syntax on
-set expandtab shiftwidth=2 tabstop=2 " 2 spaces instead of tabs
-colorscheme retrobox
+source $HOME/.config/vim/settings/commands.vim
+  source $HOME/.config/vim/settings/configs.vim
+  source $HOME/.config/vim/settings/functions.vim
+  source $HOME/.config/vim/settings/mappings.vim
+  source $HOME/.config/vim/settings/plugins.vim
 
-set number
-  map <F10> :set number!<CR>  "line nrs, nonumber for off
-  map <F9> :set rnu!<CR>      "relative line nrs
-
-set foldmethod=indent
-  nnoremap <space> za         " toggle folds with spacebar
-  highlight Folded ctermbg=17
-  highlight Folded ctermfg=14
-
-command! Smartcase call ToggleSmartAndIgnoreCase() " ignore case unless uppercase letters
-  function! ToggleSmartAndIgnoreCase()
-    set ignorecase! smartcase!
-    
-    function! GetSmartcase()
-      set smartcase?
-    endfunction
-    
-    echo call("GetSmartcase", [])
+function! _colors_in_vim()
+  "block comment"
+  https://phoenixnap.com/kb/vim-color-schemes
+  Example in ~/.config/vim/colors/
   endfunction
-  set ignorecase smartcase
-
-"" typo remapping
-  command! Q quit   " ask for saving
-  "command! Q! quit! " no ask for saving
-  command! Wq exit  " save and exit
-  command! WQ exit  " save and exit
-  noremap <leader>y "+y
-  noremap <leader>p "+p
-  nmap Q  = ''                 "disable EX mode on Q
-  nmap qq = ''                 "disable macre recorcd on q
-  nmap P = previous
-  command! P previous
-
-""colors: see /usr/share/vim/vim{version}/syntax/
-function! _comment_block() ""gen info:""
-  "all modes:    [ :map, :noremap ]
-  "normal mode:  [ :nmap, :nnoremap ] 
-  "visual mode:  [ :vmap, :vnoremap ]
-  ":help recursive_mapping
-  ":help :map-modes
+function! _modes_in_vim() 
+  "block comment"
+  all modes:    [ :map, :noremap ]
+  normal mode:  [ :nmap, :nnoremap ] 
+  visual mode:  [ :vmap, :vnoremap ]
+  endfunction
+function! _learning_vim() 
+  "block comment"
+  :help recursive_mapping
+  :help :map-modes  
   endfunction
