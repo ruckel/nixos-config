@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 : <<'END_COMMENT'
 /usr/bin/env because of nixos things
+
+nixos-version: command not found
+cut: command not found
+tr: command not found
+sudo: command not found
+alert: command not found
 END_COMMENT
 
-version=$(nixos-version | cut -d '.' -f 1,2 | tr -d .)
+#version=$(nixos-version | cut -d '.' -f 1,2 | tr -d .)
+version=$(cat /etc/os-release | grep VERSION_ID | cut -d '"' -f 2 | tr -d .)
 
 SUDO="sudo -A "
 basecommand="nixos-rebuild switch --flake ${HOME}/nixos-cfg/# --impure"
@@ -46,5 +53,5 @@ echo "nixos $version"
 final_cmd="${SUDO}${basecommand}${no_reexec}${profile}"
 
 if [ -n "$debug" ]; then echo "cmd: $final_cmd" && exit; fi
-${final_cmd}
-alert $?
+bash -c "${final_cmd}"
+bash "alert $?"

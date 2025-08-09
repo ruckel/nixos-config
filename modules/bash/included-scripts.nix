@@ -33,7 +33,7 @@
 } {
   name = "nixswitch";
   file = scripts/nixswitch.sh;
-  deps = with pkgs; [];
+  deps = with pkgs; [ nixos-version bash sudo coreutils libnotify busybox  ];
 } 
 ]
 /* template
