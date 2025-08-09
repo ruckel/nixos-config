@@ -12,7 +12,7 @@ END_COMMENT
 #version=$(nixos-version | cut -d '.' -f 1,2 | tr -d .)
 version=$(cat /etc/os-release | grep VERSION_ID | cut -d '"' -f 2 | tr -d .)
 
-SUDO="sudo -A "
+#SUDO="sudo -A "
 basecommand="nixos-rebuild switch --flake ${HOME}/nixos-cfg/# --impure"
 no_reexec=" --no-reexec"
 
@@ -50,8 +50,8 @@ if [[ $version < 2505 ]];then no_reexec=" --fast";fi
 
 
 echo "nixos $version"
-final_cmd="${SUDO}${basecommand}${no_reexec}${profile}"
+final_cmd="${basecommand}${no_reexec}${profile}"
 
 if [ -n "$debug" ]; then echo "cmd: $final_cmd" && exit; fi
-bash -c "${final_cmd}"
-bash "alert $?"
+${final_cmd}
+dunstify nixswitch $?
