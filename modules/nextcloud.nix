@@ -154,7 +154,7 @@ in
 	        trusted_proxies = ["192.168.1.1"];	
           # skeletondirectory "";
           loglevel = 1; # [0:debug, 1:info, 2:warn, 3:error, 4:fatal]
-          log_type = "file"; #"errorlog", "syslog", "syslog", "systemd"
+          log_type = "syslog"; #"errorlog", ["syslog"], "systemd", "file"
         };
         # configureRedis = ;
         database.createLocally = true;
