@@ -14,6 +14,10 @@ in {
     (lib.mkIf (!useNewGnomePath) {
       services.xserver.desktopManager.gnome.enable = true;
     })
+    ({ environment.variables = {
+        GTK_THEME = "Adwaita:dark";
+    };})
+
     { programs.gnome-terminal.enable = false; }
     { environment.systemPackages = with pkgs; [
       gnome-browser-connector
