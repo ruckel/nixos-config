@@ -172,41 +172,18 @@ in
           startAt = "05:00:00";
         };
         extraAppsEnable = true;
-        extraApps ={
-          inherit (config.services.nextcloud.package.packages.apps)
+        extraApps ={ inherit (config.services.nextcloud.package.packages.apps)
           bookmarks
           #calendar
           contacts
-          cookbook
           cospend
           deck
-          #files_texteditor
-          #files_markdown
-          mail
-          music
-          notes
           phonetrack
           tasks
-          ;
-          /*sharerenamer = pkgs.fetchNextcloudApp {
-            name = "sharerenamer";
-            sha256 = "74d46c22ed0f24a6fe00b2acf8e7f6a3a469ed00984ee035277c5ac9f605908e";
-            license = "AGPL";
-            url = "https://github.com/JonathanTreffler/sharerenamer/releases/download/v3.4.0/sharerenamer.tar.gz";
-            version = "3.4.0";
-          };*/
-          /*timemanager = pkgs.fetchNextcloudApp {
-            name = "timemanager";
-            sha256 = "a4594a3bc8c6239c1ab7df7ceaedc517065e4ca6401fbd4fa553306e5cdffec5";
-            license = "AGPL";
-            url = "https://github.com/te-online/timemanager/archive/refs/tags/v0.3.16.tar.gz";
-            version = "0.3.16";
-          };*/
-        };
+        ;};
       };
     })
     ({
-      environment.systemPackages = with pkgs; [ nextcloud-client ];
       systemd.services.ensure-korv-enabled = {
         description = "Ensure Nextcloud user 'korv' is enabled";
         serviceConfig = {
@@ -225,6 +202,7 @@ in
           Unit = "ensure-korv-enabled.service";
         };
       };
+      environment.systemPackages = with pkgs; [ nextcloud-client ];
     })
     ({
       /* commented lines */
@@ -260,6 +238,22 @@ in
         #locations."/".proxyPass = "http://127.0.0.1:8443";
         locations."/".proxyPass = "https://127.0.0.1:8443";
       };*/
+      /* extraApps ={ inherit (config.services.nextcloud.package.packages.apps)
+         sharerenamer = pkgs.fetchNextcloudApp {
+           name = "sharerenamer";
+           sha256 = "74d46c22ed0f24a6fe00b2acf8e7f6a3a469ed00984ee035277c5ac9f605908e";
+           license = "AGPL";
+           url = "https://github.com/JonathanTreffler/sharerenamer/releases/download/v3.4.0/sharerenamer.tar.gz";
+           version = "3.4.0";
+         };
+         timemanager = pkgs.fetchNextcloudApp {
+           name = "timemanager";
+           sha256 = "a4594a3bc8c6239c1ab7df7ceaedc517065e4ca6401fbd4fa553306e5cdffec5";
+           license = "AGPL";
+           url = "https://github.com/te-online/timemanager/archive/refs/tags/v0.3.16.tar.gz";
+           version = "0.3.16";
+         };
+       };*/
     })
     /*({
 
