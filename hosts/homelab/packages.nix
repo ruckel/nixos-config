@@ -25,6 +25,7 @@ environment.systemPackages = with pkgs; [
   feh
   fzf
   qimgv
+  netbird
   nomacs
   ffmpegthumbnailer
   fswebcam
