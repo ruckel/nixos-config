@@ -25,9 +25,11 @@ in {
 
   config = (mkMerge [
     (mkIf cfg.server.enable {
+      services.netbird.enable = true;
       services.netbird.server = {
         enable = true;
         #enableNginx = true;
+        domain = "127.0.0.1";
         coturn = {
           enable = false;
           /*domain
@@ -38,7 +40,7 @@ in {
           user*/
         };
         dashboard = {
-          enable = true;
+          enable = false;
           /*enableNginx
           package
           domain
@@ -46,9 +48,8 @@ in {
           managementServer
           settings*/
         };
-        #domain = "";
         management = {
-          enable = true;
+          #enable = true;
           /*enableNginx
           package
           disableAnonymousMetrics
@@ -65,7 +66,7 @@ in {
           turnDomain
           turnPort*/
         };
-        signal = {
+        /*signal = {
           enable
           enableNginx
           package
@@ -74,12 +75,13 @@ in {
           logLevel
           metricsPort
           port
-        };
+        };*/
       };
     })
     (mkIf cfg.client.enable {
+      services.netbird.enable = true;
       services.netbird.clients = {
-        "default" = {
+        /*"default" = {
           autoStart
           bin.suffix
           config
@@ -100,11 +102,10 @@ in {
           ui.enable
           user.group
           user.name
-        };
+        };*/
       };
     })
     ({
-      # static config here
     })
    ]);
 }
