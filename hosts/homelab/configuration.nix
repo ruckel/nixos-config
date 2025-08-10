@@ -11,6 +11,14 @@ fileSystems = {
     # options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
   };
 };
+netbird.clients = {
+  netbird = {
+    port = 51820;
+    hardened = false;
+    interface = "nb0";
+    name = "netbird";
+  };
+};
 
 # remember to keep the cachix keys updated for nvidia: while using cachix for the nvidia latest packages
 # do this by running `cachix use cuda-maintainers`

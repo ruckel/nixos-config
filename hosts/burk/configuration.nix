@@ -9,7 +9,7 @@ let vars = import "${inputs.vars}"; in
 wg = {
   interfaceName = "wg";
   client = {
-    enable = true;
+    enable = false;
     wg-quick = true;
     #ips = [ "10.100.0.2/24" ]
   };
@@ -172,9 +172,9 @@ environment.etc = {
     # "gnome"
     # "none+sxwm"
     # "gnome-xorg"
-   ;
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.gdm.enableGnomeKeyring = true;
+  ;
+  services.gnome.gnome-keyring.enable = lib.mkForce false;
+  security.pam.services.gdm.enableGnomeKeyring = lib.mkForce false;
 
   systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     "getty@tty1".enable = false;

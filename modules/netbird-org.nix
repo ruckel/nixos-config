@@ -74,13 +74,14 @@ in
   meta.maintainers = with maintainers; [
     nazarewk
   ];
-  meta.doc = ./netbird.md;
+  #meta.doc = ./netbird.md;
 
-  imports = [
+  /*imports = [
     (mkAliasOptionModule [ "services" "netbird" "tunnels" ] [ "services" "netbird" "clients" ])
-  ];
+  ];*/
 
-  options.services.netbird = {
+  #options.services.netbird = {
+  options.netbird = {
     enable = mkOption {
       type = bool;
       default = false;
@@ -311,7 +312,7 @@ in
                         mkdir -p "$out/share/applications"
                         substitute ${cfg.ui.package}/share/applications/netbird.desktop \
                             "$out/share/applications/${mkBin "netbird"}.desktop" \
-                          --replace-fail 'Name=NetBird' "Name=NetBird @ ${client.service.name}" \
+                          --replace-fail 'Name=Netbird' "Name=Netbird @ ${client.service.name}" \
                           --replace-fail '${lib.getExe cfg.ui.package}' "$out/bin/${mkBin "netbird-ui"}"
                       '')
                     ];
@@ -464,7 +465,8 @@ in
 
   config = mkMerge [
     (mkIf cfg.enable {
-      services.netbird.clients.default = {
+      #services.netbird.clients.default = {
+      netbird.clients.default = {
         port = mkDefault 51820;
         interface = mkDefault "wt0";
         name = mkDefault "netbird";
