@@ -17,7 +17,7 @@
     ../modules/kodi.nix
     ../modules/localization.nix
     ../modules/mysql.nix
-    ../modules/netbird.nix
+    ../modules/netbird-org.nix
     ../modules/nextcloud.nix
     #../modules/packages.nix
     ../modules/phonecon.nix
