@@ -42,8 +42,10 @@ in
     };
   };
   config = mkIf cfg.enable (mkMerge [
-    /*(mkIf {})
-    (mkIf {})*/
+    /*(mkIf {})*/
+    (mkIf {
+      services.nextcloud.settings.trusted_domains = ["100.84.203.89"];
+    })
     ({
       services.nginx = {
         enable = true;
@@ -81,10 +83,10 @@ in
         certs.${config.services.nextcloud.hostName}.email = cfg.email;
         /* 
           - Exactly one of the options:
-          security.acme.certs.moln.kevin.dybeck.com.dnsProvider`,
-          security.acme.certs.moln.kevin.dybeck.com.webroot,
-          security.acme.certs.moln.kevin.dybeck.com.listenHTTP = true;
-          security.acme.certs.moln.kevin.dybeck.com.s3Bucket
+          security.acme.certs.<name>.dnsProvider`,
+          security.acme.certs.<name>.webroot,
+          security.acme.certs.<name>.listenHTTP = true;
+          security.acme.certs.<name>.s3Bucket
         */
       };
     })
@@ -150,7 +152,7 @@ in
         };
         nginx.recommendedHttpHeaders = false;
         settings = {
-          trusted_domains = ["192.168.1.12" "moln.korv.lol" /*"bajs.korv.lol"*/ "80.216.24.170" ];
+          trusted_domains = ["192.168.1.12" "moln.korv.lol" ];
 	        trusted_proxies = ["192.168.1.1"];	
           # skeletondirectory "";
           loglevel = 1; # [0:debug, 1:info, 2:warn, 3:error, 4:fatal]
