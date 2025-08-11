@@ -43,8 +43,8 @@ in
   };
   config = mkIf cfg.enable (mkMerge [
     /*(mkIf {})*/
-    (mkIf {
-      services.nextcloud.settings.trusted_domains = ["100.84.203.89"];
+    ({
+      services.nextcloud.settings.trusted_domains = [ "100.84.203.89" ];
     })
     ({
       services.nginx = {
