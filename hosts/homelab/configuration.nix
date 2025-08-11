@@ -18,7 +18,7 @@ netbird.clients = {
     interface = "nb0";
     name = "netbird";
   };
-}
+};
 services.nextcloud.settings.trusted_domains = ["100.84.203.89"];
 
 # remember to keep the cachix keys updated for nvidia: while using cachix for the nvidia latest packages
