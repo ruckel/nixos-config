@@ -105,7 +105,7 @@
     mktemp
     mlterm
     mpv
-    #mullvad-vpn /* duh */
+    mullvad-vpn /* duh */
     networkmanagerapplet
     nextcloud-client
     ngrok jq

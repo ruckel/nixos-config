@@ -127,7 +127,7 @@ services = {
     mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
     };
   xserver.enable = true;
-  #mullvad-vpn.enable = true;
+  mullvad-vpn.enable = true;
 };
 users.users.${"user"} = { isNormalUser = true;
   description = "user";

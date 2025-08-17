@@ -216,7 +216,7 @@ environment.etc = {
     enable = true;
     videoDrivers = [ "amdgpu" ];
    };
-  # services.mullvad-vpn.enable = true;
+  services.mullvad-vpn.enable = true;
   users.users."korv" = { isNormalUser = true;
     description = "korv";
     extraGroups = [ "networkmanager" "wheel" "transmission" ];
