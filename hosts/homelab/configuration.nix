@@ -47,7 +47,7 @@ localization.enable = true;
 mysql.enable        = true;
 nc = {
   enable             = true;
-  version            = "30";
+  version            = "31";
   pwfile	           = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
   jellyfin.enable    = true;
 };
