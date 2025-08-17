@@ -72,7 +72,10 @@ ssh = {
 syncthing.enable    = true;
 syncthing.user      = "user";
 tmux.enable         = true;
-transmission.enable   = true;
+transmission = {
+  enable            = true;
+  dir = "/var/lib/nextcloud/5tb/transmission";
+};
 ollama.enable       = false;
 xprofile.enable     = true;
 xprofile.user       = "user";
