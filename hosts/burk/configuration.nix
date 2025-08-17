@@ -6,14 +6,6 @@ let vars = import "${inputs.vars}"; in
     ./hardware-configuration.nix
     ./packages.nix
    ];
-wg = {
-  interfaceName = "wg";
-  client = {
-    enable = false;
-    wg-quick = true;
-    #ips = [ "10.100.0.2/24" ]
-  };
-};
 #netbird.client.enable = true;
 netbird.clients = {
         netbird = {
