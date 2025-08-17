@@ -26,7 +26,7 @@ in {
         home = cfg.dir;
         openRPCPort = true;
         settings.rpc-bind-address = "0.0.0.0";
-        credentialsFile = "/var/lib/secrets/transmission/settings.json"
+        credentialsFile = "/var/lib/secrets/transmission/settings.json";
       };
         users.users."${cfg.user}".extraGroups = ["transmission"];
     })
