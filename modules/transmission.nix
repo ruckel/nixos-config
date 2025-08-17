@@ -18,8 +18,8 @@ in {
    };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf {})
-    (mkIf {})
+    /*(mkIf {})*/
+    /*(mkIf {})*/
     ({
       services.transmission = {
         enable = true;
