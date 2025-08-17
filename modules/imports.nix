@@ -31,6 +31,7 @@
     ../modules/syncthing.nix
     ../modules/systemd.nix
     ../modules/tmux.nix
+    ../modules/transmission.nix
     ../modules/vim.nix
     ../modules/wireguard.nix
     ../modules/xprofile.nix

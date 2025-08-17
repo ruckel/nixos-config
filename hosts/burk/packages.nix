@@ -144,7 +144,6 @@
     tmux
     tor-browser
     translate-shell
-    transmission_3
     trashy
     #tuxguitar /* guitar pro-like */
     ungoogled-chromium /* browser */
