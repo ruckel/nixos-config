@@ -33,7 +33,6 @@
     ../modules/tmux.nix
     ../modules/transmission.nix
     ../modules/vim.nix
-    ../modules/wireguard.nix
     ../modules/xprofile.nix
     #./nixscripts/helloWorld.nix
   ];
