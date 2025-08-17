@@ -135,9 +135,13 @@ users.users.${"user"} = { isNormalUser = true;
   packages = with pkgs; [ tilix bc ];
   hashedPasswordFile = config.sops.secrets.pw.path;
 };
+
 fonts.packages = with pkgs; [
-  fira fira-code fira-code-nerdfont
+  # nerdfonts /* All nerdfonts */
+  aileron /* helvetica in 9 weights */
+  fira fira-code nerd-fonts.fira-code
   noto-fonts noto-fonts-cjk-sans
+  comic-mono comic-relief
 ];
 xdg = {
   autostart.enable = true;
