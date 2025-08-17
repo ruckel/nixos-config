@@ -24,6 +24,8 @@ in {
       services.transmission = {
         enable = true;
         home = cfg.dir;
+        openRPCPort = true;
+        settings.rpc-bind-address = "0.0.0.0";
       };
         users.users."${cfg.user}".extraGroups = ["transmission"];
     })
