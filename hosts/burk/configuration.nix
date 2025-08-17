@@ -149,6 +149,7 @@ environment.etc = {
   #sxwm.enable           = true;
   # ollama.enable       = true;
   tmux.enable           = true;
+  transmission.enable   = true;
   vim.enable            = true;
   xprofile = { enable   = true;
     user                = "korv";

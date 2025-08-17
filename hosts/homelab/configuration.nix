@@ -72,6 +72,7 @@ ssh = {
 syncthing.enable    = true;
 syncthing.user      = "user";
 tmux.enable         = true;
+transmission.enable   = true;
 ollama.enable       = false;
 wg.server = {
   enable = false;
