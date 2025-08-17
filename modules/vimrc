@@ -1,8 +1,45 @@
-source $HOME/.config/vim/settings/commands.vim
-  source $HOME/.config/vim/settings/configs.vim
-  source $HOME/.config/vim/settings/functions.vim
-  source $HOME/.config/vim/settings/mappings.vim
-  source $HOME/.config/vim/settings/plugins.vim
+""commands
+  "source $HOME/.config/vim/settings/commands.vim 
+  command! Smartcase call ToggleSmartAndIgnoreCase()
+  
+  command! UnfoldX2       +2foldopen
+  command! UnfoldX2More   +2foldopen!
+  command! UnfoldX4       +4foldopen
+  command! UnfoldX4More   +4foldopen!
+""configs
+  "source $HOME/.config/vim/settings/configs.vim
+  syntax on
+  colorscheme retrobox
+  
+  set expandtab shiftwidth=2 tabstop=2 " 2 spaces instead of tabs
+  set number
+  set ignorecase smartcase
+  
+  set foldmethod=indent
+  highlight Folded ctermbg=17 
+  highlight Folded ctermfg=14
+""functions
+  "source $HOME/.config/vim/settings/functions.vim
+  function! GetSmartcase()
+    set smartcase?
+    endfunction
+  function! ToggleSmartAndIgnoreCase()
+    set ignorecase! smartcase!
+    echo call("GetSmartcase", [])
+    endfunction
+""mappings
+  "source $HOME/.config/vim/settings/mappings.vim
+  map <F10> :set number!<CR>    " line nrs, nonumber for off
+  map <F9> :set rnu!<CR>        " relative line nrs
+  nnoremap <space> za           " toggle folds with spacebar
+  nmap Q  = ''                  " disable EX mode on Q
+  nmap qq = ''                  " disable macre recorcd on q
+  nmap P = previous
+  
+  noremap <leader>y "+y         " unsure what these do
+  noremap <leader>p "+p         " unsure what these do
+""plugins
+  "source $HOME/.config/vim/settings/plugins.vim
 
 function! _colors_in_vim()
   "block comment"
