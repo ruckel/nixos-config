@@ -5,6 +5,8 @@ in {
   options.TEMPLATE = {
     ## types = {attrs, bool, path, int, port, str, lines, commas}
     enable = mkEnableOption "DESCRIPTION";
+    opt1 = mkEnableOption "";
+    opt2 = mkEnableOption "";
 
     user = mkOption { default = "user";
       description = "";
@@ -17,10 +19,14 @@ in {
    };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf {})
-    (mkIf {})
-    ({
-      # static config here
+    ({ #static config
+
+    })
+    (mkIf cfg.opt1 {
+      
+    })
+    (mkIf cfg.opt2 {
+      
     })
    ]);
 }
