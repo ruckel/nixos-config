@@ -7,6 +7,7 @@ let vars = import "${inputs.vars}"; in
   ];
 
 services.displayManager.defaultSession = "none+dwm"; # "gnome"
+services.gnome.gnome-keyring.enable = lib.mkForce false;
 adb = {
   enable            = true;
   user              = "korv";
