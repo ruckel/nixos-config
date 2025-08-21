@@ -16,6 +16,7 @@
     ../modules/kde.nix
     ../modules/kodi.nix
     ../modules/localization.nix
+    ../modules/mpv.nix
     ../modules/mysql.nix
     ../modules/netbird-org.nix
     ../modules/nextcloud.nix

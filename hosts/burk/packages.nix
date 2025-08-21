@@ -104,7 +104,6 @@
     merge-fmt
     mktemp
     mlterm
-    mpv
     mullvad-vpn /* duh */
     networkmanagerapplet
     nextcloud-client
