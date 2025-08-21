@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 : <<'END_COMMENT'
 /usr/bin/env because of nixos things
-
 END_COMMENT
 
 script_path="$(readlink -f "$0")"
@@ -9,12 +8,13 @@ script_name="$(basename "$script_path")"
 script_dir="$(dirname "$script_path")"
 
 function main() {
-  echo "main func, $@"
+  echo "main func, $@" 
   parseArgs $@
   if [ ! -z $SHOWHELP ];then cat "${script_path}" && exit 0; fi
-  run "arg" "$2" "lol"; run_status=$?
-
-  echo;echo "status [echo|rm|run]: [${echo_status}|${rm_status}|${run_status}]"
+  run "arg" "$2" "lol" ; run_status=$?
+  echo "echo status: '${echo_status}'"
+  echo "cat status: '${cat_status}'"
+  echo "run status: '${run_status}'"
 }
 
 function parseArgs() {
@@ -45,8 +45,7 @@ function parseArgs() {
 
 function run() {
   echo "another func, $@" ; echo_status=$?
-  rm non/ExistingFile &> /dev/null ; rm_status=$?
-  [[ $rm_status == "1" ]] && return || rm -r non && return 1
+  cat x &> /dev/null ; cat_status=$?
 }
 
 main "arg" $@
