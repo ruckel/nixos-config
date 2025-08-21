@@ -9,140 +9,31 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     ({ # static config
-      environment.systemPackages = with pkgs; [ mpv ];
-      environment.etc."mpv/input.conf".text = ''
-        ## mpv --input-test --idle #--force-window
-        # Rotate by 90 degrees clockwise
-        
-        UP cycle_values video-rotate 15 30 45 60 75 90 105 120 135 150 165 180 195 210 225 240 255 270 285 300 315 330 345 0
-        DOWN cycle_values video-rotate 0 345 330 315 300 285 270 255 240 225 210 195 180 165 150 135 120 75 90 75 60 45 30 15
-        LEFT frame-back-step
-        #;                   show-progress
-        RIGHT frame-step
-        #;                       show-progress
-        
-        Shift+LEFT no-osd seek -1 exact;        show-progress
-        Shift+RIGHT no-osd seek 1 exact;        show-progress
-        Ctrl+RIGHT no-osd seek 5 exact;         show-progress
-        Ctrl+LEFT no-osd seek -5 exact;         show-progress
-        Shift+Ctrl+RIGHT no-osd seek 20 exact;  show-progress
-        Shift+Ctrl+LEFT no-osd seek -20 exact;  show-progress
-        
-        Ctrl+Up playlist-next
-        Ctrl+Down playlist-prev
-        <   playlist-prev
-        >   playlist-next
-        .   playlist-next
-        
-        å playlist-prev
-        ö playlist-next
-         
-        WHEEL_UP seek 5
-        WHEEL_DOWN seek -5
-        
-        KP9 add video-zoom +.1
-        + add video-zoom +.1
-        - add video-zoom -.1
-        KP7 add video-zoom -.1
-        
-        KP2       add video-pan-y -0.01
-        KP4       add video-pan-x -0.01
-        KP6       add video-pan-x  0.01
-        KP8       add video-pan-y  0.01
-        
-        KP1       multiply speed 1/1.1
-        KP3       multiply speed 1.1
-        
-        KP0       set video-zoom 0
-        KP_DEC    set video-zoom 0
-        KP5       set video-pan-y 0; set video-pan-x 0;
-        KP_ENTER  cycle pause
-        KP_ADD        playlist-next
-        KP_SUBTRACT   playlist-prev
-        # KP_DIVIDE     vol -
-        # KP_MULTIPLY   vol +
-        
-        h vf add hflip
-        v vf add vflip
-        Shift+h vf add vflip
-        Shift+v vf add hflip
-        
-        
-        ?   add volume  5
-        _   add volume -5
-        
-        #; set video-pan-y 0; set video-pan-x 0;
-        
-        #F1 video-rotate 
-        #F2 video-rotate 90
-        #F3 video-rotate 180
-        #F4 video-rotate 270
-        
-        ä screenshot
-        
-        ENTER       cycle pause
-        INS         cycle fullscreen
-        DEL         screenshot
-        END         cycle-values loop-file "inf" "no"
-        Shift+END   quit
-        Ctrl+v      quit
-        '           show-progress
-        ,           cycle_values video-rotate 90 180 270 0
-        i           cycle_values osc yes no
-        #i           cycle_values script-opts=osc-visibility auto always
-        
-        PGUP multiply speed 1.1
-        PGDWN multiply speed 1/1.1
-        Shift+PGUP  add chapter 1
-        Shift+PGDWN add chapter -1
-        Ctrl+PGUP  add chapter 1
-        Ctrl+PGDWN add chapter -1
-        HOME show-progress
-        k cycle_values keep-open "yes" "always" "no" ; show-text "${?=keep-open==no:kill@eol(no)[next or kill]}${?=keep-open==yes:p@eol(yes)[no term post list]}${?=keep-open==always:p@eof(always)[pause every file]}"
-        
-        Ctrl+l ab-loop
-        l cycle-values loop-playlist yes no ; show-text "${?=loop-playlist==inf:list looping}${?=loop-playlist==no:list not looping}"
-        
-        p show-progress
-        P show-text ${playlist}
-        Ctrl+P show-text ${playlist}
-        § script-binding console/enable
-        
-        Ctrl+BS          seek  0 absolute        ; show-text "0% ${media-title}"
-        Shift+KP_INS     seek  0 absolute        ; show-text "0% ${media-title}"
-        Shift+KP_END     seek 30 absolute        ; show-progress
-        Shift+KP_DOWN    seek 60 absolute        ; show-progress
-        Shift+KP_PGDWN   seek 30 absolute-percent; show-progress
-        Shift+KP_LEFT    seek 40 absolute-percent; show-progress
-        Shift+KP_BEGIN   seek 50 absolute-percent; show-progress
-        Shift+KP_RIGHT   seek 60 absolute-percent; show-progress
-        Shift+KP_HOME    seek 70 absolute-percent; show-progress
-        Shift+KP_UP      seek 80 absolute-percent; show-progress
-        Shift+KP_PGUP    seek 90 absolute-percent; show-progress
-      '';
-      environment.etc."mpv/mpv.conf".text = ''
-        #title-bar=no#
-        #loop-playlist=inf
-        #--screenshot-template=mpv-shot%n #org
-        #screenshot-template='%F/mpv_%f_%#02n'
-        keepaspect-window=no
-        #force-window
-        
-        osd-fractions
-        
-        #volume=60
-        keep-open=always
-        autofit=80%
-        
-        screenshot-directory=~/files/pictures/mpv/
-        screenshot-template='%X{~/files/pictures/mpv/}%f_%P'
-        image-display-duration=4
-        
-        osc=yes
-        input-default-bindings=yes
-        #script-opts=osc-layout=slimbox
-        script-opts=osc-visibility=always 
-      '';
+      environment = {
+        systemPackages = with pkgs; [ mpv ];
+        etc = {
+          "mpv/input.conf" = { 
+            source = "../configfiles/mpv/input.conf";
+            mode = "0444"; 
+          };
+          "mpv/mpv.conf" = {
+            source = "../configfiles/mpv/mpv.conf";
+            mode = "0444"; 
+          };
+          "mpv/osc_always_on.lua" = {
+            source = "../configfiles/mpv/osc_always_on.lua";
+            mode = "0444"; 
+          };
+          "mpv/cript-opts/osc.conf" = {
+            source = "../configfiles/mpv/script-opts/osc.conf";
+            mode = "0444"; 
+          };
+          "mpv/scripts/toggle_osc_visibility.lua" = {
+            source = "../configfiles/mpv/scripts/toggle_osc_visibility.lua";
+            mode = "0444"; 
+          };
+        };
+      };
     })
    ]);
 }
