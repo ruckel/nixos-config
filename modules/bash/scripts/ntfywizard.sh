@@ -99,7 +99,7 @@ parseArgs () {
       ;;
     -d|--defconfig)
       #[[ ! -r $2 ]] && echo cant read conf && exit 1
-      source ~/.config/ntfy/default.sh
+      source /etc/ntfywizz.conf
       shift
       ;;
     -u|--unsend)
