@@ -7,6 +7,7 @@ let vars = import "${inputs.vars}"; in
   ];
 
 services.displayManager.defaultSession = "none+dwm"; # "gnome"
+services.gnome.gnome-keyring.enable = lib.mkForce false;
 adb = {
   enable            = true;
   user              = "korv";
@@ -78,7 +79,7 @@ services.udisks2 = { enable = true; #settings = {};
   mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
   };
 services.xserver.enable = true;
-#services.mullvad-vpn.enable = true;
+services.mullvad-vpn.enable = true;
 users.users."korv" = { isNormalUser = true;
     description = "korv";
     extraGroups = [ "networkmanager" "wheel" ];

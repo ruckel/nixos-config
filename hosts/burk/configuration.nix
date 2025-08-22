@@ -7,55 +7,59 @@ let vars = import "${inputs.vars}"; in
     ./packages.nix
    ];
 #netbird.client.enable = true;
-netbird.clients = {
-        netbird = {
-          port = 51820;
-          hardened = false;
-          interface = "nb0";
-          name = "netbird";
-          #systemd.name = "netbird";
-          #autoStart = true;
-          #bin.suffix = "netbird-default";
-          /*config = {
-            DisableAutoConnect = !client.autoStart;
-            WgIface = client.interface;
-            WgPort = client.port;
-          } // optionalAttrs (client.dns-resolver.address != null) {
-            CustomDNSAddress = "${client.dns-resolver.address}:${builtins.toString client.dns-resolver.port}";
-          }*/
-          #dir.baseName = "netbird-default";
-          #dir.runtime ="/var/run/netbird-default";
-          #dir.state = "/var/lib/netbird-default";
-          #dns-resolver.address
-          #dns-resolver.port
-          /*environment = {
-             NB_STATE_DIR = client.dir.state;
-             NB_CONFIG = "${client.dir.state}/config.json";
-             NB_DAEMON_ADDR = "unix://${client.dir.runtime}/sock";
-             NB_INTERFACE_NAME = client.interface;
-             NB_LOG_FILE = mkOptionDefault "console";
-             NB_LOG_LEVEL = client.logLevel;
-             NB_SERVICE = client.service.name;
-             NB_WIREGUARD_PORT = toString client.port;
-           } // optionalAttrs (client.dns-resolver.address != null) {
-             NB_DNS_RESOLVER_ADDRESS = "${client.dns-resolver.address}:${builtins.toString client.dns-resolver.port}";
-           }
-          */
-          #logLevel = "info"; /* "panic", "fatal", "error", "warn", "warning", ["info"], "debug", "trace" */
-          #openFirewall = true;
-          #service.name = "netbird-default";
-          #suffixedName = "netbird-default";
-          #ui.enable
-          #user.group
-          #user.name*/
-        };
-      };
+/*netbird.clients = {
+  netbird = {
+    port = 51820;
+    hardened = true;
+    interface = "nb0";
+    name = "netbird";
+    #systemd.name = "netbird";
+    #autoStart = true;
+    #bin.suffix = "netbird-default";
+    /*config = {
+      DisableAutoConnect = !client.autoStart;
+      WgIface = client.interface;
+      WgPort = client.port;
+    } // optionalAttrs (client.dns-resolver.address != null) {
+      CustomDNSAddress = "${client.dns-resolver.address}:${builtins.toString client.dns-resolver.port}";
+    }*/
+    #dir.baseName = "netbird-default";
+    #dir.runtime ="/var/run/netbird-default";
+    #dir.state = "/var/lib/netbird-default";
+    #dns-resolver.address
+    #dns-resolver.port
+    /*environment = {
+       NB_STATE_DIR = client.dir.state;
+       NB_CONFIG = "${client.dir.state}/config.json";
+       NB_DAEMON_ADDR = "unix://${client.dir.runtime}/sock";
+       NB_INTERFACE_NAME = client.interface;
+       NB_LOG_FILE = mkOptionDefault "console";
+       NB_LOG_LEVEL = client.logLevel;
+       NB_SERVICE = client.service.name;
+       NB_WIREGUARD_PORT = toString client.port;
+     } // optionalAttrs (client.dns-resolver.address != null) {
+       NB_DNS_RESOLVER_ADDRESS = "${client.dns-resolver.address}:${builtins.toString client.dns-resolver.port}";
+     }
+    */
+    #logLevel = "info"; /* "panic", "fatal", "error", "warn", "warning", ["info"], "debug", "trace" */
+    #openFirewall = true;
+    #service.name = "netbird-default";
+    #suffixedName = "netbird-default";
+    #ui.enable
+    #user.group
+    #user.name*/
+  /*};
+};*/
 services.zoneminder = { enable = false;
   database = {
     createLocally =   true;
     username =        "zoneminder";
   }; 
 };
+/*services.home-assistant = {
+  enable = false;
+  config.homeassistant.name = "home";
+};*/
 /*
 environment.etc = {
   "xdg/user-dirs.defaults".text = ''
@@ -89,9 +93,10 @@ environment.etc = {
  #};
   scripts.enable        = true;
   customkbd.enable      = true;
-  # docker = { enable     = true;
-    # user                = "korv";
-   # };
+  /*docker = { 
+    enable              = false;
+    user                = "korv";
+  };*/
   dwm = { enable        = true;
     user                  = "korv";
    };
@@ -99,7 +104,7 @@ environment.etc = {
     user                   = "korv";
    };
   # ffsyncserver.enable   = true;
-  hyprland.enable       = true;
+  /*hyprland.enable       = true;*/
   gnomeWM.enable        = true;
   # kanata.enable         = true;
   # kanata.user           = "korv";
@@ -131,24 +136,27 @@ environment.etc = {
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIa8dGCkZtulhJ7Peg2XvdryhAowWpL0hVMAS+i0I1t5 root@nix-homelab"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpTIZfMSLWJBzkvSZyCthrU40R0CB8GjRi0WUMxi62z korv@pixel"
      ];
-     pwauth            = false;
-     x11fw             = true;
-     vncbg             = true;
+     pwauth            = true;
+     x11fw             = false;
+     vncbg             = false;
    };
   syncthing = { enable  = true;
     user                = "korv";
    };
-  lockScreenOnBoot.enable= true;
+  /*lockScreenOnBoot.enable= true;*/
   #sxwm.enable           = true;
   # ollama.enable       = true;
-  tmux.enable           = true;
-  transmission.enable   = true;
+  /*tmux.enable           = true;*/
+  /*transmission = {
+    enable              = true;
+    user = "korv";
+  };*/
   vim.enable            = true;
   xprofile = { enable   = true;
     user                = "korv";
    };
 
-  experimental = {
+  /*experimental = {
     enable                  = true;
     user                    = "korv";
     enableSystembus-notify  = true;
@@ -156,7 +164,7 @@ environment.etc = {
     enableRustdeskServer    = true;
     enableVirtualScreen     = true;
     enableVncFirewall       = true;
-   };
+   };*/
 /* end custom services */
 
   programs.java.enable      = false;

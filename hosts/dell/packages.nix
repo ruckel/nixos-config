@@ -65,7 +65,7 @@
     mdp
     menulibre
     mpv media-downloader vlc playerctl helvum
-    # mullvad-vpn /* duh */
+    mullvad-vpn /* duh */
     networkmanagerapplet
     nextcloud-client syncthing rymdport
     nix-plugins

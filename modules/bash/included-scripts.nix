@@ -1,10 +1,10 @@
 { pkgs }:[{
   name = "cowsay-script";
-  file = scripts/script.sh;
+  file = scripts/cowsay-script.sh;
   deps = with pkgs; [ cowsay ddate ];
 } {
   name = "cowsay-scriptus";
-  file = scripts/script2.sh;
+  file = scripts/cowsay-scriptus.sh;
   deps = with pkgs; [ cowsay ];
 } { 
   name = "exec-with-watch";

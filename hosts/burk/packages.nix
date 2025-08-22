@@ -51,7 +51,7 @@
     desktop-file-utils
     digikam
     dmenu networkmanager_dmenu
-    #docker docker-compose
+    # docker docker-compose
     dunst
     drawio
     easyeffects helvum
@@ -73,6 +73,7 @@
     gimp
     git gh gitg
     glow /* cli markdown renderer  */
+    gnome-secrets
     gnupg
     #go2rtc
     gparted
@@ -87,12 +88,14 @@
     jless
     jq
     kdocker
+    kdePackages.kwallet kwalletcli
     keepassxc git-credential-keepassxc cryptsetup
     kitty
     libadwaita
     libgnomekbd
     libnotify
     libreoffice
+    libsecret
     libsForQt5.kleopatra
     libusb-compat-0_1
     libusb1

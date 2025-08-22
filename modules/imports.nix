@@ -31,6 +31,7 @@
     ../modules/ssh.nix
     ../modules/syncthing.nix
     ../modules/systemd.nix
+    ../modules/tailscale.nix
     ../modules/tmux.nix
     ../modules/transmission.nix
     ../modules/vim.nix
