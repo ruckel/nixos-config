@@ -209,7 +209,7 @@ in
       };
     })
     ({
-      services.nextcloud.extraApps = { inherit (config.services.nextcloud.package.packages.apps)
+      #services.nextcloud.extraApps = { inherit (config.services.nextcloud.package.packages.apps) };
         /*files_share = pkgs.fetchNextcloudApp {
           name = "sharerenamer";
           sha256 = "74d46c22ed0f24a6fe00b2acf8e7f6a3a469ed00984ee035277c5ac9f605908e";
@@ -231,7 +231,7 @@ in
           url = "https://github.com/te-online/timemanager/archive/refs/tags/v0.3.16.tar.gz";
           version = "0.3.16";
         };*/
-      };
+      
     
     })
     ({
