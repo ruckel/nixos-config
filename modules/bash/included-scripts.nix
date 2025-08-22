@@ -41,7 +41,7 @@
 } {
   name = "ntfyvar";
   file = scripts/ntfy-var-setter.sh;
-  deps = with pkgs; [ coreutils ntfy-sh sed ];
+  deps = with pkgs; [ coreutils ntfy-sh bat ];
 } 
 ]
 /* template
