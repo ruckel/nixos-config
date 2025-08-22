@@ -33,7 +33,7 @@ in {
           };
          };
        };
-      services.openssh.logLevel = "VERBOSE";
+      services.openssh.settings.logLevel = "VERBOSE";
     })
    ]);
 }
