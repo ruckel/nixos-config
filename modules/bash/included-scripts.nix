@@ -36,7 +36,7 @@
   deps = with pkgs; [ bash sudo coreutils libnotify busybox dunst ];
 } {
   name = "ntfywizz";
-  file = scripts/ntfywivard.sh;
+  file = scripts/ntfywizard.sh;
   deps = with pkgs; [ coreutils ntfy-sh ];
 } {
   name = "ntfyvar";
