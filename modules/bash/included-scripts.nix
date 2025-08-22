@@ -34,6 +34,14 @@
   name = "nixswitch";
   file = scripts/nixswitch.sh;
   deps = with pkgs; [ bash sudo coreutils libnotify busybox dunst ];
+} {
+  name = "ntfywizz";
+  file = scripts/ntfywivard.sh;
+  deps = with pkgs; [ coreutils ntfy-sh ];
+} {
+  name = "ntfyvar";
+  file = scripts/ntfy-var-setter.sh;
+  deps = with pkgs; [ coreutils ntfy-sh ];
 } 
 ]
 /* template
