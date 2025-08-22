@@ -19,6 +19,9 @@ main () {
   send
   #echo t:$NTFY_TOPIC, m:$NTFY_MESSAGE
 }
+ntfyvar () {
+  echo "export ${1}=\"${2}\"" >> $tmp
+}
 setVars () {
   [[ -s /tmp/ntfyvars.sh ]] && . /tmp/ntfyvars.sh #&& echo såsed
   #msg="message"
