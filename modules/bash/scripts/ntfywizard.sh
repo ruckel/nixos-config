@@ -73,7 +73,7 @@ send () {
   [[ -n "$verbose" ]] && echo "ntfy top:$NTFY_TOPIC, tit:$NTFY_TITLE, msg:$NTFY_MESSAGE"
   [[ -n $unsend ]] && export NTFY_TOPIC=$(mktemp -u "random-XXXXXXXXXXXXXXXXXXX")
   tmp_out=$(mktemp -t ntfyw-XXXX.json)
-  ntfy pub > $tmp_out ; ntfyX=$?
+  NTFY_TOPIC=$NTFY_TOPIC ntfy pub > $tmp_out ; ntfyX=$?
   [[ -n "$verbose" ]] && jq . $tmp_out
   rm $tmp_out
   return $ntfyX
