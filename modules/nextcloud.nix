@@ -210,13 +210,13 @@ in
     })
     ({
       services.nextcloud.extraApps = { inherit (config.services.nextcloud.package.packages.apps)
-        files_share = pkgs.fetchNextcloudApp {
+        /*files_share = pkgs.fetchNextcloudApp {
           name = "sharerenamer";
           sha256 = "74d46c22ed0f24a6fe00b2acf8e7f6a3a469ed00984ee035277c5ac9f605908e";
           license = "AGPL";
           url = "https://github.com/JonathanTreffler/sharerenamer/releases/download/v3.4.0/sharerenamer.tar.gz";
           version = "3.4.0";
-        };
+        };*/
         /*sharerenamer = pkgs.fetchNextcloudApp {
           name = "sharerenamer";
           sha256 = "74d46c22ed0f24a6fe00b2acf8e7f6a3a469ed00984ee035277c5ac9f605908e";
