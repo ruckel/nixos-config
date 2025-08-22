@@ -19,11 +19,11 @@ main () {
   send
   #echo t:$NTFY_TOPIC, m:$NTFY_MESSAGE
 }
-ntfyvar () {
-  echo "export ${1}=\"${2}\"" >> /tmp/ntfyvars.sh
+ntfyVar () {
+  echo "export ${1}=\"${2}\"" >> /tmp/ntfyVars.sh
 }
 setVars () {
-  [[ -s /tmp/ntfyvars.sh ]] && . /tmp/ntfyvars.sh #&& echo såsed
+  [[ -s /tmp/ntfyVars.sh ]] && . /tmp/ntfyVars.sh #&& echo såsed
   #msg="message"
   tags=poop,hotdog
   priority=3
@@ -32,14 +32,14 @@ setVars () {
   title="ntfywizz"
   topic=korvintihi
   
-  [[ -n "$msg" ]] && msg="$1" export NTFY_MESSAGE=${msg} && ntfyvar message "${msg}" && echo "${msg}"
+  [[ -n "$msg" ]] && msg="$1" export NTFY_MESSAGE=${msg} && ntfyVar message "${msg}" && echo "${msg}"
   #echo "${key}: '${val}'"
   deps=(NTFY_TOPIC NTFY_TITLE NTFY_MESSAGE) #)
   for var in "${deps[@]}"; do if [[ -z "${!var}" ]];then
     echo -n "${var}: "
     read input
     [[ -z "$input" ]] && exit 1
-    ntfyvar ${var} $input
+    ntfyVar ${var} $input
     export ${var}=${input}
   fi; done
 
@@ -50,7 +50,7 @@ setVars () {
     if [[ "$input" == "skip" || "$input" == "S" || "$input" == 's' ]];then
       skip=tru
     elif [[ "$input" != "n" ]]; then 
-      ntfyvar ${var} $input
+      ntfyVar ${var} $input
       export ${var}=${input}      
     fi
     
