@@ -54,6 +54,8 @@ alias nixswitch-burk='sudo -A nixos-rebuild switch --fast --impure --flake ~/nix
 alias nixtestburk='sudo -A nixos-rebuild test --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
 alias nixswitch-homelab='sudo printf ''; LASTPWD=$PWD && cd ~/nixos-cfg && git pull && sudo nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# ; cd $LASTPWD'
 
+gitstashpull="git stash push -q -m \"${HOSTNAME}_$(date +%y%m%d_%H-%M)\" && git pull ; git stash pop -q"
+
 alias tilixwidth='dconf write /com/gexperts/Tilix/quake-width-percent'
 alias tilixheight='dconf write /com/gexperts/Tilix/quake-height-percent'
 alias tilixautohide='/home/korv/scripts/tilixautohide'
