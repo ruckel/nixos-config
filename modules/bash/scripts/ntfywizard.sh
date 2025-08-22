@@ -32,7 +32,7 @@ setVars () {
   title="ntfywizz"
   topic=korvintihi
   
-  [[ -n "$msg" ]] && msg="$1" export NTFY_MESSAGE=${msg} && ntfyVar message "${msg}" && echo "${msg}"
+  [[ -n "$msg" ]] && msg="$1" export NTFY_MESSAGE=${msg} && ntfyVar message "${msg}"
   #echo "${key}: '${val}'"
   deps=(NTFY_TOPIC NTFY_TITLE NTFY_MESSAGE) #)
   for var in "${deps[@]}"; do if [[ -z "${!var}" ]];then
