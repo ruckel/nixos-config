@@ -37,7 +37,7 @@
 } {
   name = "ntfywizz";
   file = scripts/ntfywizard.sh;
-  deps = with pkgs; [ coreutils ntfy-sh ];
+  deps = with pkgs; [ coreutils ntfy-sh jq ];
 } {
   name = "ntfyvar";
   file = scripts/ntfy-var-setter.sh;
