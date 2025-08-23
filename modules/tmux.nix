@@ -6,20 +6,24 @@ in {
     ## types = {attrs, bool, path, int, port, str, lines, commas}
     enable = mkEnableOption "tmux";
     strings = mkOption {
-      type = with types; nullOr listOf str;
-     };
-    shortcut = mkOption { default = "q";
-       type = types.str;
-       description = "key to press after Ctrl for prefix. Def: b";
-     };
-    term = mkOption { default = "screen-256color";
+      type = with types; 
+      nullOr listOf str;
+    };
+    shortcut = mkOption { 
+      description = "key to press after Ctrl for prefix. Def: b";
+      default = "q";
+      type = types.str;
+    };
+    term = mkOption { 
+      default = "xterm-256color";
       description = "Sets $TERM. Def: screen";
       type = types.str;
-     };
-    newSession = mkOption { default = true;
+    };
+    newSession = mkOption { 
       description = "autospawn a session if none";
+      default = true;
       type = types.bool;
-     };
+    };
     conf.preplugin = mkOption {
       description = "sets /etc/tmux.conf";
       type = types.lines;
@@ -38,8 +42,8 @@ in {
       description = "sets /etc/tmux.conf";
       type = types.lines;
       default = ''
-
-       '';
+        source /etc/tmux-color-fix.conf
+      '';
        /*
        #set-option -g allow-rename off  ##don't rename windows automatically
        */
@@ -57,6 +61,9 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfg.unsecureSocket {
       programs.tmux.secureSocket = false;
+    })
+    ({
+      environment.etc."tmux-color-fix.conf".source = ../../configfiles/tmux.conf;
     })
     ({programs.tmux = {
       enable = true;
