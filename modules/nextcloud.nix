@@ -54,15 +54,15 @@ in
         recommendedTlsSettings = true;
       };
       services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-        forceSSL = true;
-        enableACME = true;
+        #forceSSL = true;
+        #enableACME = true;
         /*locations."/".proxyPass = "http://127.0.0.1:8920";*/
         /*locations."/bio".return = "302 $scheme://$host/bio/";*/
         /*locations."/bio/".proxyPass = "https://127.0.0.1:8920";*/
       };
       services.nginx.virtualHosts.${cfg.jellyfin.hostName} = mkIf cfg.jellyfin.enable {
-        forceSSL = true;
-        enableACME = true;
+        #forceSSL = true;
+        #enableACME = true;
         locations."/".proxyPass = "http://127.0.0.1:8096"; #http
         /*locations."/".proxyPass = "https://127.0.0.1:8920"; #https*/
         /*locations."/bio".return = "302 $scheme://$host/bio/";*/
@@ -78,15 +78,10 @@ in
     ({ 
       security.acme = {
         acceptTerms = true;
-        defaults.email = cfg.email;
-        certs.${config.services.nextcloud.hostName}.email = cfg.email;
-        /* 
-          - Exactly one of the options:
-          security.acme.certs.<name>.dnsProvider`,
-          security.acme.certs.<name>.webroot,
-          security.acme.certs.<name>.listenHTTP = true;
-          security.acme.certs.<name>.s3Bucket
-        */
+        defaults = {
+          email = cfg.email;
+          webroot = "/var/lib/acme/acme-challenge";
+        };
       };
     })
     (mkIf cfg.jellyfin.enable {
@@ -104,7 +99,6 @@ in
         jellyfin-ffmpeg
         jellycli
       ];
-      security.acme.certs.${cfg.jellyfin.hostName}.email = cfg.email; 
       networking.firewall = {/*
         allowedTCPPorts = [ 8096 8920 ];
         allowedUDPPorts = [ 8096 8920 ];
@@ -118,52 +112,57 @@ in
         cli.memoryLimit = "2G";
         https = true; #HTTPS for generated links
         hostName = "moln.kevindybeck.com";
-        /*home = "";*/
-        datadir = "/var/lib/nextcloud/5tb/nextcloud";
+        home = "/var/lib/nextcloud/5tb/nextcloud"; #"Storage path of nextcloud"
+          /* Nextcloud’s data storage path. 
+            Will be services.nextcloud.home by default. 
+            This folder will be populated with a config.php file 
+            and a data folder which contains the state of the instance 
+            (excluding the database) 
+          */
+        #datadir = "/var/lib/nextcloud/5tb/nextcloud";
         /*secretFile = "path"; #{"redis":{"password":"secret"}}*/
         phpOptions = {
-          catch_workers_output = "yes";
-          display_errors = "stderr";
-          error_reporting = "E_ALL & ~E_DEPRECATED & ~E_STRICT";
-          expose_php = "Off";
-          "opcache.fast_shutdown" = "1";
-          "opcache.interned_strings_buffer" = "16";
-          "opcache.max_accelerated_files" = "10000";
-          "opcache.memory_consumption" = "128";
-          "opcache.revalidate_freq" = "1";
+          catch_workers_output = "yes"; # def
+          display_errors = "stderr"; # def
+          error_reporting = "E_ALL & ~E_DEPRECATED & ~E_STRICT"; # def
+          expose_php = "Off"; # def
+          "opcache.fast_shutdown" = "1"; # def
+          "opcache.interned_strings_buffer" = "16"; # def: "8"
+          "opcache.max_accelerated_files" = "10000"; # def
+          "opcache.memory_consumption" = "128"; # def
+          "opcache.revalidate_freq" = "1"; # def
           "openssl.cafile" = "/etc/ssl/certs/ca-certificates.crt";
-          output_buffering = "0";
-          short_open_tag = "Off";
+          output_buffering = "0"; # def
+          short_open_tag = "Off"; # def
           instanceid = "ocvufs9qxu02";
           passwordsalt = "XDtrXybh8uBcOgIATWsJ7zV+h07pHt";
           secret = "Uf6KwmcYdtW1WkvlvNrOaoLdvhH8EDsPZWnG66/ALHU17fAO";
           dbtableprefix = "oc_";
-          mysqlutf8mb' =" tru";
-          installed = "ru";
+          #mysqlutf8mb' =" tru";
+          #installed = "ru";
           default_locale = "sv_SE";
           default_phone_region = "SE";
           twofactor_enforced = "false";
           "bulkupload.enabled" = "false";
-          maintenance = "false";
           "htaccess.RewriteBase" = "/";
           theme = "";
         };
         nginx.recommendedHttpHeaders = false;
         settings = {
-          trusted_domains = ["192.168.1.12" "moln.korv.lol" ];
+          trusted_domains = ["192.168.1.12"];
 	        trusted_proxies = ["192.168.1.1"];	
           # skeletondirectory "";
-          loglevel = 1; # [0:debug, 1:info, 2:warn, 3:error, 4:fatal]
+          loglevel = 1; # [0:debug, 1:info, [2]:warn, 3:error, 4:fatal]
           log_type = "syslog"; #"errorlog", ["syslog"], "systemd", "file"
         };
-        # configureRedis = ;
+        # configureRedis = true;
         database.createLocally = true;
         config = {
           adminpassFile = cfg.pwfile;# "string";
           dbuser = "nextcloud";
           dbtype = "mysql"; #"sqlite", "pgsql", "mysql"
           dbname = "nextcloud";
-          /* #adminuser = "admin";
+          adminuser = "admin";
           dbtableprefix = "oc_"; #"string"
           dbpassFile = null; #"string"*/
         };
@@ -178,10 +177,10 @@ in
           Set this to false to disable the installation of apps from the global appstore.
           App management is always enabled regardless of this setting.
           */
-        appstoreEnable = true;
+        appstoreEnable = false;
 
         autoUpdateApps = { # auto-update of all apps installed from the Nextcloud app store
-          enable = true;
+          enable = false;
           startAt = "05:00:00";
         };
 
@@ -189,7 +188,7 @@ in
             Automatically enable the apps in services.nextcloud.extraApps every time Nextcloud starts.
             If set to false, apps need to be enabled in the Nextcloud web user interface or with nextcloud-occ app:enable.
           */
-        extraAppsEnable = true;
+        extraAppsEnable = false;
 
           /*
           Using this will disable the appstore to prevent Nextcloud from updating these apps (see services.nextcloud.appstoreEnable).
@@ -234,7 +233,7 @@ in
       
     
     })
-    ({
+    /*({
       systemd.services.ensure-korv-enabled = {
         description = "Ensure Nextcloud user 'korv' is enabled";
         serviceConfig = {
@@ -254,7 +253,7 @@ in
         };
       };
       environment.systemPackages = with pkgs; [ nextcloud-client ];
-    })
+    })*/
     ({
       /* commented lines */
       /*services.nginx.virtualHosts."192.168.1.12" = {
