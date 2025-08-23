@@ -18,7 +18,7 @@ in
   options.nc = {
     enable = mkEnableOption "";
     version = mkOption {
-      default = "30";
+      default = "31";
       type = types.str;
     };
     email = mkOption {

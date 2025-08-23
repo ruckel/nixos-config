@@ -37,11 +37,11 @@
 } {
   name = "ntfywizz";
   file = scripts/ntfywizard.sh;
-  deps = with pkgs; [ coreutils ntfy-sh jq ];
+  deps = with pkgs; [ coreutils ntfy-sh jq busybox ];
 } {
   name = "ntfyvar";
   file = scripts/ntfy-var-setter.sh;
-  deps = with pkgs; [ coreutils ntfy-sh bat ];
+  deps = with pkgs; [ coreutils ntfy-sh bat busybox ];
 } 
 ]
 /* template
