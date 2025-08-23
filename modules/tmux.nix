@@ -36,14 +36,36 @@ in {
 
         ##enable mouse control
         set -g mouse on
+
+        
+
+        set -g @dracula-show-left-icon "🌭"
+        set -g @dracula-show-empty-plugins true
+        set -g @dracula-refresh-rate 5
+
+        set -g @dracula-plugins " ssh-session uptime time "
+
+        set -g @dracula-show-ssh-only-when-connected true
+        set -g @dracula-show-ssh-session-port true
+
+        set -g @dracula-uptime-label "󱎫 "
+
+        set -g @dracula-show-timezone false
+        set -g @dracula-time-format "%R"
+
+        source ~/.tmux
        '';
      };
     conf.postplugin = mkOption {
       description = "sets /etc/tmux.conf";
       type = types.lines;
       default = ''
-        source /etc/tmux-color-fix.conf
-      '';
+        set-option -sa terminal-features ',xterm-256color:RGB' # Proper colors
+        set -ga terminal-overrides ",*256col*:Tc"
+        set -ga terminal-overrides '*:Ss=\E[%p1%d q:Se=\E[ q'
+        set-environment -g COLORTERM "truecolor"
+        
+       '';
        /*
        #set-option -g allow-rename off  ##don't rename windows automatically
        */
@@ -52,7 +74,7 @@ in {
       description = "";
       type = with types; listOf package;
       default = [
-
+        pkgs.tmuxPlugins.dracula
        ];
      };
     unsecureSocket = mkEnableOption "Socket under /run. More secure than /tmp, but doesn’t survive user logout";
@@ -77,5 +99,16 @@ in {
       extraConfigBeforePlugins = cfg.conf.preplugin;
       extraConfig = cfg.conf.postplugin;
     };})
+    ({
+      environment.systemPackages = with pkgs; [
+        (writeShellApplication {
+          name = "pux";
+          runtimeInputs = [ tmux ];
+          text = ''
+              exec tmux -f ~/.tmux
+          '';
+        })
+      ];
+    })
    ]);
 }
