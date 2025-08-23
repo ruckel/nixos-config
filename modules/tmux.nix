@@ -63,7 +63,7 @@ in {
       programs.tmux.secureSocket = false;
     })
     ({
-      environment.etc."tmux-color-fix.conf".source = ../../configfiles/tmux.conf;
+      environment.etc."tmux-color-fix.conf".source = ../configfiles/tmux.conf;
     })
     ({programs.tmux = {
       enable = true;
