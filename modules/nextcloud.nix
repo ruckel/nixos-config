@@ -110,7 +110,7 @@ in
         package = pkgs."nextcloud${cfg.version}";
         maxUploadSize = "16G";
         cli.memoryLimit = "2G";
-        https = true; #HTTPS for generated links
+        #https = true; #HTTPS for generated links
         hostName = "moln.kevindybeck.com";
         home = "/var/lib/nextcloud/5tb/nextcloud"; #"Storage path of nextcloud"
           /* Nextcloud’s data storage path. 
@@ -156,15 +156,15 @@ in
           log_type = "syslog"; #"errorlog", ["syslog"], "systemd", "file"
         };
         # configureRedis = true;
-        database.createLocally = true;
+        #database.createLocally = true;
         config = {
           adminpassFile = cfg.pwfile;# "string";
           dbuser = "nextcloud";
           dbtype = "mysql"; #"sqlite", "pgsql", "mysql"
           dbname = "nextcloud";
-          adminuser = "admin";
-          dbtableprefix = "oc_"; #"string"
-          dbpassFile = null; #"string"*/
+          #adminuser = "admin";
+          #dbtableprefix = "oc_"; #"string"
+          dbpassFile = "/pw/pw"; #"string"*/
         };
       };
     })

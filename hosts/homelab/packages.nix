@@ -44,8 +44,10 @@ environment.systemPackages = with pkgs; [
   mullvad-vpn /* duh */
   networkmanagerapplet
   nextcloud-client
+  nextcloud30
   nodejs_20
   openssl
+  sops
   spotify spotify-player mlterm
   xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
   x11vnc tigervnc
