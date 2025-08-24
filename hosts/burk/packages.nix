@@ -29,6 +29,7 @@
     };
   };
   environment.systemPackages = with pkgs; [
+    mpv
     alsa-lib
     #android-studio
     appimage-run /* appimage compability wrapper */
@@ -161,6 +162,7 @@
     xorg.xev xorg.xmodmap xorg.xkill
     xscreensaver
     xss-lock
+    yad
     yazi
     #zed-editor
     zoneminder
