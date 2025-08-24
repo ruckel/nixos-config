@@ -49,7 +49,7 @@ nc = {
   enable             = true;
   version            = "30";
   pwfile	           = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
-  #jellyfin.enable    = true;
+  jellyfin.enable    = true;
 };
 soundconf = { 
   enable      = true;

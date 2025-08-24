@@ -44,7 +44,6 @@ environment.systemPackages = with pkgs; [
   mullvad-vpn /* duh */
   networkmanagerapplet
   nextcloud-client
-  nextcloud30
   nodejs_20
   openssl
   sops
