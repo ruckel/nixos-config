@@ -167,6 +167,17 @@ in
           dbpassFile = "/pw/pw"; #"string"*/
         };
       };
+
+      services.mysql = {
+        ensureDatabases = [ "nextcloud" ];
+        ensureUsers = [{ 
+          name = "nextcloud";   
+          ensurePermissions = { 
+            "nextcloud.*" = "ALL PRIVILEGES"; 
+            "nextcloudaux.*" = "ALL PRIVILEGES"; 
+          }; 
+        ]; };
+      };
     })
     ({
       services.nextcloud = {
