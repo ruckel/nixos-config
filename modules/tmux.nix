@@ -24,6 +24,11 @@ in {
       default = true;
       type = types.bool;
     };
+    secureSocket = mkOption { 
+      description = "Socket under /run. More secure than /tmp, but doesn’t survive user logout";
+      type = types.bool;
+      default = false;
+    };
     conf.preplugin = mkOption {
       description = "sets /etc/tmux.conf";
       type = types.lines;
@@ -77,27 +82,22 @@ in {
         pkgs.tmuxPlugins.dracula
        ];
      };
-    unsecureSocket = mkEnableOption "Socket under /run. More secure than /tmp, but doesn’t survive user logout";
    };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.unsecureSocket {
-      programs.tmux.secureSocket = false;
-    })
-    ({
-      environment.etc."tmux-color-fix.conf".source = ../configfiles/tmux.conf;
-    })
     ({programs.tmux = {
-      enable = true;
-      keyMode = "vi"; #"emacs" "vi"
-      clock24 = true;
-      newSession = true;
-      baseIndex = 1;
-      shortcut = cfg.shortcut;
-      terminal = cfg.term;
-      plugins = cfg.plugins;
+      enable        = true;
+      keyMode       = "vi"; #"emacs"
+      clock24       = true;
+      newSession    = true;
+      baseIndex     = 1;
+      escapeTime    = 0; #waits after an escape key press, millisecs
+      secureSocket  = cfg.secureSocket;
+      shortcut      = cfg.shortcut;
+      terminal      = cfg.term;
+      plugins       = cfg.plugins;
+      extraConfig   = cfg.conf.postplugin;
       extraConfigBeforePlugins = cfg.conf.preplugin;
-      extraConfig = cfg.conf.postplugin;
     };})
     ({
       environment.systemPackages = with pkgs; [
