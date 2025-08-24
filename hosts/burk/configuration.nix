@@ -274,10 +274,13 @@ environment.etc = {
     useTmpfs = false;
     tmpfsSize = "50%";
    };
-  nix.gc = { /* garbage collection */
+  
+  nix.gc = { # nix-collect-garbage
+    options = "--delete-older-than 30d"; # removes stale profile generations
     automatic = true;
     dates = "06:00";
-   };
+     # persistent = false; # (def: t) time when the service unit was last triggered is stored on disk
+  };
   system.autoUpgrade = {
     enable = true;
     allowReboot = false; #true;

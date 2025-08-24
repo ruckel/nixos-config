@@ -163,8 +163,10 @@ boot.loader = {
   systemd-boot.enable = true;
   efi.canTouchEfiVariables = true;
 };
-nix.gc = { /* garbage collection */
+nix.gc = { # nix-collect-garbage
+  options = "--delete-older-than 30d"; # removes stale profile generations
   automatic = true;
   dates = "06:00";
+   # persistent = false; # (def: t) time when the service unit was last triggered is stored on disk
 };
 }
