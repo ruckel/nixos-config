@@ -46,8 +46,16 @@ options.nc = {
     default = "30";
     type = types.str;
   };
+  hostName = mkOption {
+    default = "127.0.0.1";
+    type = types.str;
+  };
+  directory = mkOption {
+    default = "/var/lib/nextcloud";
+    type = types.str;
+  };
   email = mkOption {
-    default = "kevin.dybeck@yahoo.com";
+    default = "";
     type = types.str;
   };
   pwfile = mkOption {
@@ -60,7 +68,7 @@ options.nc = {
       type = types.bool;
     };
     hostName = mkOption {
-      default = "tv.korv.lol" ;#"bio.kevindybeck.com";
+      default = "tv.korv.lol";
       type = types.str;
     };
   };
@@ -71,12 +79,12 @@ config = mkIf cfg.enable (mkMerge [
     services.nextcloud = {
       # configureRedis = true;
       /*secretFile = "path"; #{"redis":{"password":"secret"}}*/
-      #https = true; #HTTPS for generated links
-      nginx.recommendedHttpHeaders = false;
 
-      hostName = "192.168.1.12";
-      home = "/var/lib/nextcloud/5tb/nextcloud";
+      hostName = cfg.hostName;
+      home = cfg.directory; 
       enable = true;
+      https = true; #HTTPS for generated links
+      nginx.recommendedHttpHeaders = true;
       package = pkgs."nextcloud${cfg.version}";
       maxUploadSize = "16G";
       cli.memoryLimit = "2G";
@@ -105,7 +113,6 @@ config = mkIf cfg.enable (mkMerge [
         #instanceid = "ocvufs9qxu02";
         #passwordsalt = "XDtrXybh8uBcOgIATWsJ7zV+h07pHt";
         #secret = "Uf6KwmcYdtW1WkvlvNrOaoLdvhH8EDsPZWnG66/ALHU17fAO";
-        #dbtableprefix = "oc_";
         #mysqlutf8mb' =" tru";
         #installed = "ru";
         #default_locale = "sv_SE";
@@ -132,9 +139,9 @@ config = mkIf cfg.enable (mkMerge [
       } ];
     };
     services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-      #forceSSL = true;
-      #enableACME = true;
-      /*locations."/".proxyPass = "http://127.0.0.1:8920";*/
+      forceSSL = true;
+      enableACME = true;
+      locations."/tv".proxyPass = "http://127.0.0.1:8096";
       /*locations."/bio".return = "302 $scheme://$host/bio/";*/
       /*locations."/bio/".proxyPass = "https://127.0.0.1:8920";*/
     };
@@ -178,7 +185,7 @@ config = mkIf cfg.enable (mkMerge [
     };
     services.nginx.virtualHosts.${cfg.jellyfin.hostName} = {
       #forceSSL = true;
-      #enableACME = true;
+      enableACME = true;
       locations."/".proxyPass = "http://127.0.0.1:8096"; #http
       /*locations."/".proxyPass = "https://127.0.0.1:8920"; #https*/
     };
