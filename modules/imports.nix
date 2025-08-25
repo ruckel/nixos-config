@@ -1,6 +1,7 @@
 {
   imports = [
     ../modules/autorandr.nix
+    ../modules/bash/module.nix
     ../modules/customscripts.nix
     ../modules/adb.nix
     ../modules/docker.nix
