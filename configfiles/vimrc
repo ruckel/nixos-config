@@ -9,7 +9,7 @@
 ""configs
   "source $HOME/.config/vim/settings/configs.vim
   syntax on
-  colorscheme retrobox
+  colorscheme sorbet
   
   set expandtab shiftwidth=2 tabstop=2 " 2 spaces instead of tabs
   set number
@@ -29,6 +29,7 @@
     endfunction
 ""mappings
   "source $HOME/.config/vim/settings/mappings.vim
+  let mapleader = "§"
   map <F10> :set number!<CR>    " line nrs, nonumber for off
   map <F9> :set rnu!<CR>        " relative line nrs
   nnoremap <space> za           " toggle folds with spacebar
@@ -36,8 +37,10 @@
   nmap qq = ''                  " disable macre recorcd on q
   nmap P = previous
   
-  noremap <leader>y "+y         " unsure what these do
-  noremap <leader>p "+p         " unsure what these do
+  map <leader>p = previous
+  map <leader>§ = next
+  "noremap <leader>y "+y         " unsure what these do
+  "noremap <leader>p "+p         " unsure what these do
 ""plugins
   "source $HOME/.config/vim/settings/plugins.vim
 
@@ -57,3 +60,4 @@ function! _learning_vim()
   :help recursive_mapping
   :help :map-modes  
   endfunction
+
