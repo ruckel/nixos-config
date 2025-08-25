@@ -83,7 +83,7 @@ config = mkIf cfg.enable (mkMerge [
       hostName = cfg.hostName;
       home = cfg.directory; 
       enable = true;
-      https = true; #HTTPS for generated links
+      https = false; #HTTPS for generated links
       nginx.recommendedHttpHeaders = true;
       package = pkgs."nextcloud${cfg.version}";
       maxUploadSize = "16G";
@@ -139,8 +139,8 @@ config = mkIf cfg.enable (mkMerge [
       } ];
     };
     services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-      forceSSL = true;
-      enableACME = true;
+      #forceSSL = true;
+      #enableACME = true;
       locations."/tv".proxyPass = "http://127.0.0.1:8096";
       /*locations."/bio".return = "302 $scheme://$host/bio/";*/
       /*locations."/bio/".proxyPass = "https://127.0.0.1:8920";*/
@@ -185,7 +185,7 @@ config = mkIf cfg.enable (mkMerge [
     };
     services.nginx.virtualHosts.${cfg.jellyfin.hostName} = {
       #forceSSL = true;
-      enableACME = true;
+      #enableACME = true;
       locations."/".proxyPass = "http://127.0.0.1:8096"; #http
       /*locations."/".proxyPass = "https://127.0.0.1:8920"; #https*/
     };
