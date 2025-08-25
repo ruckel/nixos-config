@@ -5,3 +5,4 @@ localbin
 nix/
 gitignored
 .idea
+.vscode
