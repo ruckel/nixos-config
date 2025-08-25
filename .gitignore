@@ -4,3 +4,4 @@ localbin
 .version-suffix
 nix/
 gitignored
+.idea
