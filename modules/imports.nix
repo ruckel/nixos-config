@@ -36,6 +36,5 @@
     ../modules/transmission.nix
     ../modules/vim.nix
     ../modules/xprofile.nix
-    #./nixscripts/helloWorld.nix
   ];
 }

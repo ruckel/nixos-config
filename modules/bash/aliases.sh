@@ -16,8 +16,6 @@ alias rm='trash'
 
 alias printtime='echo $(date +%H:%M)'
 
-alias trademark='echo ™'
-alias dunno='echo ¯\_(ツ)_/¯'
 alias invisiblecharacter='printf "​" | xclip -sel clip && echo "copied invisible char to clipboard: [​]"'
 
 alias noti='sleep 5; echo'
