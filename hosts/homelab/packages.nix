@@ -3,7 +3,6 @@ services.dnsmasq = { enable = true;
   alwaysKeepRunning = false;
  };
 programs = {
-  bash.vteIntegration = true;
   firefox.enable = true;
   steam.enable = true;
   thunar = { enable = true;
@@ -11,10 +10,9 @@ programs = {
    };
   xfconf.enable = true;
  };
-#
+
 environment.systemPackages = with pkgs; [
   surf /* browser */
-  bat
   brave
   brightnessctl
   cryptsetup
@@ -23,36 +21,25 @@ environment.systemPackages = with pkgs; [
   deno 
   efibootmgr
   feh
-  fzf
   qimgv
   netbird
   nomacs
   ffmpegthumbnailer
   fswebcam
-  gdu
   git
   gh
   gitg
   git-credential-keepassxc
   gscreenshot
-  htop
-  jless
-  jq
   keepassxc
-  lazygit
   mpv
   mullvad-vpn /* duh */
   networkmanagerapplet
   nextcloud-client
   nodejs_20
   openssl
-  spotify spotify-player mlterm
-  xorg.xev lsof showmethekey trashy termimage xprintidle xdotool place-cursor-at mktemp xclip
+  sops
+  spotify spotify-player 
   x11vnc tigervnc
-  tealdeer
-  tilix
-  tmux
-  zed
-  yazi
 ];
 }

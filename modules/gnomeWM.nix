@@ -8,10 +8,10 @@ in {
   };
 
   config = lib.mkIf cfg.enable (lib.mkMerge [
-    (lib.mkIf useNewGnomePath {
+    /*(lib.mkIf useNewGnomePath {
       services.desktopManager.gnome.enable = true; 
-    })
-    (lib.mkIf (!useNewGnomePath) {
+    })*/
+    (/*lib.mkIf (!useNewGnomePath)*/ {
       services.xserver.desktopManager.gnome.enable = true;
     })
     ({ environment.variables = {

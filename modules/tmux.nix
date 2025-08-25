@@ -6,20 +6,29 @@ in {
     ## types = {attrs, bool, path, int, port, str, lines, commas}
     enable = mkEnableOption "tmux";
     strings = mkOption {
-      type = with types; nullOr listOf str;
-     };
-    shortcut = mkOption { default = "q";
-       type = types.str;
-       description = "key to press after Ctrl for prefix. Def: b";
-     };
-    term = mkOption { default = "xterm-256color";
+      type = with types; 
+      nullOr listOf str;
+    };
+    shortcut = mkOption { 
+      description = "key to press after Ctrl for prefix. Def: b";
+      default = "q";
+      type = types.str;
+    };
+    term = mkOption { 
+      default = "xterm-256color";
       description = "Sets $TERM. Def: screen";
       type = types.str;
-     };
-    newSession = mkOption { default = true;
+    };
+    newSession = mkOption { 
       description = "autospawn a session if none";
+      default = true;
       type = types.bool;
-     };
+    };
+    secureSocket = mkOption { 
+      description = "Socket under /run. More secure than /tmp, but doesn’t survive user logout";
+      type = types.bool;
+      default = false;
+    };
     conf.preplugin = mkOption {
       description = "sets /etc/tmux.conf";
       type = types.lines;
@@ -73,24 +82,22 @@ in {
         pkgs.tmuxPlugins.dracula
        ];
      };
-    unsecureSocket = mkEnableOption "Socket under /run. More secure than /tmp, but doesn’t survive user logout";
    };
 
   config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.unsecureSocket {
-      programs.tmux.secureSocket = false;
-    })
     ({programs.tmux = {
-      enable = true;
-      keyMode = "vi"; #"emacs" "vi"
-      clock24 = true;
-      newSession = true;
-      baseIndex = 1;
-      shortcut = cfg.shortcut;
-      terminal = cfg.term;
-      plugins = cfg.plugins;
+      enable        = true;
+      keyMode       = "vi"; #"emacs"
+      clock24       = true;
+      newSession    = true;
+      baseIndex     = 1;
+      escapeTime    = 0; #waits after an escape key press, millisecs
+      secureSocket  = cfg.secureSocket;
+      shortcut      = cfg.shortcut;
+      terminal      = cfg.term;
+      plugins       = cfg.plugins;
+      extraConfig   = cfg.conf.postplugin;
       extraConfigBeforePlugins = cfg.conf.preplugin;
-      extraConfig = cfg.conf.postplugin;
     };})
     ({
       environment.systemPackages = with pkgs; [

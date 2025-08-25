@@ -19,7 +19,6 @@ netbird.clients = {
     name = "netbird";
   };
 };
-services.nextcloud.settings.trusted_domains = ["100.84.203.89"];
 
 # remember to keep the cachix keys updated for nvidia: while using cachix for the nvidia latest packages
 # do this by running `cachix use cuda-maintainers`
@@ -47,10 +46,14 @@ localization.enable = true;
 mysql.enable        = true;
 nc = {
   enable             = true;
-  version            = "31";
+  hostName = "100.84.203.89";
+  directory = "/var/lib/nextcloud/5tb/nextcloud";
+  email = "kevin.dybeck@yahoo.com";
+  version            = "30";
   pwfile	           = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
   jellyfin.enable    = true;
 };
+services.nextcloud.settings.trusted_domains = ["100.84.203.89" ];
 soundconf = { 
   enable      = true;
   user                    = "user";
@@ -73,7 +76,7 @@ syncthing.enable    = true;
 syncthing.user      = "user";
 tmux.enable         = true;
 transmission = {
-  enable            = true;
+  enable            = false;
   dir = "/var/lib/nextcloud/5tb/transmission";
 };
 ollama.enable       = false;
@@ -163,8 +166,10 @@ boot.loader = {
   systemd-boot.enable = true;
   efi.canTouchEfiVariables = true;
 };
-nix.gc = { /* garbage collection */
+nix.gc = { # nix-collect-garbage
+  options = "--delete-older-than 30d"; # removes stale profile generations
   automatic = true;
   dates = "06:00";
+   # persistent = false; # (def: t) time when the service unit was last triggered is stored on disk
 };
 }

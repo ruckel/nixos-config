@@ -24,10 +24,6 @@ in {
     security.acme = {
       acceptTerms = true;
       defaults.email = cfg.email;
-      certs = {
-       "bajs.korv.lol".email =                         cfg.email;
-       "react.korv.lol".email =                        cfg.email;
-      };
     };
    #services.nginx.virtualHosts."bajs.korv.lol" = {
    #  forceSSL = true;

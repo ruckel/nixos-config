@@ -20,6 +20,7 @@ main () {
   #echo t:$NTFY_TOPIC, m:$NTFY_MESSAGE
 }
 ntfyVar () {
+  sed -i "/i${1}/d"  /tmp/ntfyVars.sh 2>/dev/null
   echo "export ${1}=\"${2}\"" >> /tmp/ntfyVars.sh
 }
 setVars () {
