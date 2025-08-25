@@ -30,11 +30,7 @@
   name = "i3lock";
   file = scripts/i3lock.sh;
   deps = with pkgs; [ i3lock ];
-} {
-  name = "nixos-rebuild-flaek";
-  file = scripts/nixswitch.sh;
-  deps = with pkgs; [ coreutils sudo mktemp libnotify busybox dunst nixos-rebuild mpv ];
-} {
+}  {
   name = "ntfywizz";
   file = scripts/ntfywizard.sh;
   deps = with pkgs; [ coreutils ntfy-sh jq busybox ];
