@@ -3,3 +3,4 @@ result*
 localbin
 .version-suffix
 nix/
+gitignored
