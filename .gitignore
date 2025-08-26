@@ -2,7 +2,6 @@ vars.nix
 result*
 localbin
 .version-suffix
-nix/
 gitignored
 .idea
 .vscode
