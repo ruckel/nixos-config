@@ -1,8 +1,8 @@
 { lib, pkgs, config, ... } :
 with lib;
-let cfg = config.lockScreenOnBoot;
+let cfg = config.userServices;
 in {
-  options.lockScreenOnBoot = {
+  options.userServices = {
     enable = mkEnableOption "DESCRIPTION";
     lockScreenOnBoot = mkEnableOption "lock screen with i3lock on boot";
   };
@@ -21,6 +21,28 @@ in {
           #Group = "users";
         };
         wantedBy = [ "pipewire-linking.service" ];
+      };
+      dunst = {
+        enable = true;
+        after = [ "multi-user.target" "gdm.service" ];
+        path = [ pkgs.dunst ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = ''dunst  --startup_notification''; 
+          #User = vars.user;
+          #Group = "users";
+        };
+      };
+      xscreensaver = {
+        enable = true;
+        after = [ "multi-user.target" "gdm.service" ];
+        path = [ pkgs.xscreensaver ];
+        serviceConfig = {
+          Type = "simple";
+          ExecStart = ''xscreensaver --no-splash''; 
+          #User = vars.user;
+          #Group = "users";
+        };
       };
     };
   };

@@ -38,6 +38,10 @@
   name = "ntfyvar";
   file = scripts/ntfy-var-setter.sh;
   deps = with pkgs; [ coreutils ntfy-sh bat busybox ];
+} {
+  name = "nix-search-packages";
+  file = nix-incompabatible/nix-search-packages.sh;
+  deps = with pkgs; [ coreutils ];
 } 
 ]
 /* template

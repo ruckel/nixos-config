@@ -100,7 +100,10 @@ environment.etc = {
   syncthing = { enable  = true;
     user                = "korv";
    };
-  /*lockScreenOnBoot.enable= true;*/
+  userServices = {
+    enable              = true;
+    lockScreenOnBoot    = true;
+  };
   #sxwm.enable           = true;
   # ollama.enable       = true;
   tmux.enable           = true;
