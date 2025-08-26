@@ -6,7 +6,7 @@ let vars = import "${inputs.vars}"; in
     ./hardware-configuration.nix
     ./packages.nix
    ];
-netbird.enable = true;};
+netbird.enable = true;
 services.zoneminder = { enable = false;
   database = {
     createLocally =   true;

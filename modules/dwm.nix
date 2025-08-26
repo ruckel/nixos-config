@@ -92,7 +92,7 @@ in {
       # };
       };
     };
-    environment.etc."xprofile2".text = ''
+    environment.etc."xprofile".text = ''
     if [ $DESKTOP_SESSION == "none+dwm" ]; then
       echo "" > ~/dwmbar.txt
       ~/.fswebbg

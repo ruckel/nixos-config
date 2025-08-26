@@ -36,6 +36,5 @@
     ../modules/tmux.nix
     ../modules/transmission.nix
     ../modules/vim.nix
-    ../modules/xprofile.nix
   ];
 }
