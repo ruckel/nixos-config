@@ -6,6 +6,14 @@
   command! UnfoldX2More   +2foldopen!
   command! UnfoldX4       +4foldopen
   command! UnfoldX4More   +4foldopen!
+  
+  nnoremap f ]zV[zzC  "close folders recursively
+  nnoremap f ]zV[zzO  "open folders recursively
+"    ]z : jump to end of current open fold
+"    <s-v> : (Shift-V) start linewise visual mode
+"    [z : jump to beginning of current open fold
+"    zO : recursively open all folds that are visually selected
+
 ""configs
   "source $HOME/.config/vim/settings/configs.vim
   syntax on
