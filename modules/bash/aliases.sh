@@ -54,6 +54,7 @@ alias nixswitch-homelab='sudo printf ''; LASTPWD=$PWD && cd ~/nixos-cfg && git p
 
 gitstashpull="git stash push -q -m \"${HOSTNAME}_$(date +%y%m%d_%H-%M)\" && git pull ; git stash pop -q"
 
+alias tilix="env GTK_THEME=Adwaita:dark tilix"
 alias tilixwidth='dconf write /com/gexperts/Tilix/quake-width-percent'
 alias tilixheight='dconf write /com/gexperts/Tilix/quake-height-percent'
 alias tilixautohide='/home/korv/scripts/tilixautohide'
