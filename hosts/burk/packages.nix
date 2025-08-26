@@ -107,7 +107,6 @@
     menulibre
     merge-fmt
     mktemp
-    mlterm
     mullvad-vpn /* duh */
     networkmanagerapplet
     nextcloud-client
@@ -141,7 +140,6 @@
     surf /* browser */
     syncthing
     tealdeer
-    termimage
     thunderbird birdtray /* email client */
     tiramisu toastify
     tmux
