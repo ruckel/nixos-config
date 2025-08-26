@@ -31,6 +31,10 @@
         ] ;
         environment.etc."bashrc".text = ". /etc/bashaliases ";
         environment.etc."bashaliases".source = ./aliases.sh;
+        environment.shellInit = ''
+          alias paplay=pw-play
+          alias pwplay=pw-play
+        '';
         programs.bash = {
           undistractMe = {
             enable = true;
@@ -41,10 +45,11 @@
           vteIntegration = true;
            #shellAliases = { };
            #promptInit = ${builtins.readFile promptInitFile};
-          shellInit = /* ${builtins.readFile shellInitFile}; */ ''echo "shellInit"'';
-          loginShellInit = /* ${builtins.readFile loginInitFile}; */ ''echo "loginshellInit" '';
-          interactiveShellInit = /* ${builtins.readFile interactiveShellInitFile};*/ ''echo "interactiveshellInit"'';
+          shellInit = /* ${builtins.readFile shellInitFile}; */ ''export SHELL_INIT=true'';
+          loginShellInit = /* ${builtins.readFile loginInitFile}; */ ''export SHELL_INIT_LOGIN=true'';
+          interactiveShellInit = /* ${builtins.readFile interactiveShellInitFile};*/ ''export SHELL_INIT_INTERACTIVE=true'';
         };
+        xdg.sounds.enable = true;
         xdg.terminal-exec = {
           enable = true;
           settings = { default = [ "tilix.desktop" ]; };

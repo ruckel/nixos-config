@@ -6,13 +6,6 @@
   command! UnfoldX2More   +2foldopen!
   command! UnfoldX4       +4foldopen
   command! UnfoldX4More   +4foldopen!
-  
-  nnoremap F ]zV[zzC  "close folders recursively
-  nnoremap f ]zV[zzO  "open folders recursively
-"    ]z : jump to end of current open fold
-"    <s-v> : (Shift-V) start linewise visual mode
-"    [z : jump to beginning of current open fold
-"    zO : recursively open all folds that are visually selected
 
 ""configs
   "source $HOME/.config/vim/settings/configs.vim
@@ -38,15 +31,25 @@
 ""mappings
   "source $HOME/.config/vim/settings/mappings.vim
   let mapleader = "§"
-  map <F10> :set number!<CR>    " line nrs, nonumber for off
-  map <F9> :set rnu!<CR>        " relative line nrs
+  noremap <F10> :set number!<CR>    " line nrs, nonumber for off
+  noremap <F9> :set rnu!<CR>        " relative line nrs
   nnoremap <space> za           " toggle folds with spacebar
   nmap Q  = ''                  " disable EX mode on Q
   nmap qq = ''                  " disable macre recorcd on q
   nmap P = previous
   
-  map <leader>p = previous
-  map <leader>§ = next
+  noremap <leader>f ]zV[z  
+    " select folders recursively
+    "    ]z : go to end of current open fold
+    "     V : (Shift-V) start linewise visual mode
+    "    [z : go to beginning of current open fold
+    "
+    "    zO : recursively open all folds that are visually selected
+    "    zC : recursively close all folds that are visually selected
+    " nnoremap f ]zV[zzO  "open folders recursively
+  
+  noremap <leader>p = previous
+  noremap <leader>§ = next
   "noremap <leader>y "+y         " unsure what these do
   "noremap <leader>p "+p         " unsure what these do
 ""plugins
