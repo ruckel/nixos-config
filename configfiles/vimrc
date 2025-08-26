@@ -7,7 +7,7 @@
   command! UnfoldX4       +4foldopen
   command! UnfoldX4More   +4foldopen!
   
-  nnoremap f ]zV[zzC  "close folders recursively
+  nnoremap F ]zV[zzC  "close folders recursively
   nnoremap f ]zV[zzO  "open folders recursively
 "    ]z : jump to end of current open fold
 "    <s-v> : (Shift-V) start linewise visual mode

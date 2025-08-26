@@ -112,9 +112,6 @@ environment.etc = {
     user = "korv";
   };*/
   vim.enable            = true;
-  xprofile = { enable   = true;
-    user                = "korv";
-   };
 
   /*experimental = {
     enable                  = true;

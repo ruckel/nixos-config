@@ -8,6 +8,7 @@
           tilix
           mlterm
           kitty 
+          wezterm
           fzf
           lazygit
           htop
@@ -33,7 +34,7 @@
         programs.bash = {
           undistractMe = {
             enable = true;
-            playSound = true;
+            playSound = false;
             timeout = 10; #sec
           };
           completion.enable = true;
