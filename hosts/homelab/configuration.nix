@@ -80,8 +80,6 @@ transmission = {
   dir = "/var/lib/nextcloud/5tb/transmission";
 };
 ollama.enable       = false;
-xprofile.enable     = true;
-xprofile.user       = "user";
 
 experimental = {
   enable                  = false;
