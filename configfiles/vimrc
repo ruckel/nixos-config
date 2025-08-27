@@ -49,7 +49,12 @@
     " nnoremap f ]zV[zzO  "open folders recursively
   
   noremap <leader>p = previous
-  noremap <leader>§ = next
+noremap <leader>§ = next
+
+
+  ":set termcap
+  ":set <kEnter>=^M
+
   "noremap <leader>y "+y         " unsure what these do
   "noremap <leader>p "+p         " unsure what these do
 ""plugins
@@ -72,3 +77,4 @@ function! _learning_vim()
   :help :map-modes  
   endfunction
 
+#: copy_on_select 

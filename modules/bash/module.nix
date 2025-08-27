@@ -35,6 +35,7 @@
           alias paplay=pw-play
           alias pwplay=pw-play
         '';
+        programs.screen.enable = true;
         programs.bash = {
           undistractMe = {
             enable = true;
