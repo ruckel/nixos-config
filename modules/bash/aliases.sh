@@ -29,15 +29,13 @@ alias grepinverted="grep -v"
 alias diff="diff --color=always"
 alias diffwithoutbloat='diff --suppress-common-lines -sU 0'
 
-alias grep='grep --color=$GREPCOL'
-
 alias hist=history
 alias histgrep="history | grep -v grep | grep"
 alias historyrmlastentry='history -d -1; history'
 alias histlastentryrm='history -d -1; history'
 
-alias wraplines-temporary-disabling='tput rmam'
-alias wraplines-restore='tput smam'
+alias wraplines-not='tput rmam'
+alias wraplines='tput smam'
 
 alias nixfindpackage=~/scripts/nix/find.sh
 alias nixfastfind=~/scripts/nix/find.sh
@@ -52,7 +50,7 @@ alias nixswitch-burk='sudo -A nixos-rebuild switch --fast --impure --flake ~/nix
 alias nixtestburk='sudo -A nixos-rebuild test --fast --impure --flake ~/nixos-cfg/# -p korvus; alert'
 alias nixswitch-homelab='sudo printf ''; LASTPWD=$PWD && cd ~/nixos-cfg && git pull && sudo nixos-rebuild switch --fast --impure --flake ~/nixos-cfg/# ; cd $LASTPWD'
 
-gitstashpull="git stash push -q -m \"${HOSTNAME}_$(date +%y%m%d_%H-%M)\" && git pull ; git stash pop -q"
+alias gitstashpull="git stash push -q -m \"${HOSTNAME}_$(date +%y%m%d_%H-%M)\" && git pull ; git stash pop -q"
 
 alias tilix="env GTK_THEME=Adwaita:dark tilix"
 alias tilixwidth='dconf write /com/gexperts/Tilix/quake-width-percent'
@@ -94,8 +92,11 @@ alias torrent='transmission-remote --add'
 
 alias tmux="tmux a"
 alias mux="tmux"
-vimrc="vim ~/.config/vim/.vimrc"
+alias vimrc="vim ~/.config/vim/.vimrc"
 
 alias drp='deno run preview'
 alias drd='deno run start'
 
+alias nextcloud-occ="sudo nextcloud-occ"
+alias occ="sudo nextcloud-occ"
+alias nixdir="cd ~/nixos-cfg"

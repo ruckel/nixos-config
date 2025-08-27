@@ -41,6 +41,10 @@ in {
 
 options.nc = {
   enable = mkEnableOption "";
+  https  = mkOption {
+    default = true;
+    type = types.str;
+  };
   keepUserEnabled = mkEnableOption "Enable systemd service that reenables nc user";
   version = mkOption {
     default = "30";
@@ -83,7 +87,7 @@ config = mkIf cfg.enable (mkMerge [
       hostName = cfg.hostName;
       home = cfg.directory; 
       enable = true;
-      https = false; #HTTPS for generated links
+      https = cfg.https; #HTTPS for generated links
       nginx.recommendedHttpHeaders = true;
       package = pkgs."nextcloud${cfg.version}";
       maxUploadSize = "16G";
@@ -132,15 +136,12 @@ config = mkIf cfg.enable (mkMerge [
       ensureDatabases = [ "nextcloud" ];
       ensureUsers = [{ 
         name = "nextcloud";   
-        ensurePermissions = { 
-          "nextcloud.*" = "ALL PRIVILEGES"; 
-          "nextcloudaux.*" = "ALL PRIVILEGES"; 
-        }; 
-      } ];
+        ensurePermissions = { "nextcloud.*" = "ALL PRIVILEGES";  }; 
+      }];
     };
     services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-      #forceSSL = true;
-      #enableACME = true;
+      forceSSL = cfg.https;
+      enableACME = cfg.https;
       locations."/tv".proxyPass = "http://127.0.0.1:8096";
       /*locations."/bio".return = "302 $scheme://$host/bio/";*/
       /*locations."/bio/".proxyPass = "https://127.0.0.1:8920";*/
@@ -184,8 +185,8 @@ config = mkIf cfg.enable (mkMerge [
       configDir = "/var/lib/jellyfin/config";
     };
     services.nginx.virtualHosts.${cfg.jellyfin.hostName} = {
-      #forceSSL = true;
-      #enableACME = true;
+      forceSSL = cfg.https;
+      enableACME = cfg.https;
       locations."/".proxyPass = "http://127.0.0.1:8096"; #http
       /*locations."/".proxyPass = "https://127.0.0.1:8920"; #https*/
     };
