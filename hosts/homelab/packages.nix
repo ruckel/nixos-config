@@ -16,7 +16,6 @@ environment.systemPackages = with pkgs; [
   brave
   brightnessctl
   cryptsetup
-  certbot
   # dnsmasq
   deno 
   efibootmgr
@@ -41,5 +40,6 @@ environment.systemPackages = with pkgs; [
   sops
   spotify spotify-player 
   x11vnc tigervnc
+  wget
 ];
 }
