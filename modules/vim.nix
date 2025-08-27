@@ -22,6 +22,7 @@ in {
       enable =  true;
       defaultEditor = mkIf cfg.asDefault true;
     };
+    environment.shellAliases = { vimrc = "vim ${../configfiles/vimrc}"; };
     environment.variables = mkIf cfg.asDefault { EDITOR = "vim"; };
     environment.systemPackages = with pkgs; [
       ((vim_configurable.override {}).customize{
