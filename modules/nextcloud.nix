@@ -43,7 +43,7 @@ options.nc = {
   enable = mkEnableOption "";
   https  = mkOption {
     default = true;
-    type = types.str;
+    type = types.bool;
   };
   keepUserEnabled = mkEnableOption "Enable systemd service that reenables nc user";
   version = mkOption {
