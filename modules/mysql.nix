@@ -5,27 +5,29 @@ in
 {
   options.mysql.enable = mkEnableOption "";
 
-  config = lib.mkIf cfg.enable {
-    services.mysql.enable = true;
-    services.mysql.package = pkgs.mariadb;
-    #services.mysql.dataDir = "/var/lib/mysql";
-    #services.mysql.initialScript = /etc/db.dump;
-    services.mysql.ensureUsers = [
-      { name = "root";        ensurePermissions = { "root.*" = "ALL PRIVILEGES"; }; }
-      { name = "mysqlbackup"; ensurePermissions = { "*.*" = "SELECT, LOCK TABLES"; }; }
-    ];
-
-    services.mysqlBackup = {
-      enable = true;
-      databases = [ "nextcloud" ];
-      #location = "/var/backup/mysql";
-      #user ="mysqlbackup"
-      #calendar = "01:15:00";
-      #gzipOptions = "--no-name --rsyncable";
-      #compressionAlg = "gzip";
-      #compressionLevel = null; #gzip:1-9, xz:0-9, zstd:1-19
-      #singleTransaction = false;
-    };
-  };
-
+  config = (mkMerge [
+    ( mkIf cfg.enable {
+      services.mysql.enable = true;
+    })
+    ({
+      services.mysql = { 
+        package = pkgs.mariadb;
+        ensureUsers = [
+          { name = "root";        ensurePermissions = { "root.*" = "ALL PRIVILEGES"; }; }
+          { name = "mysqlbackup"; ensurePermissions = { "*.*" = "SELECT, LOCK TABLES"; }; }
+        ];
+      };
+    })
+  ]);
+  /* # default values
+    services.mysql.dataDir = "/var/lib/mysql";
+    services.mysql.initialScript = /etc/db.dump;
+    services.mysqlBackup.location = "/var/backup/mysql";
+    services.mysqlBackup.user ="mysqlbackup"
+    services.mysqlBackup.calendar = "01:15:00";
+    services.mysqlBackup.gzipOptions = "--no-name --rsyncable";
+    services.mysqlBackup.compressionAlg = "gzip";
+    services.mysqlBackup.compressionLevel = null; #gzip:1-9, xz:0-9, zstd:1-19
+    services.mysqlBackup.singleTransaction = false;
+  */
 }

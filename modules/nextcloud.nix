@@ -79,59 +79,50 @@ options.nc = {
 };
 
 config = mkIf cfg.enable (mkMerge [
-  ({
+  ({ # change listening port
+    services.nginx.virtualHosts."${config.services.nextcloud.hostName}".listen = [{  addr = "127.0.0.1"; port = 8080; }];
+  })
+  ({ # nextcloud main
     services.nextcloud = {
+      hostName = "moln.kevindybeck.com";
+      home =  "/var/lib/nextcloud/5tb/nextcloud/" ;
+      datadir = "/var/lib/nextcloud/5tb/nextcloud/"; 
       # configureRedis = true;
       /*secretFile = "path"; #{"redis":{"password":"secret"}}*/
-
-      hostName = cfg.hostName;
-      home = cfg.directory; 
       enable = true;
-      https = cfg.https; #HTTPS for generated links
-      nginx.recommendedHttpHeaders = true;
+      https = false; #cfg.https; #HTTPS for generated links
       package = pkgs."nextcloud${cfg.version}";
       maxUploadSize = "16G";
       cli.memoryLimit = "2G";
       settings = {
-        trusted_domains = ["192.168.1.12"];
-        trusted_proxies = ["192.168.1.1"];	
+        trusted_proxies = ["192.168.1.1" "*.kevindybeck.com"];	
         default_phone_region = "SE";
-        # skeletondirectory "";
-        loglevel = 1; # [0:debug, 1:info, [2]:warn, 3:error, 4:fatal]
-        log_type = "syslog"; #"errorlog", ["syslog"], "systemd", "file"
+        loglevel = 1; 
+        log_type = "syslog";
+          overwriteprotocol = "https";
+          overwritehost = "${config.services.nextcloud.hostName}";
+          overwritewebroot = "/";
+          overwrite.cli.url = "https://${config.services.nextcloud.hostName}/";
+          htaccess.RewriteBase = "/";
+        trusted_domains = [
+          #services.nginx.virtualHosts."${config.services.nextcloud.hostName}".serverAliases;
+          "192.168.*.*"
+          "*.korv.lol" 
+          "*.kevindybeck.com"
+          "4.20.69.0" 
+        ];
       };
       config = {
-        dbtype = "mysql";
-         # dbpassFile = "/pw/pw"; #via unix socket instead
         adminuser = "admin"; # only in initial setup
         adminpassFile = cfg.pwfile; # only in initial setup 
       };
-      phpOptions = {
-        catch_workers_output = "yes"; # def
-        display_errors = "stderr"; # def
-        error_reporting = "E_ALL & ~E_DEPRECATED & ~E_STRICT"; # def
-        expose_php = "Off"; # def
-        output_buffering = "0"; # def
-        short_open_tag = "Off"; # def
-        #"openssl.cafile" = "/etc/ssl/certs/ca-certificates.crt";
-        #instanceid = "ocvufs9qxu02";
-        #passwordsalt = "XDtrXybh8uBcOgIATWsJ7zV+h07pHt";
-        #secret = "Uf6KwmcYdtW1WkvlvNrOaoLdvhH8EDsPZWnG66/ALHU17fAO";
-        #mysqlutf8mb' =" tru";
-        #installed = "ru";
-        #default_locale = "sv_SE";
-        #twofactor_enforced = "false";
-        #"bulkupload.enabled" = "false";
-        #"htaccess.RewriteBase" = "/";
-        #theme = "";
-        "opcache.fast_shutdown" = "1"; # def
-        "opcache.interned_strings_buffer" = "16"; # def: "8"
-        "opcache.max_accelerated_files" = "10000"; # def
-        "opcache.memory_consumption" = "128"; # def
-        "opcache.revalidate_freq" = "1"; # def
-      };
     };
-
+  })
+  ({ # db conf
+    services.nextcloud.config = {
+      dbtype = "mysql";
+       # dbpassFile = ""; #via unix socket instead
+    };
     services.mysql = {
       ensureDatabases = [ "nextcloud" ];
       ensureUsers = [{ 
@@ -139,14 +130,10 @@ config = mkIf cfg.enable (mkMerge [
         ensurePermissions = { "nextcloud.*" = "ALL PRIVILEGES";  }; 
       }];
     };
-    services.nginx.virtualHosts.${config.services.nextcloud.hostName} = {
-      forceSSL = cfg.https;
-      enableACME = cfg.https;
-      locations."/tv".proxyPass = "http://127.0.0.1:8096";
-      /*locations."/bio".return = "302 $scheme://$host/bio/";*/
-      /*locations."/bio/".proxyPass = "https://127.0.0.1:8920";*/
+    services.mysqlBackup = {
+      enable = true;
+      databases = [ "nextcloud" ];
     };
-    environment.etc."ncversion".text = "nextcloud${cfg.version}";
   })
   ({ # nextcloud apps
     services.nextcloud = {
@@ -175,20 +162,10 @@ config = mkIf cfg.enable (mkMerge [
       ;};
     };
   })
-  (mkIf cfg.jellyfin.enable {
+  ({ # media server
     services.jellyfin = {
       enable = true;
-      openFirewall = true;
-      user = "nextcloud";
       group = "nextcloud";
-      dataDir = "/var/lib/nextcloud/5tb/nextcloud/data/korv/files/videofiles/";
-      configDir = "/var/lib/jellyfin/config";
-    };
-    services.nginx.virtualHosts.${cfg.jellyfin.hostName} = {
-      forceSSL = cfg.https;
-      enableACME = cfg.https;
-      locations."/".proxyPass = "http://127.0.0.1:8096"; #http
-      /*locations."/".proxyPass = "https://127.0.0.1:8920"; #https*/
     };
     environment.systemPackages = with pkgs; [
       jellyfin
@@ -217,23 +194,5 @@ config = mkIf cfg.enable (mkMerge [
       };
     };
     environment.systemPackages = with pkgs; [ nextcloud-client ];
-  })
-  ({ 
-    security.acme.defaults = {
-      email = cfg.email;
-      webroot = "/var/lib/acme/acme-challenge";
-    };
-    security.acme.acceptTerms = true;
-    services.nginx = {
-      enable = true;
-      recommendedGzipSettings = true;
-      recommendedOptimisation = true;
-      recommendedProxySettings = true;
-      recommendedTlsSettings = true;
-    };
-    networking.firewall = {
-      allowedTCPPorts = [ 80 443 ];
-      allowedUDPPorts = [ 80 443 ];
-    };
   })
 ]);}

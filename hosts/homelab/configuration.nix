@@ -1,7 +1,7 @@
 { config, pkgs, lib, inputs, ... }:
 { imports = [
   ../../modules/imports.nix
-  /etc/nixos/hardware-configuration.nix
+  ./hardware-configuration.nix
   ./packages.nix
 ];
 
@@ -28,36 +28,19 @@ nix.settings = {
 };
 environment.systemPackages = [ pkgs.cachix ];
 
-scripts.enable      = true;
-customkbd.enable    = true;
+/*
 dwm = {
   enable            = true;
   user              = "user";
-};
-fail2ban.enable     = true;
-gnomeWM.enable      = true;
-immich = { enable   = false;
-  domain           = "immich.korv.lol";
-  hwVideo          = false;
-  ml               = false;
-};
-kodi.enable         = true;
+};*/
+
 localization.enable = true;
-mysql.enable        = true;
-nc = {
-  enable             = true;
-  hostName = "moln.kevindybeck.com";
-  directory = "/var/lib/nextcloud/5tb/nextcloud";
-  email = "kevin.dybeck@yahoo.com";
-  version            = "30";
-  pwfile	           = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
-  jellyfin.enable    = true;
-};
-services.nextcloud.settings.trusted_domains = ["100.84.203.89" ];
-soundconf = { 
-  enable      = true;
-  user                    = "user";
-};
+
+/*soundconf = { 
+  enable  = true;
+  user    = "user";
+};*/
+
 ssh = {
   enable            = true;
   user              = "user";
@@ -68,37 +51,88 @@ ssh = {
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIa8dGCkZtulhJ7Peg2XvdryhAowWpL0hVMAS+i0I1t5 root@debian-homelab"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpTIZfMSLWJBzkvSZyCthrU40R0CB8GjRi0WUMxi62z korv@pixel"
   ];
-  pwauth            = false;
+  pwauth            = true;
   x11fw             = false;
   vncbg             = false;
 };
-syncthing.enable    = true;
-syncthing.user      = "user";
-tmux.enable         = true;
-transmission = {
-  enable            = false;
-  dir = "/var/lib/nextcloud/5tb/transmission";
+
+services.xserver = {
+  enable = true;
+  autorun = true;
 };
-ollama.enable       = false;
-
-experimental = {
-  enable                  = false;
-  user                    = "user";
-  enableAvahi             = true;
-  enableVirtualScreen     = true;
-  enableVncFirewall       = true;
+services.xserver.displayManager.startx = {
+  enable = true;
+  generateScript = true;
+  extraCommands = ''
+      xrdb -load .Xresources
+      xsetroot -solid '#666661'
+      xsetroot -cursor_name left_ptr
+  '';
 };
+services.xserver.desktopManager.kodi.enable = true;
+/*
+services.xserver.displayManager.gdm = {
+  enable  = true;
+  wayland = false;
+};
+*/
+boot.loader = {
+    systemd-boot.enable = true;
+    efi.canTouchEfiVariables = true;
+};
+#services.displayManager.defaultSession = null ;#"none+dwm"; # "gnome"
 
-services.displayManager.defaultSession = "none+dwm"; # "gnome"
-
-/*systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-  "getty@tty1".enable = false;
-  "autovt@tty1".enable = false;
+/*services.displayManager.autoLogin = {
+  enable = false;
+  user = null;
 };*/
+
+scripts.enable      = false;
+customkbd.enable    = false;
+nginx.enable = true;
+    mysql.enable        = true;
+    nc = {
+      enable             = true;
+      hostName = "moln.kevindybeck.com";
+      directory = "/var/lib/nextcloud/5tb/nextcloud";
+      email = "kevin.dybeck@yahoo.com";
+      version            = "30";
+      pwfile	           = "/pw/pw"; #config.sops.secrets.nc-admin-pw.path;
+      jellyfin.enable    = true;
+    };
+    kodi.enable         = true;
+/* 
+    Disabled chunk
+    fail2ban.enable     = true;
+    gnomeWM.enable      = true;
+    immich = { enable   = false;
+      domain           = "immich.korv.lol";
+      hwVideo          = false;
+      ml               = false;
+    };
+    services.nextcloud.settings.trusted_domains = ["100.84.203.89" ];
+    syncthing.enable    = true;
+    syncthing.user      = "user";
+    mux.enable         = true;
+    transmission = {
+      enable            = false;
+      dir = "/var/lib/nextcloud/5tb/transmission";
+    };
+    ollama.enable       = false;
+    
+    experimental = {
+      enable                  = false;
+      user                    = "user";
+      enableAvahi             = true;
+      enableVirtualScreen     = true;
+      enableVncFirewall       = true;
+    };
+*/
+/*
 nixpkgs.config = {
   allowUnfree = true;
   permittedInsecurePackages = [];
-};
+};*/
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
 sops = {
   defaultSopsFile = /home/user/nixos-cfg/secrets/secrets.yaml;
@@ -110,59 +144,54 @@ sops = {
   secrets.nc-admin-pw = {};
 };
 
+# services.mullvad-vpn.enable = true;
 /* Constants */
 environment.localBinInPath = true;
 system.stateVersion =  "23.11";
 services = {
-  devmon.enable = true; /* automatic device mounting daemon */
-  gvfs.enable = true; /* Mount, trash, and other functionalities */
-  tumbler.enable = true; /* Thumbnail support for images */
-  udisks2 = { enable = true; #settings = {};
+  devmon.enable = true;  # automatic device mounting daemon
+  gvfs.enable = true;    # Mount, trash, and other functionalities
+  tumbler.enable = true; # Thumbnail support for images
+  udisks2 = { 
+    enable = true; #settings = {};
     mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
-    };
-  xserver.enable = true;
-  mullvad-vpn.enable = true;
+  };
 };
-users.users.${"user"} = { isNormalUser = true;
-  description = "user";
-  extraGroups = [ "networkmanager" "wheel" ];
-  packages = with pkgs; [ tilix bc ];
-  hashedPasswordFile = config.sops.secrets.pw.path;
+users.users = {
+  "kodi" = {
+    isNormalUser = true;
+    description = "graphical user";
+    
+  };
+  ${"user"} = {
+    isNormalUser = true;
+    description = "user";
+    extraGroups = [ "networkmanager" "wheel" ];
+    packages = with pkgs; [ tilix bc ];
+    hashedPasswordFile = config.sops.secrets.pw.path;
+  };
 };
 
-fonts.packages = with pkgs; [
-  # nerdfonts /* All nerdfonts */
-  aileron /* helvetica in 9 weights */
-  fira fira-code nerd-fonts.fira-code
-  noto-fonts noto-fonts-cjk-sans
-  comic-mono comic-relief
-];
-xdg = {
-  autostart.enable = true;
-  icons.enable = true;
-#  portal = {
-#    enable = true;
-#    extraPortals = [pkgs.xdg-desktop-portal-gtk];
-#  };
-  };
-services.displayManager.autoLogin = {
-  enable = true;
-  user = "user";
-};
-services.xserver.displayManager.gdm = {
-  enable = true;
-  wayland = false;
-};
+  /*fonts.packages = with pkgs; [
+      aileron # helvetica in 9 weights
+        # nerdfonts # All nerdfonts
+      fira fira-code nerd-fonts.fira-code
+      noto-fonts noto-fonts-cjk-sans
+      comic-mono comic-relief
+    ];
+  */
+  /* xdg = {
+    autostart.enable = true;
+    icons.enable = true;
+    portal = {
+      enable = true;
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
+    };
+  };*/
 networking = {
   hostName = "nix-homelab";
   networkmanager.enable = true;
   firewall.enable = true;
-  firewall.allowedTCPPorts = [ 80 ]; #TODO ports
-  firewall.allowedUDPPorts = [ 80 ];
-};
-boot.loader = {
-  systemd-boot.enable = true;
-  efi.canTouchEfiVariables = true;
 };
 nix.gc = { # nix-collect-garbage
   options = "--delete-older-than 30d"; # removes stale profile generations

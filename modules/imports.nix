@@ -21,6 +21,7 @@
     ../modules/mysql.nix
     ../modules/netbird-org.nix
     ../modules/nextcloud.nix
+    ../modules/nginx.nix
     #../modules/packages.nix
     ../modules/phonecon.nix
     ../modules/python.nix

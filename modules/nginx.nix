@@ -1,54 +1,50 @@
 { lib, pkgs, config, ... } :
 with lib;
 let cfg = config.nginx;
-in {
-  options.nginx = {
-    ## types = {attrs, bool, path, int, port, str, lines, commas}
-    enable = mkEnableOption "nginx";
+in 
+{
+options.nginx.enable = mkEnableOption "nginx";
 
-    user = mkOption { default = "user";
-      description = "";
-      type = types.str;
-     };
-    strings = mkOption {
-      description = "";
-      type = with types; nullOr listOf str;
-     };
-   };
-
-  config = mkIf cfg.enable (mkMerge [
-    (mkIf {})
-    (mkIf {})
-    # static config here
-    ({
-    security.acme = {
-      acceptTerms = true;
-      defaults.email = cfg.email;
+config = mkIf cfg.enable (mkMerge [
+  ({
+    services.nginx = {
+      enable = true;
+      recommendedGzipSettings = true;
+      recommendedOptimisation = true;
+      recommendedProxySettings = true;
+      recommendedTlsSettings = true;
+      statusPage = true;
     };
-   #services.nginx.virtualHosts."bajs.korv.lol" = {
-   #  forceSSL = true;
-   #  enableACME = true;
-   #  location."/bajs".return = "302 $scheme://$host/";
-   #  locations."/".proxyPass = "http://127.0.0.1:1337";
-   #};
-   #services.nginx.virtualHosts."react.korv.lol" = {
-   #  forceSSL = true;
-   #  enableACME = true;
-   ## locations."/".proxyPass = "http://127.0.0.1:3000";
-   #  locations."/".proxyPass = "http://192.168.1.10:3000";
-   #};
-   #services.nginx.virtualHosts."smp.korv.lol" = {
-   #  forceSSL = true;
-   #  enableACME = true;
-   #  locations."/".proxyPass = "http://127.0.0.1:8000";
-   # #locations."/".proxyPass = "https://127.0.0.1:5223";
-   #};
-   #services.nginx.virtualHosts."xftp.korv.lol" = {
-   #  forceSSL = true;
-   #  enableACME = true;
-   # #locations."/".proxyPass = "http://127.0.0.1:8443";
-   #  locations."/".proxyPass = "https://127.0.0.1:8443";
-   #};
-   })
-   ]);
+    networking.firewall = {
+      allowedTCPPorts = [ 80 443 ];
+      allowedUDPPorts = [ 80 443 ];
+    }; 
+  })  
+  ({
+    services.nginx.virtualHosts = { 
+      "lab.kevindybeck.com" = {
+        serverAliases = [ "192.168.1.12" "4.20.69.0" ];
+        root = "/var/lib/www/";
+        addSSL = true; # set defaults for listen to listen on all interfaces on the respective default ports (80, 443)
+        sslCertificate = "/etc/letsencrypt/live/kevindybeck.com-0001/fullchain.pem";
+        sslCertificateKey = "/etc/letsencrypt/live/kevindybeck.com-0001/privkey.pem";
+        locations = { 
+          "/nc/".proxyPass = "http://localhost:8080/"; #trailing / improtant
+          "/jf/".proxyPass = "http://localhost:8096/"; #trailing / improtant 
+        };
+      };
+      "config.services.nextcloud.hostName" = {    
+        serverAliases = [ "moln.kevindybeck.com" "nc.kevindybeck.com" ];
+        root = "/var/lib/nextcloud/5tb/nextcloud/";
+        addSSL = true; # set defaults for listen to listen on all interfaces on the respective default ports (80, 443)
+        sslCertificate = "/etc/letsencrypt/live/kevindybeck.com-0001/fullchain.pem";
+        sslCertificateKey = "/etc/letsencrypt/live/kevindybeck.com-0001/privkey.pem";
+        locations = { 
+          "/".proxyPass = "http://localhost:8080/"; #trailing / improtant
+          "/jf/".proxyPass = "http://localhost:8096/"; #trailing / improtant 
+        };
+      };
+    };
+  })
+]);
 }

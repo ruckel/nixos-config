@@ -1,44 +1,44 @@
-{pkgs, ...}:{
-services.dnsmasq = { enable = true;
-  alwaysKeepRunning = false;
- };
+  {pkgs, ...}:{
+ # services.dnsmasq = { enable = true;
+  #alwaysKeepRunning = false;
+ #};
 programs = {
-  firefox.enable = true;
-  steam.enable = true;
-  thunar = { enable = true;
-    plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin thunar-media-tags-plugin ];
-   };
+  #firefox.enable = true;
+  #steam.enable = true;
+  #thunar = { enable = true;
+   # plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin thunar-media-tags-plugin ];
+   #};
   xfconf.enable = true;
  };
 
 environment.systemPackages = with pkgs; [
   surf /* browser */
-  brave
-  brightnessctl
+  #brave
+  #brightnessctl
   cryptsetup
   # dnsmasq
   deno 
   efibootmgr
-  feh
-  qimgv
+  #feh
+  #qimgv
   netbird
-  nomacs
+  #nomacs
   ffmpegthumbnailer
   fswebcam
   git
   gh
   gitg
   git-credential-keepassxc
-  gscreenshot
+  #gscreenshot
   keepassxc
-  mpv
+  #mpv
   mullvad-vpn /* duh */
   networkmanagerapplet
   nextcloud-client
   nodejs_20
   openssl
   sops
-  spotify spotify-player 
+  #spotify spotify-player 
   x11vnc tigervnc
   wget
 ];
