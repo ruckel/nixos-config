@@ -97,7 +97,7 @@
     libnotify
     libreoffice
     libsecret
-    libsForQt5.kleopatra
+    kdePackages.kleopatra
     libusb-compat-0_1
     libusb1
     libusbp

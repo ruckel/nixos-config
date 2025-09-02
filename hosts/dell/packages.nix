@@ -60,7 +60,7 @@
     keepassxc git-credential-keepassxc cryptsetup
     lazygit
     libgnomekbd
-    libsForQt5.kleopatra
+    kdePackages.kleopatra
     libreoffice
     mdp
     menulibre
