@@ -53,8 +53,6 @@ boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
 };
-scripts.enable      = false;
-customkbd.enable    = false;
 nginx.enable = true;
     mysql.enable        = true;
     nc = {
@@ -67,37 +65,6 @@ nginx.enable = true;
       jellyfin.enable    = true;
     };
     kodi.enable         = true;
-/* 
-    Disabled chunk
-    fail2ban.enable     = true;
-    immich = { enable   = false;
-      domain           = "immich.korv.lol";
-      hwVideo          = false;
-      ml               = false;
-    };
-    services.nextcloud.settings.trusted_domains = ["100.84.203.89" ];
-    syncthing.enable    = true;
-    syncthing.user      = "user";
-    mux.enable         = true;
-    transmission = {
-      enable            = false;
-      dir = "/var/lib/nextcloud/5tb/transmission";
-    };
-    ollama.enable       = false;
-    
-    experimental = {
-      enable                  = false;
-      user                    = "user";
-      enableAvahi             = true;
-      enableVirtualScreen     = true;
-      enableVncFirewall       = true;
-    };
-*/
-/*
-nixpkgs.config = {
-  allowUnfree = true;
-  permittedInsecurePackages = [];
-};*/
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
 sops = {
   defaultSopsFile = /home/user/nixos-cfg/secrets/secrets.yaml;

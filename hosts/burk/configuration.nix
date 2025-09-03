@@ -118,10 +118,7 @@ environment.etc = {
     defaultSession = "gnome-xorg";
   };
 
-  systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
-    "getty@tty1".enable = false;
-    "autovt@tty1".enable = false;
-   };
+
   nixpkgs.config = {
     allowUnfree = true;
     permittedInsecurePackages = [ "libsoup-2.74.3" "spotify" ];
