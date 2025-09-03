@@ -7,6 +7,9 @@
     ./hardware-configuration.nix
     ./packages.nix
    ];
+
+#  print.this = [ "${vars.username-admin}" "${toString vars.ssh-ports}" ];
+
 netbird.enable = true;
 services.zoneminder = { enable = false;
   database = {

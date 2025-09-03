@@ -5,7 +5,7 @@ in {
   options.TEMPLATE = {
     ## types = {attrs, bool, path, int, port, str, lines, commas}
     enable = mkEnableOption "DESCRIPTION";
-    opt1 = mkEnableOption "";
+    printOptDuringEval = mkEnableOption "";
     opt2 = mkEnableOption "";
 
     user = mkOption { default = "user";
@@ -22,8 +22,8 @@ in {
     ({ #static config
 
     })
-    (mkIf cfg.opt1 {
-      
+    (mkIf cfg.printOptDuringEval {
+      util.trace = [ "TEMPLATE: printOptDuringEval: ${toString printOptDuringEval}" ];
     })
     (mkIf cfg.opt2 {
       
