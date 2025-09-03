@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... } :
+{ lib, pkgs, config, vars, ... } :
 with lib;
 let cfg = config.transmission;
 in {
@@ -6,11 +6,7 @@ in {
     ## types = {attrs, bool, path, int, port, str, lines, commas}
     enable = mkEnableOption "DESCRIPTION";
 
-    user = mkOption { default = "user";
-      description = "";
-      type = types.str;
-     };
-    dir = mkOption { 
+    dir = mkOption {
       default = "/var/lib/transmission";
       description = "";
       type = types.str;
@@ -28,7 +24,7 @@ in {
         settings.rpc-bind-address = "0.0.0.0";
         credentialsFile = "/var/lib/secrets/transmission/settings.json";
       };
-        users.users."${cfg.user}".extraGroups = ["transmission"];
+        users.users."${vars.username-admin}".extraGroups = ["transmission"];
     })
    ]);
 }

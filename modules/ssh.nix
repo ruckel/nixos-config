@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... } :
+{ lib, pkgs, config, vars, ... } :
 with lib;
 let
   cfg = config.ssh;

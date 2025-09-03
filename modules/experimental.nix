@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... } :
+{ lib, pkgs, config, vars, ... } :
 with lib;
 let
   cfg = config.experimental;
@@ -6,10 +6,6 @@ in
 {
   options.experimental = {
     enable                  = mkEnableOption "experimental";
-    user = mkOption { default = "user";
-      type = types.str;
-    };
-
     enableSystembus-notify  = mkEnableOption "";
     enableAvahi             = mkEnableOption "";
     enableRustdeskServer    = mkEnableOption "";

@@ -29,19 +29,18 @@ outputs = {
 let
   inherit (self) outputs;
   system = "x86_64-linux";
-  user = "korv";
   specialArgs = {
     inherit inputs system;
     user = "korv"; 
+    inherit inputs outputs;
+    vars = {
+      username-admin = "korv";
+    };
   };
 in {
   nixosConfigurations = {
     nixburk  = nixpkgs-unstable.lib.nixosSystem {
-      inherit system;
-      specialArgs = { 
-        inherit inputs outputs;
-        user = "korv";
-      };
+      inherit system specialArgs;
       modules = [
         ./hosts/burk/configuration.nix
         sops-nix.nixosModules.sops

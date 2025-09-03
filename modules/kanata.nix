@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... } :
+{ lib, pkgs, config, vars, ... } :
 with lib;
 let cfg = config.kanata;
 in {
@@ -10,8 +10,8 @@ in {
     };
     };
 
-  config = lib.mkIf cfg.enable {
-    users.users.${cfg.user}.extraGroups = [ "uinput" ];
+  config = mkIf cfg.enable {
+    users.users.${vars.username-admin}.extraGroups = [ "uinput" ];
     services.kanata = {
       enable = true;
       keyboards.korvkb = {

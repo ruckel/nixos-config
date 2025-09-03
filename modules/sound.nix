@@ -1,4 +1,4 @@
-{ lib, config, pkgs, ...}:
+{ lib, config, pkgs, vars, ...}:
 with lib;
 let
   cfg = config.soundconf;
@@ -7,13 +7,9 @@ in {
     enable = lib.mkEnableOption "Enable Module";
     lowLatency = mkEnableOption "Enable low latency settings";
     combine = lib.mkEnableOption "combine inputs into sink and outputs into sink";
-
-    user = mkOption { default = "user";
-      type = types.str;
-    };
   };
 
-  config = lib.mkIf cfg.enable {
+  config = mkIf cfg.enable {
     security.rtkit.enable = true;     # pipewire realtime priotitizing
    # services.pulseaudio.enable = false;
     services.pipewire = {
@@ -84,11 +80,11 @@ in {
       wantedBy = [ "pipewire.service" ];
     };
     environment.etc."pipewire-link.sh" = mkIf cfg.combine {
-      user = cfg.user;
+      user = vars.username-admin;
       mode = "0700";
       text = ''
         #!/bin/sh
-        RUN_AS_USER=${cfg.user}
+        RUN_AS_USER=${vars.username-admin}
         
         sinkL='out-sink:capture_FL'
         sinkR='out-sink:capture_FR'

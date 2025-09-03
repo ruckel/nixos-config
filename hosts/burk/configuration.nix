@@ -1,5 +1,6 @@
-{ config, pkgs, lib, inputs, ... }:
-let vars = import "${inputs.vars}"; in
+{ config, pkgs, lib, inputs, vars, ... }: with lib;
+#let vars = import "${inputs.vars}";
+#in
 {
   imports = [
     ../../modules/imports.nix
@@ -40,7 +41,6 @@ environment.etc = {
 */
 /* custom services */
   adb = { enable        = true;
-    user                = "korv";
     # ports               = vars.adbports;
    };
   autorandr.enable      = true;
@@ -52,19 +52,16 @@ environment.etc = {
   customkbd.enable      = true;
   /*docker = { 
     enable              = false;
-    user                = "korv";
   };*/
   dwm = { enable        = true;
     user                  = "korv";
    };
   dunst-service = { enable = true;
-    user                   = "korv";
    };
   # ffsyncserver.enable   = true;
   /*hyprland.enable       = true;*/
   gnomeWM.enable        = true;
   # kanata.enable         = true;
-  # kanata.user           = "korv";
   localization.enable   = true;
   mpv.enable            = true;
   mysql.enable          = true;
@@ -79,7 +76,6 @@ environment.etc = {
   qemu.enable           = true;
   soundconf = {
     enable            = true;
-    user              = "korv";
     lowLatency        = true;
     combine           = true;
    };
@@ -98,7 +94,6 @@ environment.etc = {
      vncbg             = false;
    };
   syncthing = { enable  = true;
-    user                = "korv";
    };
   userServices = {
     enable              = true;
@@ -109,13 +104,11 @@ environment.etc = {
   tmux.enable           = true;
   /*transmission = {
     enable              = true;
-    user = "korv";
   };*/
   vim.enable            = true;
 
   /*experimental = {
     enable                  = true;
-    user                    = "korv";
     enableSystembus-notify  = true;
     enableAvahi             = true;
     enableRustdeskServer    = true;
@@ -145,20 +138,6 @@ environment.etc = {
     allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [ "spotify" ];
    };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
-  sops = {
-    defaultSopsFile = /*/home/korv/nixos-cfg*/../../secrets/secrets.yaml;
-    defaultSopsFormat = "yaml";
-    age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-    age.keyFile =
-      "/home/korv" +
-      # ".." +
-      "/.config/sops/age/keys.txt";
-    age.generateKey = true;
-    secrets.pw.neededForUsers = true;
-    secrets.nc-admin-pw = {};
-    # secrets.nc-admin-pw.owner = config.users.users.nextcloud.name;
-    # secrets.data = {};
-   };
 
 /* Constants */
   environment.localBinInPath = true;
@@ -177,10 +156,13 @@ environment.etc = {
   services.mullvad-vpn.enable = true;
   users.users."korv" = { isNormalUser = true;
     description = "korv";
+  users.users."${vars.username-admin}" = {
+    isNormalUser = true;
+    description = "admin";
     extraGroups = [ "networkmanager" "wheel" "transmission" ];
     packages = with pkgs; [ tilix bc ];
-    hashedPasswordFile = config.sops.secrets.pw.path;
-   };
+    hashedPasswordFile = mkAfter config.sops.secrets.pw.path;
+  };
   fonts.packages = with pkgs; [
     # nerdfonts /* All nerdfonts */
     aileron /* helvetica in 9 weights */
