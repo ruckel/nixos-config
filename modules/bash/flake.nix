@@ -8,24 +8,35 @@
       system = "x86_64-linux";
       pkgs = import nixpkgs { inherit system; };
 
-      scripts = import ./included-scripts.nix { inherit pkgs; };
+      wrappedScripts = import ./included-scripts.nix { inherit pkgs; };
+      unwrappedScripts = import ./included-scripts-not-wrapped.nix { inherit pkgs; };
 
-      makeScript = { name, file, deps }: pkgs.writeShellScriptBin name ''
+      makeWrappedScript = { name, file, deps }: pkgs.writeShellScriptBin name ''
         export PATH=${pkgs.lib.makeBinPath deps}
         ${builtins.readFile file}
       '';
-      packageList = builtins.listToAttrs (
+      makeUnwrappedScript = { name, file, deps }: pkgs.writeScriptBin name ''
+        ${builtins.readFile file}
+      '';
+
+      packageListWrapped = builtins.listToAttrs (
         map (def: {
           name = def.name;
-          value = makeScript def;
-        }) scripts
+          value = makeWrappedScript def;
+        }) wrappedScripts
+      );
+      packageListUnwrapped = builtins.listToAttrs (
+        map (def: {
+          name = def.name;
+          value = makeUnwrappedScript def;
+        }) unwrappedScripts
       );
     in
     { 
-      packages.${system} = packageList;
+      packages.${system} = packageListWrapped // packageListUnwrapped;
       nixosModules.default = { config, pkgs, lib, ... }: {
         config.environment.systemPackages =
-          lib.mkIf (config.programs.shellScripts.enable/* or true*/) (
+          lib.mkIf (config.programs.shellScripts.enable /* or true*/) (
             builtins.attrValues self.packages.${pkgs.system}
           );
           /*options.shellScripts = {
