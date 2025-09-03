@@ -1,8 +1,10 @@
 vars.nix
 result*
 localbin
+.local
 .version-suffix
-gitignored
 .idea
 .vscode
 .swp
+gitignored/
+.gitignored/
