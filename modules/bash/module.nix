@@ -16,7 +16,7 @@
           lsof 
           showmethekey 
           trashy 
-          termimage 
+#          termimage
           xprintidle 
           xdotool 
           place-cursor-at 

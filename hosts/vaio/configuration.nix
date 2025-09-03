@@ -27,7 +27,7 @@ soundconf.user      = "user";
 ssh = {
   enable            = true;
   user              = "user";
-  ports             = [ 6842 6843 6844 ];
+  ports             = [ 6842 6843 6844 ]; # todo ports
   keys              = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEJsd82H9yUf2hgBiXECvfPVgUxy84vHz5MbsBDbShvv korv@nixos"
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICPC8sV9tofPmdM1VmrsUK1AoymNkobPphDynC6nKd/E korv@nixos-dell"

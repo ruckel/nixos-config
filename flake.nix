@@ -30,8 +30,6 @@ let
   inherit (self) outputs;
   system = "x86_64-linux";
   specialArgs = {
-    inherit inputs system;
-    user = "korv"; 
     inherit inputs outputs;
     vars = {
       username-admin = "korv";

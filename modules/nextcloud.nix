@@ -58,11 +58,8 @@ options.nc = {
     default = "/var/lib/nextcloud";
     type = types.str;
   };
-  email = mkOption {
-    default = "";
-    type = types.str;
-  };
   pwfile = mkOption {
+    description = "Used during initial setup";
     default = "";
     type = types.str;
   };
@@ -114,7 +111,7 @@ config = mkIf cfg.enable (mkMerge [
       };
       config = {
         adminuser = "admin"; # only in initial setup
-        adminpassFile = cfg.pwfile; # only in initial setup 
+        adminpassFile = cfg.pwfile;
       };
     };
   })

@@ -155,7 +155,7 @@ environment.etc = {
     fira fira-code nerd-fonts.fira-code
     noto-fonts noto-fonts-cjk-sans
     comic-mono comic-relief
-   ];
+  ];
   xdg = {
     autostart.enable = true;
     icons.enable = true;
@@ -172,8 +172,8 @@ environment.etc = {
       enable = true;
       allowedTCPPorts = [ 443 3000 ]; #TODO ports
       allowedTCPPortRanges = [{ from = 40000; to = 65535; }];
-     };
-   };
+    };
+  };
   boot.plymouth = { enable = true;
     # themePackages = [ ];
     # theme         = "";
