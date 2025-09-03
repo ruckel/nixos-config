@@ -53,14 +53,10 @@ environment.etc = {
   /*docker = { 
     enable              = false;
   };*/
-  dwm = { enable        = true;
-    user                  = "korv";
-   };
   dunst-service = { enable = true;
    };
   # ffsyncserver.enable   = true;
-  /*hyprland.enable       = true;*/
-  gnomeWM.enable        = true;
+
   # kanata.enable         = true;
   localization.enable   = true;
   mpv.enable            = true;
@@ -99,7 +95,6 @@ environment.etc = {
     enable              = true;
     lockScreenOnBoot    = true;
   };
-  #sxwm.enable           = true;
   # ollama.enable       = true;
   tmux.enable           = true;
   /*transmission = {
@@ -119,14 +114,9 @@ environment.etc = {
 
   programs.java.enable      = false;
 
-  services.displayManager.defaultSession = "gnome-xorg"
-    # "none+dwm"
-    # "gnome"
-    # "none+sxwm"
-    # "gnome-xorg"
-  ;
-  services.gnome.gnome-keyring.enable = lib.mkForce false;
-  security.pam.services.gdm.enableGnomeKeyring = lib.mkForce false;
+  xserver = {
+    defaultSession = "gnome-xorg";
+  };
 
   systemd.services = { # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
     "getty@tty1".enable = false;
@@ -148,14 +138,10 @@ environment.etc = {
   services.tumbler.enable = true; /* Thumbnail support for images */
   services.udisks2 = { enable = true; #settings = {};
     mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
-   };
-  services.xserver = {
-    enable = true;
-    videoDrivers = [ "amdgpu" ];
-   };
+  };
+  services.xserver.videoDrivers = [ "amdgpu" ];
   services.mullvad-vpn.enable = true;
-  users.users."korv" = { isNormalUser = true;
-    description = "korv";
+  xserver.autologin = "korv";
   users.users."${vars.username-admin}" = {
     isNormalUser = true;
     description = "admin";
@@ -177,15 +163,6 @@ environment.etc = {
       enable = true;
       extraPortals = [pkgs.xdg-desktop-portal-gtk];
      };
-   };
-  services.displayManager = {
-    gdm = {
-      enable = true;
-      wayland = false;
-    };
-    autoLogin = { enable = true;
-      user = "korv";
-   };
   };
   qt.style = "adwaita-dark";
   networking = {

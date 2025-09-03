@@ -11,6 +11,13 @@ fileSystems = {
     # options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
   };
 };
+
+xserver = {
+  displayManager = "startx";
+  defaultSession = null;
+  kodi = true;
+};
+
 netbird.clients = {
   netbird = {
     port = 51820;
@@ -27,20 +34,7 @@ nix.settings = {
   trusted-public-keys = [ "cuda-maintainers.cachix.org-1:0dq3bujKpuEPMCX6U4WylrUDZ9JyUG0VpVZa7CNfq5E=" ];
 };
 environment.systemPackages = [ pkgs.cachix ];
-
-/*
-dwm = {
-  enable            = true;
-  user              = "user";
-};*/
-
 localization.enable = true;
-
-/*soundconf = { 
-  enable  = true;
-  user    = "user";
-};*/
-
 ssh = {
   enable            = true;
   user              = "user";
@@ -55,38 +49,10 @@ ssh = {
   x11fw             = false;
   vncbg             = false;
 };
-
-services.xserver = {
-  enable = true;
-  autorun = true;
-};
-services.xserver.displayManager.startx = {
-  enable = true;
-  generateScript = true;
-  extraCommands = ''
-      xrdb -load .Xresources
-      xsetroot -solid '#666661'
-      xsetroot -cursor_name left_ptr
-  '';
-};
-services.xserver.desktopManager.kodi.enable = true;
-/*
-services.xserver.displayManager.gdm = {
-  enable  = true;
-  wayland = false;
-};
-*/
 boot.loader = {
     systemd-boot.enable = true;
     efi.canTouchEfiVariables = true;
 };
-#services.displayManager.defaultSession = null ;#"none+dwm"; # "gnome"
-
-/*services.displayManager.autoLogin = {
-  enable = false;
-  user = null;
-};*/
-
 scripts.enable      = false;
 customkbd.enable    = false;
 nginx.enable = true;
@@ -104,7 +70,6 @@ nginx.enable = true;
 /* 
     Disabled chunk
     fail2ban.enable     = true;
-    gnomeWM.enable      = true;
     immich = { enable   = false;
       domain           = "immich.korv.lol";
       hwVideo          = false;
@@ -145,7 +110,6 @@ sops = {
 };
 
 # services.mullvad-vpn.enable = true;
-/* Constants */
 environment.localBinInPath = true;
 system.stateVersion =  "23.11";
 services = {
@@ -171,23 +135,6 @@ users.users = {
     hashedPasswordFile = config.sops.secrets.pw.path;
   };
 };
-
-  /*fonts.packages = with pkgs; [
-      aileron # helvetica in 9 weights
-        # nerdfonts # All nerdfonts
-      fira fira-code nerd-fonts.fira-code
-      noto-fonts noto-fonts-cjk-sans
-      comic-mono comic-relief
-    ];
-  */
-  /* xdg = {
-    autostart.enable = true;
-    icons.enable = true;
-    portal = {
-      enable = true;
-      extraPortals = [pkgs.xdg-desktop-portal-gtk];
-    };
-  };*/
 networking = {
   hostName = "nix-homelab";
   networkmanager.enable = true;
