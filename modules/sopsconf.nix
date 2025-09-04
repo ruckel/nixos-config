@@ -318,12 +318,12 @@ in {
           pubkey-dell = {
             path = "/etc/ssh/authorized_keys.d/${userName}_dell";
             reloadUnits = [ "sshd.service" ];
-            };
+          };
 
-          hostkey-burk = { reloadUnits = [ "sshd.service" ]; };
-          hostkey-labb = { reloadUnits = [ "sshd.service" ]; };
-          hostkey-tele = { reloadUnits = [ "sshd.service" ]; };
-          hostkey-dell = { reloadUnits = [ "sshd.service" ]; };
+          hostkey-burk = { path = "/etc/ssh/ssh_known_hosts.d/burk"; };
+          hostkey-labb = { path = "/etc/ssh/ssh_known_hosts.d/labb"; };
+          hostkey-tele = { path = "/etc/ssh/ssh_known_hosts.d/tele"; };
+          hostkey-dell = { path = "/etc/ssh/ssh_known_hosts.d/dell"; };
 
           sshkey-burk = lib.mkIf (config.networking.hostName == "nixburk") {
             reloadUnits = [ "sshd.service" ];
