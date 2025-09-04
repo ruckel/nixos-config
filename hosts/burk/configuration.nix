@@ -73,8 +73,9 @@ services.zoneminder = { enable = false;
 
   programs.java.enable      = false;
 
-  xserver = {
-    defaultSession = "gnome-xorg";
+  x = {
+#    defaultSession = "gnome-xorg";
+     wm.dwm = true;
   };
 
 
@@ -96,8 +97,6 @@ services.zoneminder = { enable = false;
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
   services.mullvad-vpn.enable = true;
-  xserver.autologin = "korv";
-  users.users."${vars.username-admin}" = {
   x.autologin = userName;
   users.users."${userName}" = {
     isNormalUser = true;

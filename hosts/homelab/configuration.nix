@@ -12,10 +12,10 @@ fileSystems = {
   };
 };
 
-xserver = {
-  displayManager = "startx";
+x = {
+  dm = "startx";
   defaultSession = null;
-  kodi = true;
+  wm.kodi = true;
 };
 
 netbird.clients = {

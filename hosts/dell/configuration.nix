@@ -6,8 +6,7 @@ let vars = import "${inputs.vars}"; in
   ./packages.nix
   ];
 
-services.displayManager.defaultSession = "none+dwm"; # "gnome"
-services.gnome.gnome-keyring.enable = lib.mkForce false;
+x.defaultSession = null ; #"none-dwm";
 adb = {
   enable            = true;
   #ports             = vars.adbports;
@@ -15,11 +14,7 @@ adb = {
 autorandr.enable    = false;
 scripts.enable      = true;
 customkbd.enable    = true;
-dwm.enable          = true;
-dwm.user            = "korv";
 ffsyncserver.enable = false;
-gnomeWM.enable      = true;
-#kde.enable	    = true;
 localization.enable = true;
 mysql.enable        = false;
 #nc.enable           = true;
@@ -31,7 +26,6 @@ pcon = {
 };
 #pythonconf.enable   = true;
 soundconf.enable    = true;
-soundconf.user      = "korv";
 ssh = {
   enable            = true;
   user              = "korv";
@@ -50,8 +44,6 @@ syncthing.enable    = true;
 syncthing.user      = "korv";
 systemdconf.enable  = true;
 #ollama.enable       = true;
-xprofile.enable     = true;
-xprofile.user       = "korv";
 
 experimental = {
   enable                  = true;
@@ -76,16 +68,12 @@ services.tumbler.enable = true; /* Thumbnail support for images */
 services.udisks2 = { enable = true; #settings = {};
   mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
   };
-services.xserver.enable = true;
 services.mullvad-vpn.enable = true;
 users.users."korv" = { isNormalUser = true;
     description = "korv";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ tilix bc ];
 };
-#environment.etc = {
-#  "profile.d/vte.sh".source = "${pkgs.vte}/etc/profile.d/vte.sh";
-#};
 fonts.packages = with pkgs; [
     # nerdfonts /* All nerdfonts */
     fira fira-code nerd-fonts.fira-code
@@ -99,14 +87,6 @@ xdg = {
     extraPortals = [pkgs.xdg-desktop-portal-gtk];
   };
   };
-services.displayManager.autoLogin = {
-  enable = true;
-  user = "korv";
-};
-services.xserver.displayManager.gdm = {
-  enable = true;
-  wayland = false;
-};
 nix.gc = {        # nix store garbage collection
   automatic = true;
   dates = "06:00";

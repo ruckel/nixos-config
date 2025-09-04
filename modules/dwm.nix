@@ -25,9 +25,8 @@ in {
     services.xserver.windowManager.dwm = {
       enable = true;
       package = pkgs.dwm.overrideAttrs rec {
-        #src = ~/dwmorg;
-        #src = /home/korv/dwm;#TODO dynamic
-        src = /home/${cfg.user}/dwm-conf;
+        src = /home/korv/dwm-conf;
+        #src = /etc/dwm;
         patches = [
           # fakefullscreen
           (pkgs.fetchpatch {
