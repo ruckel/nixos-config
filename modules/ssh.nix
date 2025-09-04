@@ -71,13 +71,22 @@ in {
       programs.ssh.setXAuthLocation = true;
       services.openssh.banner = ''ass ass ey''; # Message to display to the remote user before authentication is allowed
 #      programs.ssh.startAgent = true; # remembers private keys. starts at boot. Use ssh-add to add a key to the agent
+      users.users.${userName}.openssh.authorizedKeys.keyFiles = [
+          config.sops.secrets.pubkey-burk.path
+          config.sops.secrets.pubkey-labb.path
+          config.sops.secrets.pubkey-tele.path
+          config.sops.secrets.pubkey-dell.path
+      ];
+      programs.ssh.knownHostsFiles = [
+          config.sops.secrets.hostkey-burk.path
+          config.sops.secrets.hostkey-labb.path
+          config.sops.secrets.hostkey-tele.path
+          config.sops.secrets.hostkey-dell.path
+      ];
       services.openssh.extraConfig = /* sshd_config */ ''
           Include /etc/ssh/sshd_config.d/*.conf
-          AuthorizedKeysFile %h/.ssh/authorized_keys /etc/ssh/authorized_keys.d/%u*
       '';
-      programs.ssh.extraConfig = ''
-          GlobalKnownHostsFile /etc/ssh/ssh_known_hosts  /etc/ssh/ssh_known_hosts.d/*
-      '';
+      services.openssh.authorizedKeysInHomedir = true;
     })
     ( mkIf cfg.vnc.enable {
       services.openssh.settings.X11Forwarding = mkForce true;

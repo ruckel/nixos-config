@@ -303,27 +303,15 @@ in {
             path = "/etc/ssh/sshd_config.d/ports.conf";
             restartUnits = [ "sshd.service" ];
           };
-          pubkey-burk = {
-            path = "/etc/ssh/authorized_keys.d/${userName}_burk";
-            reloadUnits = [ "sshd.service" ];
-            };
-          pubkey-labb = {
-            path = "/etc/ssh/authorized_keys.d/${userName}_labb";
-            reloadUnits = [ "sshd.service" ];
-            };
-          pubkey-tele = {
-            path = "/etc/ssh/authorized_keys.d/${userName}_tele";
-            reloadUnits = [ "sshd.service" ];
-            };
-          pubkey-dell = {
-            path = "/etc/ssh/authorized_keys.d/${userName}_dell";
-            reloadUnits = [ "sshd.service" ];
-          };
+          pubkey-burk = { reloadUnits = [ "sshd.service" ]; };
+          pubkey-labb = { reloadUnits = [ "sshd.service" ]; };
+          pubkey-tele = { reloadUnits = [ "sshd.service" ]; };
+          pubkey-dell = { reloadUnits = [ "sshd.service" ]; };
 
-          hostkey-burk = { path = "/etc/ssh/ssh_known_hosts.d/burk"; };
-          hostkey-labb = { path = "/etc/ssh/ssh_known_hosts.d/labb"; };
-          hostkey-tele = { path = "/etc/ssh/ssh_known_hosts.d/tele"; };
-          hostkey-dell = { path = "/etc/ssh/ssh_known_hosts.d/dell"; };
+          hostkey-burk = { reloadUnits = [ "sshd.service" ]; };
+          hostkey-labb = { reloadUnits = [ "sshd.service" ]; };
+          hostkey-tele = { reloadUnits = [ "sshd.service" ]; };
+          hostkey-dell = { reloadUnits = [ "sshd.service" ]; };
 
           sshkey-burk = lib.mkIf (config.networking.hostName == "nixburk") {
             reloadUnits = [ "sshd.service" ];
