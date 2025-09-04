@@ -303,15 +303,27 @@ in {
             path = "/etc/ssh/sshd_config.d/ports.conf";
             restartUnits = [ "sshd.service" ];
           };
-          pubkey-burk = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
-          pubkey-labb = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
-          pubkey-tele = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
-          pubkey-dell = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+          pubkey-burk = {
+            path = "/etc/ssh/authorized_keys.d/${userName}_burk";
+            reloadUnits = [ "sshd.service" ];
+            };
+          pubkey-labb = {
+            path = "/etc/ssh/authorized_keys.d/${userName}_labb";
+            reloadUnits = [ "sshd.service" ];
+            };
+          pubkey-tele = {
+            path = "/etc/ssh/authorized_keys.d/${userName}_tele";
+            reloadUnits = [ "sshd.service" ];
+            };
+          pubkey-dell = {
+            path = "/etc/ssh/authorized_keys.d/${userName}_dell";
+            reloadUnits = [ "sshd.service" ];
+            };
 
-          hostkey-burk = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
-          hostkey-labb = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
-          hostkey-tele = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
-          hostkey-dell = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+          hostkey-burk = { reloadUnits = [ "sshd.service" ]; };
+          hostkey-labb = { reloadUnits = [ "sshd.service" ]; };
+          hostkey-tele = { reloadUnits = [ "sshd.service" ]; };
+          hostkey-dell = { reloadUnits = [ "sshd.service" ]; };
 
           sshkey-burk = lib.mkIf (config.networking.hostName == "nixburk") {
             reloadUnits = [ "sshd.service" ];
