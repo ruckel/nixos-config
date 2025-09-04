@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, vars, ... }: with lib;
+{ config, pkgs, lib, inputs, hostName, userName, vars, ... }: with lib;
 #let vars = import "${inputs.vars}";
 #in
 {
@@ -20,32 +20,9 @@ services.zoneminder = { enable = false;
 /*services.home-assistant = {
   enable = false;
   config.homeassistant.name = "home";
-};*/
-/*
-environment.etc = {
-  "xdg/user-dirs.defaults".text = ''
-    # Format: XDG_xxx_DIR="$HOME/$USERDIR"
-    # USERDIR = [ homedir-relative path | absolute path ]
-    #
-    # Doesn't change already created user-dirs.
-    # For that; see:
-    #   ~/.config/user-dirs.dirs
-    #   man xdg-user-dirs-update
-    DESKTOP="$HOME/files/desktop"
-    DOWNLOAD="$HOME/files/downloads"
-    DOCUMENTS="$HOME/files/Documents"
-    MUSIC="$HOME/files/music"
-    PICTURES="$HOME/files/pictures"
-    VIDEOS="$HOME/files/videos"
-    PUBLICSHARE="$HOME/files/public"
-    TEMPLATES="/media/some/other/dir"
-  '';
 };
-*/
 /* custom services */
-  adb = { enable        = true;
-    # ports               = vars.adbports;
-   };
+  adb.enable            = true;
   autorandr.enable      = true;
  #autorandr.enableProfile = {
  #  "tv" = true;
@@ -53,18 +30,12 @@ environment.etc = {
  #};
   scripts.enable        = true;
   customkbd.enable      = true;
-  /*docker = { 
-    enable              = false;
-  };*/
-  dunst-service = { enable = true;
-   };
-  # ffsyncserver.enable   = true;
+  dunst-service.enable  = true;
+  ffsyncserver.enable   = true;
 
-  # kanata.enable         = true;
   localization.enable   = true;
   mpv.enable            = true;
   mysql.enable          = true;
-  # nc.enable           = true;
   obsStudio.enable      = true;
   pcon = {
     enable = true;
@@ -78,32 +49,26 @@ environment.etc = {
     lowLatency        = true;
     combine           = true;
    };
-  ssh = {
-    enable            = true;
-#     pwauth            = true;
-#     x11fw             = false;
-   };
-  syncthing = { enable  = true;
-   };
+  ssh.enable            = true;
+  syncthing.enable      = true;
   userServices = {
     enable              = true;
     lockScreenOnBoot    = true;
   };
-  # ollama.enable       = true;
   tmux.enable           = true;
-  /*transmission = {
+  transmission = {
     enable              = true;
-  };*/
+  };
   vim.enable            = true;
 
-  /*experimental = {
+  experimental = {
     enable                  = true;
     enableSystembus-notify  = true;
     enableAvahi             = true;
     enableRustdeskServer    = true;
     enableVirtualScreen     = true;
     enableVncFirewall       = true;
-   };*/
+   };
 /* end custom services */
 
   programs.java.enable      = false;
@@ -120,7 +85,6 @@ environment.etc = {
    };
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-/* Constants */
   environment.localBinInPath = true;
   system.stateVersion = "24.05"; /* DONT toush */
   services.printing.enable = true;
@@ -134,6 +98,8 @@ environment.etc = {
   services.mullvad-vpn.enable = true;
   xserver.autologin = "korv";
   users.users."${vars.username-admin}" = {
+  x.autologin = userName;
+  users.users."${userName}" = {
     isNormalUser = true;
     description = "admin";
     extraGroups = [ "networkmanager" "wheel" "transmission" ];
@@ -157,7 +123,7 @@ environment.etc = {
   };
   qt.style = "adwaita-dark";
   networking = {
-    hostName = "nixburk";#vars.host.burk;
+    hostName = "nixburk";#hostName;
     networkmanager.enable = true;
     firewall = {
       enable = true;
@@ -188,10 +154,4 @@ environment.etc = {
     dates = "06:00";
      # persistent = false; # (def: t) time when the service unit was last triggered is stored on disk
   };
-  system.autoUpgrade = {
-    enable = true;
-    allowReboot = false; #true;
-    channel = "https://channels.nixos.org/nixos-unstable";
-   };
-/* end constants */
 }

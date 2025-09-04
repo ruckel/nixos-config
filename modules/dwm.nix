@@ -1,11 +1,11 @@
-{ lib, config, pkgs, ... } :
+{ lib, config, pkgs, vars, ... } :
 with lib;
 let
   cfg = config.dwm;
 in {
   options.dwm.enable  = mkEnableOption "";
   options.dwm = {
-    user = mkOption { default = "user";
+    user = mkOption { default = vars.username-admin;
       type = types.str;
     };
     fakefullscreen    = mkEnableOption "";

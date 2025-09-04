@@ -1,4 +1,4 @@
-{ lib, config, pkgs, vars, ...}:
+{ lib, config, pkgs, userName, vars, ...}:
 with lib;
 let
   cfg = config.soundconf;
@@ -80,11 +80,11 @@ in {
       wantedBy = [ "pipewire.service" ];
     };
     environment.etc."pipewire-link.sh" = mkIf cfg.combine {
-      user = vars.username-admin;
+      user = userName;
       mode = "0700";
       text = ''
         #!/bin/sh
-        RUN_AS_USER=${vars.username-admin}
+        RUN_AS_USER=${userName}
         
         sinkL='out-sink:capture_FL'
         sinkR='out-sink:capture_FR'

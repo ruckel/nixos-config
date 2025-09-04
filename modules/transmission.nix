@@ -1,4 +1,4 @@
-{ lib, pkgs, config, vars, ... } :
+{ lib, pkgs, config, userName, ... } :
 with lib;
 let cfg = config.transmission;
 in {
@@ -24,7 +24,7 @@ in {
         settings.rpc-bind-address = "0.0.0.0";
         credentialsFile = "/var/lib/secrets/transmission/settings.json";
       };
-        users.users."${vars.username-admin}".extraGroups = ["transmission"];
+        users.users."${userName}".extraGroups = ["transmission"];
     })
    ]);
 }

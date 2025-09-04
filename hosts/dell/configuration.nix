@@ -10,7 +10,6 @@ services.displayManager.defaultSession = "none+dwm"; # "gnome"
 services.gnome.gnome-keyring.enable = lib.mkForce false;
 adb = {
   enable            = true;
-  user              = "korv";
   #ports             = vars.adbports;
 };
 autorandr.enable    = false;
@@ -56,7 +55,6 @@ xprofile.user       = "korv";
 
 experimental = {
   enable                  = true;
-  user                    = "korv";
   enableSystembus-notify  = false;
   enableAvahi             = true;
   enableRustdeskServer    = false;

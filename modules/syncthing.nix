@@ -1,4 +1,4 @@
-{ lib, pkgs, config, vars, ... } :
+{ lib, pkgs, config, userName, ... } :
 with lib;
 let
   cfg = config.syncthing;
@@ -13,11 +13,11 @@ in {
     systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true";
     services.syncthing = {
       enable = true;
-      user = vars.username-admin;
-      dataDir = "/home/${vars.username-admin}/syncthing";
-      configDir = "/home/${vars.username-admin}/.config/syncthing";
+      user = userName;
+      dataDir = "/home/${userName}/syncthing";
+      configDir = "/home/${userName}/.config/syncthing";
       #systemService = true; #databaseDir =
     };
-    users.users.${vars.username-admin}.extraGroups = [ "syncthing" ];
+    users.users.${userName}.extraGroups = [ "syncthing" ];
   };
 }
