@@ -1,17 +1,4 @@
-  {pkgs, ...}:{
- # services.dnsmasq = { enable = true;
-  #alwaysKeepRunning = false;
- #};
-programs = {
-  #firefox.enable = true;
-  #steam.enable = true;
-  #thunar = { enable = true;
-   # plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin thunar-media-tags-plugin ];
-   #};
-  xfconf.enable = true;
- };
-
-environment.systemPackages = with pkgs; [
+{pkgs, ...}:{ environment.systemPackages = with pkgs; [
   surf /* browser */
   cryptsetup
   deno
@@ -32,5 +19,4 @@ environment.systemPackages = with pkgs; [
   sops
   #spotify spotify-player 
   wget
-];
-}
+];}

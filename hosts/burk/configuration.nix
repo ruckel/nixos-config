@@ -1,6 +1,4 @@
 { config, pkgs, lib, inputs, hostName, userName, vars, ... }: with lib;
-#let vars = import "${inputs.vars}";
-#in
 {
   imports = [
     ../../modules/imports.nix
@@ -74,8 +72,8 @@ services.home-assistant = {
   programs.java.enable      = false;
 
   x = {
-#    defaultSession = "gnome-xorg";
-     wm.dwm = true;
+    defaultSession = "gnome-xorg";
+    wm.dwm = true;
   };
 
 
@@ -122,7 +120,7 @@ services.home-assistant = {
   };
   qt.style = "adwaita-dark";
   networking = {
-    hostName = "nixburk";#hostName;
+    hostName = hostName;
     networkmanager.enable = true;
     firewall = {
       enable = true;
