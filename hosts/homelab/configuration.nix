@@ -11,22 +11,15 @@ fileSystems = {
     # options = [ "uid=990" "gid=989" "dmask=007" "fmask=117" ];
   };
 };
-
 x = {
   dm = "startx";
   defaultSession = null;
   wm.kodi = true;
 };
-
-netbird.clients = {
-  netbird = {
-    port = 51820;
-    hardened = false;
-    interface = "nb0";
-    name = "netbird";
-  };
+boot.loader = {
+  systemd-boot.enable = true;
+  efi.canTouchEfiVariables = true;
 };
-
 # remember to keep the cachix keys updated for nvidia: while using cachix for the nvidia latest packages
 # do this by running `cachix use cuda-maintainers`
 nix.settings = {
@@ -40,23 +33,27 @@ ssh = {
 #  pwauth            = true;
 #  vncbg             = false;
 };
-boot.loader = {
-    systemd-boot.enable = true;
-    efi.canTouchEfiVariables = true;
+tmux.enable         = true;
+netbird.clients = {
+  netbird = {
+    port = 51820;
+    hardened = false;
+    interface = "nb0";
+    name = "netbird";
+  };
 };
 nginx.enable = true;
-    mysql.enable        = true;
-    nc = {
-      enable             = true;
-      hostName = "moln.kevindybeck.com";
-      directory = "/var/lib/nextcloud/5tb/nextcloud";
-      version            = "30";
-      jellyfin.enable    = true;
-    };
-    kodi.enable         = true;
-nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
 # services.mullvad-vpn.enable = true;
+mysql.enable        = true;
+nc = {
+  enable             = true;
+  hostName = "moln.kevindybeck.com";
+  directory = "/var/lib/nextcloud/5tb/nextcloud";
+  version            = "30";
+  jellyfin.enable    = true;
+};
+kodi.enable         = true;
+nix.settings.experimental-features = [ "nix-command" "flakes" ];
 environment.localBinInPath = true;
 system.stateVersion =  "23.11";
 services = {

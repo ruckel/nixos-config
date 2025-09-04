@@ -13,33 +13,24 @@ programs = {
 
 environment.systemPackages = with pkgs; [
   surf /* browser */
-  #brave
-  #brightnessctl
   cryptsetup
-  # dnsmasq
-  deno 
+  deno
   efibootmgr
-  #feh
-  #qimgv
   netbird
-  #nomacs
   ffmpegthumbnailer
   fswebcam
   git
   gh
   gitg
   git-credential-keepassxc
-  #gscreenshot
   keepassxc
   #mpv
   mullvad-vpn /* duh */
   networkmanagerapplet
-  nextcloud-client
   nodejs_20
   openssl
   sops
   #spotify spotify-player 
-  x11vnc tigervnc
   wget
 ];
 }

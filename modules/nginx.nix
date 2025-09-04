@@ -29,7 +29,7 @@ config = mkIf cfg.enable (mkMerge [
         sslCertificate = "/etc/letsencrypt/live/kevindybeck.com-0001/fullchain.pem";
         sslCertificateKey = "/etc/letsencrypt/live/kevindybeck.com-0001/privkey.pem";
         locations = { 
-          "/nc/".proxyPass = "http://localhost:8080/"; #trailing / improtant
+          "/".proxyPass = "http://localhost:8080/"; #trailing / improtant
           "/jf/".proxyPass = "http://localhost:8096/"; #trailing / improtant 
         };
       };

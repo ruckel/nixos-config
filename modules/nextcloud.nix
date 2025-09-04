@@ -1,4 +1,4 @@
-{ lib, pkgs, config, ... }:
+{ lib, pkgs, config, userName, ... }:
 with lib;
 let
   cfg = config.nc;
@@ -114,6 +114,7 @@ config = mkIf cfg.enable (mkMerge [
         adminpassFile = cfg.pwfile;
       };
     };
+    users.users."${userName}".extraGroups = [ "nextcloud" ];
   })
   ({ # db conf
     services.nextcloud.config = {
