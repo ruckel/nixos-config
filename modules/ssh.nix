@@ -49,8 +49,8 @@ in {
         settings.X11Forwarding = cfg.x11fw;
       };
       services.openssh.settings = {
-          PasswordAuthentication = mkIf cfg.auth.pw "true";
-          KbdInteractiveAuthentication = mkIf cfg.auth.kbd "true";
+          PasswordAuthentication = if cfg.auth.pw then true else false;
+          KbdInteractiveAuthentication = if cfg.auth.kbd then true else false;
       };
 #      print.this = [ "ssh: root: ${toString cfg.auth.root}" ];
     })
