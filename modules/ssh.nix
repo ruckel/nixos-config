@@ -1,8 +1,8 @@
-{ lib, pkgs, config, vars, ... } :
-with lib;
+{ lib, pkgs, config, userName, hostName, vars, ... } : with lib;
 let
   cfg = config.ssh;
   thewhole = import ./shebang.nix;
+  pkgsVersion = pkgs.lib.version or "0.0";
 in {
   options.ssh = {
     enable = mkEnableOption "custom ssh conf";
@@ -40,7 +40,6 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
-      #programs.ssh.setXAuthLocation = true;
     ({
       fail2ban.enable = true; # ./fail2ban.nix
       services.openssh = {
@@ -53,7 +52,7 @@ in {
           PasswordAuthentication = mkIf cfg.auth.pw "true";
           KbdInteractiveAuthentication = mkIf cfg.auth.kbd "true";
       };
-      print.this = [ "ssh: root: ${toString cfg.auth.root}" ];
+#      print.this = [ "ssh: root: ${toString cfg.auth.root}" ];
     })
     ( mkIf (isBool cfg.auth.root) {
       services.openssh.settings.PermitRootLogin = if cfg.auth.root then "yes" else "no";
@@ -61,13 +60,33 @@ in {
     ( mkIf (isString cfg.auth.root) {
       services.openssh.settings.PermitRootLogin = cfg.auth.root;
     })
+#    ( mkIf (hostName == "burk") {
+#      print.this = [ "ssh:" "pkgs vers: ${pkgsVersion}, hname: ${hostName}" ];
+#      services = mkIf (versionAtLeast pkgsVersion "25.06")
+#       /* then */ ({ gnome.gcr-ssh-agent.enable = false; })
+#        else ({ xserver.desktopManager.gnome.enable = true; })
+#      ;
+#    })
     ({
-#      users.users.${vars.username-admin}.openssh.authorizedKeys.keys = mkIf (isList vars.keys) vars.keys;
-      #programs.ssh.knownHostsFiles = ; #todo ssh
-      services.openssh = {
-        #authorizedKeysFiles
-        #authorizedKeysInHomedir = true; #~/.ssh/authorized_keys
-      };
+      programs.ssh.setXAuthLocation = true;
+      services.openssh.banner = ''ass ass ey''; # Message to display to the remote user before authentication is allowed
+#      programs.ssh.startAgent = true; # remembers private keys. starts at boot. Use ssh-add to add a key to the agent
+      users.users.${userName}.openssh.authorizedKeys.keyFiles = [
+          config.sops.secrets.pubkey-burk.path
+          config.sops.secrets.pubkey-labb.path
+          config.sops.secrets.pubkey-tele.path
+          config.sops.secrets.pubkey-dell.path
+      ];
+      programs.ssh.knownHostsFiles = [
+          config.sops.secrets.hostkey-burk.path
+          config.sops.secrets.hostkey-labb.path
+          config.sops.secrets.hostkey-tele.path
+          config.sops.secrets.hostkey-dell.path
+      ];
+      services.openssh.extraConfig = /* sshd_config */ ''
+          Include /etc/ssh/sshd_config.d/*.conf
+      '';
+      services.openssh.authorizedKeysInHomedir = true;
     })
     ( mkIf cfg.vnc.enable {
       services.openssh.settings.X11Forwarding = mkForce true;

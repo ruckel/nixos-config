@@ -1,4 +1,4 @@
-{ lib, pkgs, config, vars, ... } :
+{ lib, pkgs, config, userName, ... } :
 with lib;
 let cfg = config.secrets;
 
@@ -293,18 +293,45 @@ in {
   config = /*mkIf cfg.enable*/ (mkMerge [
     ({ #static config
       sops = {
-        defaultSopsFile = ../secrets/secrets.json;
-        defaultSopsFormat = "json";
+        defaultSopsFile = ../secrets/secrets.yaml;
+        defaultSopsFormat = "yaml";
         secrets = {
           pw.neededForUsers = true;
-          sshPubkeys = {
-            name = "ssh-pubkeys";
-            mode = "0444";
-            neededForUsers = true;
-            reloadUnits = [ "sshd.service" ];
+
+          ports = {
+            uid = 1000;
+            path = "/etc/ssh/sshd_config.d/ports.conf";
+            restartUnits = [ "sshd.service" ];
           };
+          pubkey-burk = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+          pubkey-labb = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+          pubkey-tele = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+          pubkey-dell = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+
+          hostkey-burk = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+          hostkey-labb = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+          hostkey-tele = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+          hostkey-dell = { mode = "0444"; reloadUnits = [ "sshd.service" ]; };
+
+          sshkey-burk = lib.mkIf (config.networking.hostName == "nixburk") {
+            reloadUnits = [ "sshd.service" ];
+            uid = 1000;
+            path = "/home/${userName}/.ssh/sops.test";
+          };
+          sshkey-labb = lib.mkIf (config.networking.hostName == "labb")  {
+            reloadUnits = [ "sshd.service" ];
+            uid = 1000;
+            path = "/home/${userName}/.ssh/sops.test";
+          };
+          sshkey-dell = lib.mkIf (config.networking.hostName == "tele")  {
+            reloadUnits = [ "sshd.service" ];
+            uid = 1000;
+            path = "/home/${userName}/.ssh/sops.test";
+          };
+
         };
       };
+          print.this = [ "sops: " ];
     })
    ]);
 }

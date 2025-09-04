@@ -37,17 +37,8 @@ environment.systemPackages = [ pkgs.cachix ];
 localization.enable = true;
 ssh = {
   enable            = true;
-  user              = "user";
-  ports             = [ 6842 6843 6844 ]; # todo ports
-  keys              = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEJsd82H9yUf2hgBiXECvfPVgUxy84vHz5MbsBDbShvv korv@nixos"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICPC8sV9tofPmdM1VmrsUK1AoymNkobPphDynC6nKd/E korv@nixos-dell"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIa8dGCkZtulhJ7Peg2XvdryhAowWpL0hVMAS+i0I1t5 root@debian-homelab"
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEpTIZfMSLWJBzkvSZyCthrU40R0CB8GjRi0WUMxi62z korv@pixel"
-  ];
-  pwauth            = true;
-  x11fw             = false;
-  vncbg             = false;
+#  pwauth            = true;
+#  vncbg             = false;
 };
 boot.loader = {
     systemd-boot.enable = true;
@@ -64,15 +55,6 @@ nginx.enable = true;
     };
     kodi.enable         = true;
 nix.settings.experimental-features = [ "nix-command" "flakes" ];
-sops = {
-  defaultSopsFile = /home/user/nixos-cfg/secrets/secrets.yaml;
-  defaultSopsFormat = "yaml";
-  age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
-  age.keyFile = "/home/user/.config/sops/age/keys.txt";
-  age.generateKey = true;
-  secrets.pw.neededForUsers = true;
-  secrets.nc-admin-pw = {};
-};
 
 # services.mullvad-vpn.enable = true;
 environment.localBinInPath = true;
