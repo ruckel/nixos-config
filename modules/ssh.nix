@@ -84,7 +84,7 @@ in {
           config.sops.secrets.hostkey-dell.path
       ];
       services.openssh.authorizedKeysFiles = [
-          config.sops.secrets.pubkef-burk.path
+          config.sops.secrets.pubkey-burk.path
       ];
       services.openssh.extraConfig = /* sshd_config */ ''
           Include /etc/ssh/sshd_config.d/*.conf
