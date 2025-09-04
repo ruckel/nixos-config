@@ -76,4 +76,5 @@ creation_rules:
 `sops <file>`
 Decrypt to stdout with `-d`.
 
-If using multiple key groups, set how many groups are needed for decryption with `sops --shamir-secret-sharing-threshold [min: 2] <file to edit>`
+If using multiple key groups, set how many groups are needed for decryption with  
+`sops --shamir-secret-sharing-threshold [min: 2] <file to edit>`
