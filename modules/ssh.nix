@@ -55,7 +55,7 @@ in {
 #      print.this = [ "ssh: root: ${toString cfg.auth.root}" ];
     })
     ( mkIf (isBool cfg.auth.root) {
-      services.openssh.settings.PermitRootLogin = if cfg.auth.root then "yes" else "no";
+      services.openssh.settings.PermitRootLogin = if cfg.auth.root then  "prohibit-password" else "no";
     })
     ( mkIf (isString cfg.auth.root) {
       services.openssh.settings.PermitRootLogin = cfg.auth.root;
