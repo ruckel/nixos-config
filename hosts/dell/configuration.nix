@@ -32,18 +32,16 @@ ssh = {
 #  vncbg             = true;
 };
 syncthing.enable    = true;
-syncthing.user      = "korv";
-systemdconf.enable  = true;
 #ollama.enable       = true;
 
-experimental = {
+/*experimental = {
   enable                  = true;
   enableSystembus-notify  = false;
   enableAvahi             = true;
   enableRustdeskServer    = false;
   enableVirtualScreen     = false;
   enableVncFirewall       = true;
-};
+};*/
 /* Constants */
 nixpkgs.config = {
   allowUnfree = true;

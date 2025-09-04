@@ -17,7 +17,7 @@ services.zoneminder = { enable = false;
     username =        "zoneminder";
   }; 
 };
-/*services.home-assistant = {
+services.home-assistant = {
   enable = false;
   config.homeassistant.name = "home";
 };
@@ -126,7 +126,7 @@ services.zoneminder = { enable = false;
     networkmanager.enable = true;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 443 3000 ]; #TODO ports
+      allowedTCPPorts = [ 3000 3001 ];
       allowedTCPPortRanges = [{ from = 40000; to = 65535; }];
     };
   };

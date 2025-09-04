@@ -7,7 +7,6 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    services.mysql.package = pkgs.mariadb;
     services.firefox-syncserver = {
       enable = true;
       secrets = builtins.toFile "sync-secrets" ''

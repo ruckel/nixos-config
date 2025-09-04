@@ -74,9 +74,9 @@ users.users = {
     description = "graphical user";
     
   };
-  ${"user"} = {
+  ${"user"} = { #todo vars
     isNormalUser = true;
-    description = "user";
+    description = "admin";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [ tilix bc ];
     hashedPasswordFile = config.sops.secrets.pw.path;
