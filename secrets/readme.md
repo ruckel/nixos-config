@@ -1,6 +1,6 @@
 # Encrypted secrets
 
-Files in this folder are encrypted with  [sops](https://getsops.io/) using [age](https://github.com/FiloSottile/age) keys.
+Files in this folder are encrypted with [sops](https://getsops.io/) using [age](https://github.com/FiloSottile/age) keys.
 
 ## Configuration / Quick start
 ### Get sops and age:
