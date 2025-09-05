@@ -119,7 +119,7 @@ in {
       };
     })
     ({
-      services.displayManager.defaultSession = cfg.defaultSession;
+     services.displayManager.defaultSession = cfg.defaultSession;
       services.displayManager.autoLogin = mkIf (cfg.autologin != null) {
         enable = true;
         user = cfg.autologin;
