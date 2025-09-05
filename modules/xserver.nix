@@ -133,8 +133,8 @@ in {
       gnome.enable = mkIf cfg.wm.gnome true;
     })
     ({ /* Make sure Gnome's infectious keyring daemon stays deactivated */
-      services.gnome.gnome-keyring.enable = lib.mkForce false;
-      security.pam.services.gdm.enableGnomeKeyring = lib.mkForce false;
+      #services.gnome.gnome-keyring.enable = lib.mkForce false;
+      #security.pam.services.gdm.enableGnomeKeyring = lib.mkForce false;
     })
    ]);
 }

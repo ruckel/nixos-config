@@ -126,6 +126,7 @@
     qutebrowser
     #rkflashtool libusb1 libusbp libusb-compat-0_1
     rymdport
+    ocamlPackages.alsa
     scrypt cryptsetup #rage /* encryption tools */
     showmethekey
     shotcut /*openshot-qt*/

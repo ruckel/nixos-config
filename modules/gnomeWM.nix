@@ -9,11 +9,13 @@ in {
         then ({ desktopManager.gnome.enable = true; })
         else ({ xserver.desktopManager.gnome.enable = true; })
       ;
+      print.this = if (versionAtLeast pkgsVersion "25.06") then ["gnome 25.11"] else ["gnome 25.05"];
     })
-    ( mkIf (config.services.displayManager.autoLogin.enable && config.x.dm == "gdm") {
+    ( mkIf (isString config.x.autologin && config.x.dm == "gdm") {
+      print.this = [ "applying gdm auto start fix" ];
       # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
       systemd.services = mkIf (
-        config.services.displayManager.defaultSession == "gnome"
+        (config.x.defaultSession == "gnome" || config.x.defaultSession ==  "gnome-xorg")
       ) {
         "getty@tty1".enable =  false;
         "autovt@tty1".enable =  false;

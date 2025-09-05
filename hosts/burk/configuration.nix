@@ -21,13 +21,8 @@ services.home-assistant = {
 };
 /* custom services */
   adb.enable            = true;
-  autorandr.enable      = true;
- #autorandr.enableProfile = {
- #  "tv" = true;
- #  "def" = true;
- #};
+  #autorandr.enable      = true;
   scripts.enable        = true;
-  customkbd.enable      = true;
   dunst-service.enable  = true;
   ffsyncserver.enable   = true;
 
@@ -61,16 +56,18 @@ services.home-assistant = {
 
   experimental = {
     enable                  = true;
-    enableSystembus-notify  = true;
-    enableAvahi             = true;
-    enableRustdeskServer    = true;
-    enableVirtualScreen     = true;
-    enableVncFirewall       = true;
+#    enableSystembus-notify  = true;
+#    enableAvahi             = true;
+#    enableRustdeskServer    = true;
+#    enableVirtualScreen     = true;
+#    enableVncFirewall       = true;
    };
 /* end custom services */
 
   programs.java.enable      = false;
 
+services.xserver.desktopManager.gnome.debug = true;
+  x.autologin = userName;
   x = {
     defaultSession = "gnome-xorg";
     wm.dwm = true;
@@ -95,10 +92,9 @@ services.home-assistant = {
   };
   services.xserver.videoDrivers = [ "amdgpu" ];
   services.mullvad-vpn.enable = true;
-  x.autologin = userName;
   users.users."${userName}" = {
     isNormalUser = true;
-    description = "admin";
+    description = userName;
     extraGroups = [ "networkmanager" "wheel" "transmission" ];
     packages = with pkgs; [ tilix bc ];
     hashedPasswordFile = mkAfter config.sops.secrets.pw.path;
