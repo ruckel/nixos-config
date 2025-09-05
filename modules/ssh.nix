@@ -69,13 +69,14 @@ in {
 #    })
     ({
       programs.ssh.setXAuthLocation = true;
-      services.openssh.banner = ''ass ass ey''; # Message to display to the remote user before authentication is allowed
 #      programs.ssh.startAgent = true; # remembers private keys. starts at boot. Use ssh-add to add a key to the agent
       users.users.${userName}.openssh.authorizedKeys.keyFiles = [
           config.sops.secrets.pubkey-burk.path
           config.sops.secrets.pubkey-labb.path
           config.sops.secrets.pubkey-tele.path
           config.sops.secrets.pubkey-dell.path
+          config.sops.secrets.ssh-pub-main.path
+          config.sops.secrets.ssh-pub-secure.path
       ];
       programs.ssh.knownHostsFiles = [
           config.sops.secrets.hostkey-burk.path
@@ -85,8 +86,10 @@ in {
       ];
       services.openssh.authorizedKeysFiles = [
           config.sops.secrets.pubkey-burk.path
+          config.sops.secrets.ssh-secure.path
       ];
-      services.openssh.extraConfig = /* sshd_config */ ''
+      services.openssh.extraConfig = ''
+          # Added to bottom of sshd_config
           Include /etc/ssh/sshd_config.d/*.conf
       '';
       services.openssh.authorizedKeysInHomedir = true;

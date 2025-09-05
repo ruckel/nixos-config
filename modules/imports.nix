@@ -28,7 +28,7 @@
     ./obsStudio.nix
     ./ollama.nix
     ./qemu.nix
-    ./sopsconf.nix
+    ./sops.nix
     ./sound.nix
     ./ssh.nix
     ./syncthing.nix
