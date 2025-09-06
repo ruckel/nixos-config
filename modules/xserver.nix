@@ -115,6 +115,7 @@ in {
             xrdb -load .Xresources
             xsetroot -solid '#666661'
             xsetroot -cursor_name left_ptr
+            dwm &
         '';
       };
     })
