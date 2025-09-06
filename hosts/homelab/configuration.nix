@@ -12,7 +12,7 @@ fileSystems = {
   };
 };
 x = {
-  dm = "startx";
+  dm = "lightdm";
   defaultSession = null;
   wm.kodi = true;
   wm.dwm = true;
