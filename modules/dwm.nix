@@ -1,13 +1,10 @@
-{ lib, config, pkgs, vars, ... } :
+{ lib, config, pkgs, userName, ... } :
 with lib;
 let
   cfg = config.dwm;
 in {
   options.dwm.enable  = mkEnableOption "";
   options.dwm = {
-    user = mkOption { default = vars.username-admin;
-      type = types.str;
-    };
     fakefullscreen    = mkEnableOption "";
     allmonitorsstatus = mkEnableOption "";
     activemonitor     = mkEnableOption "";
@@ -25,7 +22,7 @@ in {
     services.xserver.windowManager.dwm = {
       enable = true;
       package = pkgs.dwm.overrideAttrs rec {
-        src = /home/korv/dwm-conf;
+        src = /home/${userName}/dwm-conf;
         #src = /etc/dwm;
         patches = [
           # fakefullscreen
