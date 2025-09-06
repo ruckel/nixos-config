@@ -292,7 +292,7 @@ in {
 
   config = /*mkIf cfg.enable*/ (mkMerge [
     ({ #static config
-      environment.systemPackages = with pkgs; [ "ssh-to-age" ];
+      environment.systemPackages = with pkgs; [ ssh-to-age ];
       sops = {
         defaultSopsFile = ../secrets/secrets.yaml;
         defaultSopsFormat = "yaml";
@@ -308,15 +308,15 @@ in {
           pubkey-labb = { reloadUnits = [ "sshd.service" ]; };
           pubkey-tele = { reloadUnits = [ "sshd.service" ]; };
           pubkey-dell = { reloadUnits = [ "sshd.service" ]; };
-          ssh-pub-main =    { reloadUnits = [ "sshd.service" ]; };
-          ssh-pub-secure =  { reloadUnits = [ "sshd.service" ]; };
+#          ssh-pub-main =    { sopsFile = "../secrets/.sensitive.yaml"; reloadUnits = [ "sshd.service" ]; };
+#          ssh-pub-secure =  { sopsFile = "../secrets/.sensitive.yaml"; reloadUnits = [ "sshd.service" ]; };
 
           hostkey-burk = { reloadUnits = [ "sshd.service" ]; };
           hostkey-labb = { reloadUnits = [ "sshd.service" ]; };
           hostkey-tele = { reloadUnits = [ "sshd.service" ]; };
           hostkey-dell = { reloadUnits = [ "sshd.service" ]; };
 
-          knownHosts = { sopsFile = "../secrets/public_keys.txt"; };
+#          knownHosts = { sopsFile = ../secrets/public_keys.txt; };
 
           sshkey-burk = lib.mkIf (config.networking.hostName == "burk") {
             reloadUnits = [ "sshd.service" ];

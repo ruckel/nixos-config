@@ -75,8 +75,6 @@ in {
           config.sops.secrets.pubkey-labb.path
           config.sops.secrets.pubkey-tele.path
           config.sops.secrets.pubkey-dell.path
-          config.sops.secrets.ssh-pub-main.path
-          config.sops.secrets.ssh-pub-secure.path
       ];
       programs.ssh.knownHostsFiles = [
           config.sops.secrets.hostkey-burk.path
@@ -86,7 +84,6 @@ in {
       ];
       services.openssh.authorizedKeysFiles = [
           config.sops.secrets.pubkey-burk.path
-          config.sops.secrets.ssh-secure.path
       ];
       services.openssh.extraConfig = ''
           # Added to bottom of sshd_config
@@ -94,6 +91,13 @@ in {
       '';
       services.openssh.authorizedKeysInHomedir = true;
     })
+#    ( mkIf (builtins.pathExists config.sops.secrets.ssh-pub-main.path) {
+#      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.ssh-pub-main.path ];
+#    })
+#    ( mkIf (builtins.pathExists config.sops.secrets.ssh-pub-secure.path) {
+#      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.ssh-pub-secure.path ];
+#      services.openssh.authorizedKeysFiles = [ config.sops.secrets.ssh-pub-secure.path ];
+#    })
     ( mkIf cfg.vnc.enable {
       services.openssh.settings.X11Forwarding = mkForce true;
       environment.systemPackages = with pkgs; [
