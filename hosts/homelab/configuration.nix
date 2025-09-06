@@ -15,6 +15,7 @@ x = {
   dm = "startx";
   defaultSession = null;
   wm.kodi = true;
+  wm.dwm = true;
 };
 boot.loader = {
   systemd-boot.enable = true;

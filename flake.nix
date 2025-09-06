@@ -26,7 +26,7 @@ let
   };
 in {
   nixosConfigurations = {
-    nixburk  = nixpkgs-unstable.lib.nixosSystem {
+    burk  = nixpkgs-unstable.lib.nixosSystem {
       specialArgs = {
       inherit system inputs outputs vars;
         hostName = "burk";
