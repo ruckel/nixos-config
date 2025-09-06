@@ -29,6 +29,10 @@
           gdu
           bat
         ] ;
+        environment.shellAliases = {
+          tilix = "env GTK_THEME=Adwaita:dark tilix";
+
+        };
         environment.etc."bashrc".text = ". /etc/bashaliases ";
         environment.etc."bashaliases".source = ./aliases.sh;
         environment.shellInit = ''
