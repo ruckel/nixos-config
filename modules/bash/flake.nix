@@ -15,7 +15,7 @@
         export PATH=${pkgs.lib.makeBinPath deps}
         ${builtins.readFile file}
       '';
-      makeUnwrappedScript = { name, file, deps }: pkgs.writeScriptBin name ''
+      makeUnwrappedScript = { name, file }: pkgs.writeScriptBin name ''
         ${builtins.readFile file}
       '';
 
@@ -39,9 +39,6 @@
           lib.mkIf (config.programs.shellScripts.enable /* or true*/) (
             builtins.attrValues self.packages.${pkgs.system}
           );
-          /*options.shellScripts = {
-            enable = lib.mkEnableOption "install all shell scripts in systemPackages";
-          };*/
         options.programs.shellScripts.enable = lib.mkOption {
           type = lib.types.bool;
           default = true;
