@@ -60,7 +60,7 @@ options.nc = {
   };
   pwfile = mkOption {
     description = "Used during initial setup";
-    default = "";
+    default = "/pw/pw";
     type = types.str;
   };
   jellyfin = {
