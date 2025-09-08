@@ -15,7 +15,7 @@
         export PATH=${pkgs.lib.makeBinPath deps}
         ${builtins.readFile file}
       '';
-      makeUnwrappedScript = { name, file }: pkgs.writeScriptBin name ''
+      makeUnwrappedScript = { name, file, aliases }: pkgs.writeScriptBin name ''
         ${builtins.readFile file}
       '';
 
