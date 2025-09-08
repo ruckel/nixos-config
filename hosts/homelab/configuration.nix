@@ -1,10 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
+{ config, pkgs, lib, inputs, hostName, ... }:
 { imports = [
   ../../modules/imports.nix
   ./hardware-configuration.nix
   ./packages.nix
 ];
-
+services.avahi.enable = false;
 fileSystems = {
   "/var/lib/nextcloud/5tb" = {
     device = "/dev/disk/by-uuid/cbbd80d8-68e0-4288-afcd-b040c8865dd8";
@@ -13,9 +13,10 @@ fileSystems = {
 };
 x = {
   dm = "lightdm";
-  defaultSession = null;
+  defaultSession = "none+dwm";
   wm.kodi = true;
   wm.dwm = true;
+  autologin = "user";
 };
 boot.loader = {
   systemd-boot.enable = true;
@@ -31,7 +32,7 @@ environment.systemPackages = [ pkgs.cachix ];
 localization.enable = true;
 ssh = {
   enable            = true;
-#  pwauth            = true;
+  auth.root         = true;
 #  vncbg             = false;
 };
 tmux.enable         = true;
@@ -81,7 +82,7 @@ users.users = {
   };
 };
 networking = {
-  hostName = "nix-homelab";
+  hostName = hostName;
   networkmanager.enable = true;
   firewall.enable = true;
 };
