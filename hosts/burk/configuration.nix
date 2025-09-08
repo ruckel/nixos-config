@@ -21,6 +21,7 @@ services.home-assistant = {
 };
 /* custom services */
   adb.enable            = true;
+  adb.scrcpy            = true;
   #autorandr.enable      = true;
   scripts.enable        = true;
   dunst-service.enable  = true;
