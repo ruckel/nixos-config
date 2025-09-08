@@ -41,13 +41,24 @@ in {
 
 #          knownHosts = { sopsFile = ../secrets/public_keys.txt; };
 
+          main-pub = {};
+          secure-pub = {};
+
           main = lib.mkIf (config.networking.hostName == "burk") {
             uid = 1000;
             mode = "0400";
             sopsFile = ../secrets/main.txt;
             format = "binary";
+            path = "/home/${userName}/.ssh/main_id_ed25519";
+          };
+          secure = lib.mkIf (config.networking.hostName == "burk") {
+            uid = 1000;
+            mode = "0400";
+            sopsFile = ../secrets/secure.bin;
+            format = "binary";
             path = "/home/${userName}/.ssh/id_ed25519";
           };
+
           sshkey-labb = lib.mkIf (config.networking.hostName == "labb")  {
             reloadUnits = [ "sshd.service" ];
             uid = 1000;

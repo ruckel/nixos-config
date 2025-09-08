@@ -91,13 +91,13 @@ in {
       '';
       services.openssh.authorizedKeysInHomedir = true;
     })
-#    ( mkIf (builtins.pathExists config.sops.secrets.ssh-pub-main.path) {
-#      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.ssh-pub-main.path ];
-#    })
-#    ( mkIf (builtins.pathExists config.sops.secrets.ssh-pub-secure.path) {
-#      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.ssh-pub-secure.path ];
-#      services.openssh.authorizedKeysFiles = [ config.sops.secrets.ssh-pub-secure.path ];
-#    })
+    ( mkIf (builtins.pathExists config.sops.secrets.main-pub.path) {
+      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.main-pub.path ];
+    })
+    ( mkIf (builtins.pathExists config.sops.secrets.secure-pub.path) {
+      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.secure-pub.path ];
+      services.openssh.authorizedKeysFiles = [ config.sops.secrets.secure-pub.path ];
+    })
     ( mkIf cfg.vnc.enable {
       services.openssh.settings.X11Forwarding = mkForce true;
       environment.systemPackages = with pkgs; [
