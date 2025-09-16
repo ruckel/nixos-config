@@ -27,6 +27,11 @@ in {
             path = "/etc/ssh/sshd_config.d/ports.conf";
             restartUnits = [ "sshd.service" ];
           };
+          service = {
+            sopsFile = ../secrets/service.sh;
+            format = "binary";
+            mode = "0500";
+          };
           pubkey-burk = { reloadUnits = [ "sshd.service" ]; };
           pubkey-labb = { reloadUnits = [ "sshd.service" ]; };
           pubkey-tele = { reloadUnits = [ "sshd.service" ]; };
@@ -49,25 +54,25 @@ in {
             mode = "0400";
             sopsFile = ../secrets/main.txt;
             format = "binary";
-            path = "/home/${userName}/.ssh/main_id_ed25519";
+            path = "~/.ssh/main_id_ed25519";
           };
           secure = lib.mkIf (config.networking.hostName == "burk") {
             uid = 1000;
             mode = "0400";
             sopsFile = ../secrets/secure.bin;
             format = "binary";
-            path = "/home/${userName}/.ssh/id_ed25519";
+            path = "~/.ssh/id_ed25519";
           };
 
           sshkey-labb = lib.mkIf (config.networking.hostName == "labb")  {
             reloadUnits = [ "sshd.service" ];
             uid = 1000;
-            path = "/home/${userName}/.ssh/sops.test";
+            path = "~/.ssh/sops.test";
           };
           sshkey-dell = lib.mkIf (config.networking.hostName == "tele")  {
             reloadUnits = [ "sshd.service" ];
             uid = 1000;
-            path = "/home/${userName}/.ssh/sops.test";
+            path = "~/.ssh/sops.test";
           };
 
         };

@@ -8,7 +8,7 @@ options.ollama.enableWebui = mkEnableOption "";
 
 config = lib.mkIf cfg.enable {
   networking.firewall = {
-    allowedTCPPorts = [ 1337 ]; #TODO ports
+    allowedTCPPorts = [ 1337 ];
     allowedUDPPorts = [ 1337 ];
   };
 hardware.amdgpu.opencl.enable = true;
@@ -30,7 +30,7 @@ hardware.amdgpu.opencl.enable = true;
     enable = true;
 #   stateDir = "/var/lib/open-webui";
 #   host = "127.0.0.1";
-    port = 1337; # todo ports
+    port = 1337;
     environment = {
       ANONYMIZED_TELEMETRY = "False";
       DO_NOT_TRACK = "True";

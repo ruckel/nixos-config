@@ -17,7 +17,7 @@ in {
       programs.adb.enable = true;
       users.users.${cfg.user}.extraGroups = [ "adbusers" ];
       networking.firewall = {
-        allowedTCPPorts = [ 5555 ]; #TODO ports
+        allowedTCPPorts = [ 5555 ];
         allowedUDPPorts = [ 5555 ];
       };
     })
