@@ -2,7 +2,7 @@
   description = ''flake with multiple shell script packages, 
     just edit `let scripts<[]>` & `options.shellScripts`
   '';
-  inputs.nixpkgs.url = "github:nixos/nixpkgs";
+  # inputs.nixpkgs.url = "github:nixos/nixpkgs";
   outputs = { self, nixpkgs }: 
     let
       scripts = [

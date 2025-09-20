@@ -32,22 +32,30 @@
   deps = with pkgs; [ i3lock ];
 }  {
   name = "ntfywizz";
-  file = scripts/ntfywizard.sh;
+  file = notifications/ntfywizard.sh;
   deps = with pkgs; [ coreutils ntfy-sh jq busybox ];
 } {
   name = "ntfyvar";
-  file = scripts/ntfy-var-setter.sh;
+  file = notifications/ntfy-var-setter.sh;
   deps = with pkgs; [ coreutils ntfy-sh bat busybox ];
 } {
   name = "nix-search-packages";
   file = nixos-incompatible/nix-search-packages.sh;
   deps = with pkgs; [ coreutils ];
-}
+} {
+   name = "scrcpy-autoconnect";
+   file = scripts/scrcpyautoconnect.sh;
+   deps = with pkgs; [ coreutils gnused gnugrep avahi android-tools scrcpy ];
+ } {
+   name = "spotify-record";
+   file = scripts/spotify-record.sh;
+   deps = with pkgs; [ coreutils gnused gnugrep  xdotool xorg.xprop pipewire ];
+ }
 ]
 /* template
 {
   name = "";
   file = scripts/x.sh;
   deps = with pkgs; [  ];
-} 
+}
 */
