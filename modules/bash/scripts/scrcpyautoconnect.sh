@@ -17,8 +17,8 @@ done
 #echo -e "res: '$res'"
 echo -e "-- $(echo -e "$res" | grep address | wc -l) --"
 
-#ips=($(echo -e "$res" | grep address  | sed -E 's/^.*\[(.*)\].*$/\1/' | sort -u | tr '\n' ' '))
-ips=($(echo -e "address = [69.4.20.0] \n address = [69.0.4.20]" | grep address  | sed -E 's/^.*\[(.*)\].*$/\1/' | sort -u | tr '\n' ' '))
+ips=($(echo -e "$res" | grep address  | sed -E 's/^.*\[(.*)\].*$/\1/' | sort -u | tr '\n' ' '))
+#ips=($(echo -e "address = [69.4.20.0] \n address = [69.0.4.20]" | grep address  | sed -E 's/^.*\[(.*)\].*$/\1/' | sort -u | tr '\n' ' '))
 echo -e "ips: ${ips[*]}"
 
 ports=($(echo -e "$res" | grep port | sed -E 's/^.*\[(.*)\].*$/\1/' | sort -u | tr '\n' ' '))
