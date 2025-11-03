@@ -47,6 +47,7 @@ in {
         ports = mkIf (isList vars.ssh.ports) vars.ssh.ports;
         openFirewall = true;
         settings.X11Forwarding = cfg.x11fw;
+        allowSFTP = true;
       };
       services.openssh.settings = {
           PasswordAuthentication = if cfg.auth.pw then true else false;
