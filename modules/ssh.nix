@@ -6,6 +6,7 @@ let
 in {
   options.ssh = {
     enable = mkEnableOption "custom ssh conf";
+    allowSFTP = mkEnableOption "Allow SFTP, SSHfs etc..";
     auth = {
       pw    = mkEnableOption "password";
       kbd   = mkEnableOption "keyboard interactive";
@@ -41,11 +42,9 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     ({
-      fail2ban.enable = true; # ./fail2ban.nix
+      #fail2ban.enable = true; # ./fail2ban.nix
       services.openssh = {
         enable = true;
-        ports = mkIf (isList vars.ssh.ports) vars.ssh.ports;
-        openFirewall = true;
         settings.X11Forwarding = cfg.x11fw;
         allowSFTP = true;
       };
@@ -54,6 +53,9 @@ in {
           KbdInteractiveAuthentication = if cfg.auth.kbd then true else false;
       };
 #      print.this = [ "ssh: root: ${toString cfg.auth.root}" ];
+    })
+    ( mkIf cfg.allowSFTP {
+      services.openssh.allowSFTP = true;
     })
     ( mkIf (isBool cfg.auth.root) {
       services.openssh.settings.PermitRootLogin = if cfg.auth.root then  "prohibit-password" else "no";
@@ -92,20 +94,14 @@ in {
       '';
       services.openssh.authorizedKeysInHomedir = true;
     })
-#    ( mkIf (builtins.pathExists config.sops.secrets.ssh-pub-main.path) {
-#      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.ssh-pub-main.path ];
-#    })
-#    ( mkIf (builtins.pathExists config.sops.secrets.ssh-pub-secure.path) {
-#      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.ssh-pub-secure.path ];
-#      services.openssh.authorizedKeysFiles = [ config.sops.secrets.ssh-pub-secure.path ];
-#    })
+    ( mkIf (builtins.pathExists config.sops.secrets.main-pub.path) {
+      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.main-pub.path ];
+    })
+    ( mkIf (builtins.pathExists config.sops.secrets.secure-pub.path) {
+      users.users.${userName}.openssh.authorizedKeys.keyFiles = [ config.sops.secrets.secure-pub.path ];
+      services.openssh.authorizedKeysFiles = [ config.sops.secrets.secure-pub.path ];
+    })
     ( mkIf cfg.vnc.enable {
-      services.openssh.settings.X11Forwarding = mkForce true;
-      environment.systemPackages = with pkgs; [
-        x11vnc
-        tigervnc
-        vncdo
-      ];
       networking.firewall = {
         allowedTCPPorts = [ cfg.vnc.port ];
         allowedUDPPorts = [ cfg.vnc.port ];
@@ -113,6 +109,42 @@ in {
       environment.etc."xprofile2".text = lib.mkIf cfg.vnc.daemon ''${thewhole.shebang}
         x11vnc -forever -noxdamage  -passwdfile ~/.vnc/passwd &
       '';
+    })
+    ({
+      services.rustdesk-server = {
+        enable = true;
+        openFirewall = true;  # TCP: [ 21115 21116 21117 21118 21119 ], UDP: 21116
+        signal = {
+          enable = false;
+          extraArgs = [];     # extra commands passed to hbbs process
+          relayHosts = [];    # relay server IPs / DNS names of RustDesk relay
+        };
+        relay = {
+          enable = false;
+          extraArgs = [];     # extra commands passed to hbbr process
+        };
+      };
+    })
+    ({
+      services.openssh.settings.X11Forwarding = mkForce true;
+      environment.systemPackages = with pkgs; [
+        x11vnc tigervnc vncdo
+        sshfs # Filesystems over ssh
+        sirikali #GUI handler of sshfs / encrypted fs's
+        nixos-firewall-tool
+      ];
+    })
+    ({
+      systemd.services.sshd-allow-ports = {
+        enable = true;
+        after = [ "network.target" ];
+        wantedBy = [ "default.target" ];
+        description = "Allow SSHD ports";
+        serviceConfig = {
+            Type = "oneshot";
+            ExecStart = config.sops.secrets.service.path;
+        };
+      };
     })
   ]);
 }

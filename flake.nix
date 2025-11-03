@@ -21,9 +21,6 @@ outputs = {
 let
   inherit (self) outputs;
   system = "x86_64-linux";
-  vars = {
-    ssh.ports = [ 6842 ];
-  };
 in {
   nixosConfigurations = {
     burk  = nixpkgs-unstable.lib.nixosSystem {

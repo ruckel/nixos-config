@@ -11,7 +11,7 @@ in {
       enable = true;
       secrets = builtins.toFile "sync-secrets" ''
         SYNC_MASTER_SECRET=this-secret-is-actually-leaked-to-/nix/store
-        ''; #TODO secret
+        ''; #TODO sops secret
       singleNode = {
         enable = true;
         hostname = "localhost";

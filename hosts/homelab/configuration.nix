@@ -1,4 +1,4 @@
-{ config, pkgs, lib, inputs, hostName, ... }:
+{ config, pkgs, lib, inputs, hostName, userName, ... }:
 { imports = [
   ../../modules/imports.nix
   ./hardware-configuration.nix
@@ -73,7 +73,7 @@ users.users = {
     description = "graphical user";
     
   };
-  ${"user"} = { #todo vars
+  ${userName} = {
     isNormalUser = true;
     description = "admin";
     extraGroups = [ "networkmanager" "wheel" ];

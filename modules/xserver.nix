@@ -29,6 +29,7 @@ in {
     };
     opt1 = mkEnableOption "";
     opt2 = mkEnableOption "";
+    dm-no-autorun = mkEnableOption "Start manually with #systemctl start display-manager.service";
     dm = mkOption {
       description = ''
         Program that manages X server and provides a gui login prompt.

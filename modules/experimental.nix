@@ -7,7 +7,6 @@ in
   options.experimental = {
     enable                  = mkEnableOption "experimental";
     enableSystembus-notify  = mkEnableOption "";
-    enableAvahi             = mkEnableOption "";
     enableRustdeskServer    = mkEnableOption "";
     enableVirtualScreen     = mkEnableOption "";
     enableVncFirewall       = mkEnableOption "";
@@ -16,7 +15,6 @@ in
   config = lib.mkIf cfg.enable {
     services.systembus-notify.enable = cfg.enableSystembus-notify;
     qt.style = "adwaita-dark";
-    services.avahi.enable = cfg.enableAvahi;
     networking.firewall = lib.mkIf cfg.enableVncFirewall {
       allowedTCPPorts = [ 5900 ];
       allowedUDPPorts = [ 5900 ];
