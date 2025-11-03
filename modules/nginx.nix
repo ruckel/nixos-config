@@ -23,11 +23,14 @@ config = mkIf cfg.enable (mkMerge [
   ({
     services.nginx.virtualHosts = { 
       "lab.kevindybeck.com" = {
-        serverAliases = [ "192.168.1.12" "4.20.69.0" ];
+        serverAliases = [ "192.168.1.12" ];
         root = "/var/lib/www/";
         addSSL = true; # set defaults for listen to listen on all interfaces on the respective default ports (80, 443)
-        sslCertificate = "/etc/letsencrypt/live/kevindybeck.com-0001/fullchain.pem";
-        sslCertificateKey = "/etc/letsencrypt/live/kevindybeck.com-0001/privkey.pem";
+        sslTrustedCertificate = "/etc/ssl/korv_org-250921T192042-RootCA.crt";
+        sslCertificate = "/etc/ssl/korv_org-250921T192042.local.crt";
+          #"/etc/letsencrypt/live/kevindybeck.com-0001/fullchain.pem";
+        sslCertificateKey = "/etc/ssl/korv_org-250921T192042.local.key";
+          #"/etc/letsencrypt/live/kevindybeck.com-0001/privkey.pem";
         locations = { 
           "/".proxyPass = "http://localhost:8080/"; #trailing / improtant
           "/jf/".proxyPass = "http://localhost:8096/"; #trailing / improtant 
@@ -37,8 +40,11 @@ config = mkIf cfg.enable (mkMerge [
         serverAliases = [ "moln.kevindybeck.com" "nc.kevindybeck.com" ];
         root = "/var/lib/nextcloud/5tb/nextcloud/";
         addSSL = true; # set defaults for listen to listen on all interfaces on the respective default ports (80, 443)
-        sslCertificate = "/etc/letsencrypt/live/kevindybeck.com-0001/fullchain.pem";
-        sslCertificateKey = "/etc/letsencrypt/live/kevindybeck.com-0001/privkey.pem";
+        sslTrustedCertificate = "/etc/ssl/korv_org-250921T192042-RootCA.crt";
+        sslCertificate = "/etc/ssl/korv_org-250921T192042.local.crt";
+          #"/etc/letsencrypt/live/kevindybeck.com-0001/fullchain.pem";
+        sslCertificateKey = "/etc/ssl/korv_org-250921T192042.local.key";
+          #"/etc/letsencrypt/live/kevindybeck.com-0001/privkey.pem";
         locations = { 
           "/".proxyPass = "http://localhost:8080/"; #trailing / improtant
           "/jf/".proxyPass = "http://localhost:8096/"; #trailing / improtant 
