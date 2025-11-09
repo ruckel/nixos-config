@@ -30,6 +30,11 @@ nix.settings = {
 };
 environment.systemPackages = [ pkgs.cachix ];
 localization.enable = true;
+ollama = {
+  enable = true;
+  webui = true;
+  nvidia = true;
+};
 ssh = {
   enable            = true;
   auth.root         = true;
@@ -62,7 +67,7 @@ services = {
   devmon.enable = true;  # automatic device mounting daemon
   gvfs.enable = true;    # Mount, trash, and other functionalities
   tumbler.enable = true; # Thumbnail support for images
-  udisks2 = { 
+  udisks2 = {
     enable = true; #settings = {};
     mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
   };
@@ -71,7 +76,7 @@ users.users = {
   "kodi" = {
     isNormalUser = true;
     description = "graphical user";
-    
+
   };
   ${userName} = {
     isNormalUser = true;
