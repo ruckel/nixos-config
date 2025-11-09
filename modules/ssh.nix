@@ -46,6 +46,7 @@ in {
       services.openssh = {
         enable = true;
         settings.X11Forwarding = cfg.x11fw;
+        allowSFTP = true;
       };
       services.openssh.settings = {
           PasswordAuthentication = if cfg.auth.pw then true else false;

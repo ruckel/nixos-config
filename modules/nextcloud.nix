@@ -81,7 +81,7 @@ config = mkIf cfg.enable (mkMerge [
   })
   ({ # nextcloud main
     services.nextcloud = {
-      hostName = "moln.kevindybeck.com";
+      hostName = "4.20.69.0";
       home =  "/var/lib/nextcloud/5tb/nextcloud/" ;
       datadir = "/var/lib/nextcloud/5tb/nextcloud/"; 
       # configureRedis = true;
@@ -96,18 +96,17 @@ config = mkIf cfg.enable (mkMerge [
         default_phone_region = "SE";
         loglevel = 1; 
         log_type = "syslog";
-          overwriteprotocol = "https";
-          overwritehost = "${config.services.nextcloud.hostName}";
-          overwritewebroot = "/";
-          overwrite.cli.url = "https://${config.services.nextcloud.hostName}/";
-          htaccess.RewriteBase = "/";
+          #overwriteprotocol = "https";
+          #overwritehost = "${config.services.nextcloud.hostName}";
+          #overwritewebroot = "/";
+          #overwrite.cli.url = "https://${config.services.nextcloud.hostName}/";
+          #htaccess.RewriteBase = "/";
         trusted_domains = [
-          #services.nginx.virtualHosts."${config.services.nextcloud.hostName}".serverAliases;
+          "192.168.1.12"
           "192.168.*.*"
           "*.korv.lol" 
           "*.kevindybeck.com"
-          "4.20.69.0" 
-        ];
+        ] ++ config.services.nginx.virtualHosts."${config.services.nextcloud.hostName}".serverAliases;
       };
       config = {
         adminuser = "admin"; # only in initial setup
