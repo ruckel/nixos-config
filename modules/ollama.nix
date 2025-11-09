@@ -52,8 +52,8 @@ in {
     })
     ( mkIf cfg.amd {
       boot.initrd.kernelModules = [ "amdgpu" ];
+      services.ollama.acceleration = "rocm";
       hardware = {
-        services.ollama.acceleration = "rocm";
         amdgpu.opencl.enable = true;
         opengl.extraPackages = [ rocmPackages.clr.icd ];
       };
