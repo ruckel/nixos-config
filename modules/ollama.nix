@@ -43,9 +43,11 @@ in {
     })
     ( mkIf cfg.nvidia {
       services.ollama.acceleration = "cuda";
-      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (getName pkg) [
         "cuda_cudart"
-
+        "cuda_cccl"
+        "cuda_nvcc"
+        "libcublas"
       ];
     })
     ( mkIf cfg.amd {
