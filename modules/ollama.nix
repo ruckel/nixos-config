@@ -5,7 +5,7 @@ in {
     webui = mkEnableOption "";
     nvidia = mkEnableOption "";
     amd = mkEnableOption "";
-  }
+  };
 
   config = mkIf cfg.enable ( mkMerge [
     ({
