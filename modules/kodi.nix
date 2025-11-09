@@ -5,11 +5,11 @@ in {
   options.kodi = {
     enable = mkEnableOption "kodi";
 
-    user = mkOption { default = "user";
+    user = mkOption {
+      default = "user";
       type = types.str;
-    };
-    };
-
+      };
+  };
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
       (pkgs.kodi.withPackages (kodiPkgs: with kodiPkgs; [ jellyfin ]))

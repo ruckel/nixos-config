@@ -1,7 +1,9 @@
 { lib, pkgs, config, ... } :
 with lib;
 let cfg = config.scripts;
-in {
+in
+# region
+{
   options.scripts = {
     enable = mkEnableOption "DESCRIPTION";
 
@@ -11,3 +13,4 @@ in {
     environment.localBinInPath = true;
   };
 }
+# endregion

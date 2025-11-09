@@ -1,16 +1,16 @@
-{ lib, config, pkgs, ...}: with lib;
-let cfg = config.gnome;
+{ lib, config, pkgs, ...}: with lib; let
+  cfg = config.gnome;
   pkgsVersion = pkgs.lib.version or "0.0";
 in {
   options.gnome.enable = mkEnableOption "Enable Module";
   config = mkMerge [
-    ( mkIf cfg.enable {
+    ( mkIf cfg.enable { # //<editor-fold desc="Region name" defaultstate="collapsed">
       services = if (versionAtLeast pkgsVersion "25.06")
         then ({ desktopManager.gnome.enable = true; })
         else ({ xserver.desktopManager.gnome.enable = true; })
       ;
       print.this = if (versionAtLeast pkgsVersion "25.06") then ["gnome 25.11"] else ["gnome 25.05"];
-    })
+    }) # //</editor-fold>
     ( mkIf (isString config.x.autologin && config.x.dm == "gdm") {
       print.this = [ "applying gdm auto start fix" ];
       # fix: github.com/NixOS/nixpkgs/issues/103746#issuecomment-945091229
@@ -59,6 +59,37 @@ in {
         gnomeExtensions.volume-scroller-2
         gnomeExtensions.window-title-is-back
       ];
+    })
+    ({
+      systemd.user.services.gde-keyring-kill = {
+        enable = true;
+        after = [ "gdm.service" "multi-user.target" ];
+#        path = with pkgs; [ date ];
+        serviceConfig = {
+          Type = "simple";
+          Restart = "always";
+          RestartSec = 5;
+        };
+        wants = [ "gdm.service" ];
+        script = ''
+          pgrep_cmd='pgrep gnome-keyring'
+          limit=1000
+          while true; do
+            count=0
+            while ! ($pgrep_cmd 2> /dev/null); do
+              [[ $count -ge $limit ]] && \
+                echo "count reached limit: $limit" && \
+                exit 0
+
+              ((count++))
+              sleep $count
+            done
+            echo "p-killing gnome-keyring"
+            pkill gnome-keyring
+            echo "p-kill succ!"
+          done
+        '';
+      };
     })
   ];
 }

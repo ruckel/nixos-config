@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-scrcpy -e && exit
+#scrcpy -e && exit
 
 get="avahi-browse --resolve --terminate _adb-tls-connect._tcp"
 res="$($get)"

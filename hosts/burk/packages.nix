@@ -10,7 +10,7 @@
     i3lock.enable =       true;
     lazygit.enable =      true;
     steam.enable =        true;
-    gnupg.agent = { 
+    gnupg.agent = {
       enable =            true;
     #enableSSHSupport =   true;
     #enableBrowserSocket =true;
@@ -35,10 +35,9 @@
     appimage-run /* appimage compability wrapper */
     arandr /* gui randr editor */
     #args.textfile
-    #audacity /* audio editor */
+    audacity
     bat
     birdtray /* email client */
-    #bitwig-studio /* audio editor */
     bluez-tools
     brightnessctl
     brave
@@ -96,6 +95,7 @@
     libgnomekbd
     libnotify
     libreoffice
+    librewolf
     libsecret
     kdePackages.kleopatra
     libusb-compat-0_1
@@ -124,8 +124,11 @@
     playerctl
     previewqt
     qutebrowser
+    retroarch
+    reaper
     #rkflashtool libusb1 libusbp libusb-compat-0_1
     rymdport
+    rustdesk-flutter
     ocamlPackages.alsa
     scrypt cryptsetup #rage /* encryption tools */
     showmethekey
@@ -147,22 +150,23 @@
     tor-browser
     translate-shell
     trashy
-    #tuxguitar /* guitar pro-like */
+    tuxguitar /* guitar pro-like */
     ungoogled-chromium /* browser */
     upscayl
     usbutils
     veracrypt scrypt cryptsetup #rage /* encryption tools */
     vesktop
     vlc
-    #vscodium-fhs
+    vscodium-fhs
     wine
     wmctrl
     xclip xprintidle xdotool
+    xkbset
     xorg.xev xorg.xmodmap xorg.xkill
     xscreensaver
     xss-lock
     yad
-    yazi
+    yazi yaziPlugins.relative-motions yaziPlugins.mediainfo yaziPlugins.rich-preview yaziPlugins.toggle-pane
     #zed-editor
     zoneminder
 ];

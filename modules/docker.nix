@@ -32,8 +32,8 @@ in
         ports = [ "5223:5223" ];
         environment = { ADDR = "smp.korv.lol"; };
         volumes = [
-          "/home/user/simplex/smp/config:/etc/opt/simplex:z"
-          "/home/user/simplex/smp/logs:/var/opt/simplex:z"
+          #"/home/user/simplex/smp/config:/etc/opt/simplex:z"
+          #"/home/user/simplex/smp/logs:/var/opt/simplex:z"
         ];
       };
       containers.xftp = lib.mkIf cfg.xftp {
@@ -44,9 +44,9 @@ in
           QUOTA = "10gb";
         };
         volumes = [
-         "/home/user/simplex/smp/config:/etc/opt/simplex-xftp:z"
-         "/home/user/simplex/smp/logs:/var/opt/simplex-xftp:z"
-         "/home/user/simplex/xftp/files:/srv/xftp:z"
+         #"/home/user/simplex/smp/config:/etc/opt/simplex-xftp:z"
+         #"/home/user/simplex/smp/logs:/var/opt/simplex-xftp:z"
+         #"/home/user/simplex/xftp/files:/srv/xftp:z"
         ];
       };
     };
