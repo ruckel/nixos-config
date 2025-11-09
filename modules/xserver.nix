@@ -26,7 +26,7 @@ in {
         default = 0;
         type = types.int;
       };
-     };
+    };
     opt1 = mkEnableOption "";
     opt2 = mkEnableOption "";
     dm-no-autorun = mkEnableOption "Start manually with #systemctl start display-manager.service";
@@ -34,7 +34,7 @@ in {
       description = ''
         Program that manages X server and provides a gui login prompt.
         null defaults to lightdm.
-       '';
+      '';
       default = "gdm";
       type = with types; enum [
         null
@@ -42,21 +42,21 @@ in {
         "startx"
         "gdm"
         "sddm"
-        # "systemd"
-        # "lemurs"
-        # "ly"
-        # "sx"
-        # "xpra"
-       ];
+#        "systemd"
+#        "lemurs"
+#        "ly"
+#        "sx"
+#        "xpra"
+      ];
     };
     autologin = mkOption {
       description = ''
         Username to autologin during boot.
         null deactivates autologin.
-       '';
+      '';
       default = null;
       type = with types; nullOr str;
-     };
+    };
     defaultSession = mkOption {
       description = ''
         Pre-selected dm/wm in the greeter session chooser.
@@ -71,19 +71,17 @@ in {
         "gnome"
         "gnome-xorg"
         "none+dwm"
-        "xfce"
       ];
     };
     wm = { /* Window / desktop manager. Desktop gui */
       gnome = mkOption {
         default = true;
         type = types.bool;
-       };
-      dwm = mkEnableOption "./dwm.nix";
+      };
+      dwm = mkEnableOption "";
       hyprland = mkEnableOption "";
       kodi = mkEnableOption "";
       sxwm = mkEnableOption "";
-      xfce = mkEnableOption "";
     };
   };
 
@@ -136,24 +134,9 @@ in {
       hyprland.enable = mkIf cfg.wm.hyprland true;
       gnome.enable = mkIf cfg.wm.gnome true;
     })
-    ( mkIf cfg.wm.xfce {
-      services.xserver.desktopManager.xfce.enable = true;
-      services.picom = {
-        enable = true;
-        fade = true;
-        inactiveOpacity = 1;
-        shadow = true;
-        fadeDelta = 4;
-        shadowExclude = [
-          "window_type *= 'menu'"
-          "name ~= 'Firefox$'"
-          "focused = 1"
-         ];
-       };
-     })
     ({ /* Make sure Gnome's infectious keyring daemon stays deactivated */
-      services.gnome.gnome-keyring.enable = lib.mkForce false;
-      security.pam.services.gdm.enableGnomeKeyring = lib.mkForce false;
+      #services.gnome.gnome-keyring.enable = lib.mkForce false;
+      #security.pam.services.gdm.enableGnomeKeyring = lib.mkForce false;
     })
    ]);
 }

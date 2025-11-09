@@ -37,8 +37,7 @@ sanitize_filename () {
 stop_record_job () {
   [[ "$1" != "" ]] && \
   echo "stopping pw-cat" && \
-  pkill -f "pw-cat -r --target spotify" 2>/dev/null && \
-  echo "stopped"
+  pkill -f "pw-cat -r --target spotify" 2>/dev/null
 }
 loop () {
   while true; do

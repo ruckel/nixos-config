@@ -26,11 +26,9 @@ in {
                 "factory.name" = "support.null-audio-sink";
                 "node.name" = "out-sink";
                 "node.description" = "main out";
-                "media.class" = "Audio/Sink";
-#                "media.class" = "Audio/Duplex" ;
+                "media.class" = /*"Audio/Sink"*/ "Audio/Duplex" ;
                 "media.category" = "Duplex";
                 "audio.position" = "FL,FR";
-                "monitor.channel-volumes" = true;
               };
             }{ ## Main In
               factory = "adapter";
@@ -71,43 +69,47 @@ in {
       ];
     };
 
-    systemd.user.services.pipewire-link = mkIf cfg.combine {
-    # //region
+    systemd.user.services.pipewire-linking = mkIf cfg.combine {
       enable = true;
-      after = [ "pipewire.service" "multi-user.target" ];
-      path = with pkgs; [ pipewire wireplumber ];
+      after = [ "pipewire.service" "multi-user.target" "gdm.service" ];
+      path = [ pkgs.pipewire ];
       serviceConfig = {
-        Type = "simple";
-        Restart = "always";
-        RestartSec = 5;
+          Type = "oneshot";
+          ExecStart = ''/etc/pipewire-link.sh'';
       };
-      wants = [ "pipewire.service" ];
-      script = ''
-        count=0
-        default_sink="$(wpctl status -n | tail -n 2 | grep -v input | tr -s ' ' | cut -d ' ' -f4-)"
-        while true; do
-          new_default_sink="$(wpctl status -n | tail -n 2 | grep -v input | tr -s ' ' | cut -d ' ' -f4-)"
-          inputs="$(pw-link -i | grep "alsa_.*F[L,R]")"
-          newCount=$(echo -e "$inputs" | wc -l)
-          [[ $count -lt $newCount || $default_sink != $new_default_sink ]] && \
-            for i in $inputs[@]; do
-              if [[ $(echo $new_default_sink | cut -d ':' -f1) == $(echo $i | cut -d ':' -f1) ]]; then
-                echo "skipping $i"
-              else
-                [[ $(echo "$i" | grep "FR") ]] && \
-                  pw-link $new_default_sink:monitor_FR $i 2> /dev/null && \
-                  echo "linked $i"
-                [[ $(echo "$i" | grep "FL") ]] && \
-                  pw-link $new_default_sink:monitor_FL $i 2> /dev/null && \
-                  echo "linked $i"
-              fi
-            done
-          count=$newCount
-          [[ $default_sink != $new_default_sink ]] && $default_sink=$new_default_sink
-          sleep 1
-        done
+      wantedBy = [ "pipewire.service" ];
+    };
+    environment.etc."pipewire-link.sh" = mkIf cfg.combine {
+      user = userName;
+      mode = "0700";
+      text = ''
+        #!/bin/sh
+        RUN_AS_USER=${userName}
+        
+        sinkL='out-sink:capture_FL'
+        sinkR='out-sink:capture_FR'
+        micSink='in-sink:input_MONO'
+        micWebcam='alsa_input.usb-Sonix_Technology_Co.__Ltd._USB_2.0_Camera-02.mono-fallback:capture_MONO'
+        micHeadset='alsa_input.usb-SteelSeries_SteelSeries_Arctis_1_Wireless-00.mono-fallback:capture_MONO'
+        outWlL='alsa_output.usb-GENERIC_USB_Headset-00.analog-stereo:playback_FL'
+        outWlR='alsa_output.usb-GENERIC_USB_Headset-00.analog-stereo:playback_FR'
+        outHeadsetL='alsa_output.usb-SteelSeries_SteelSeries_Arctis_1_Wireless-00.analog-stereo:playback_FL'
+        outHeadsetR='alsa_output.usb-SteelSeries_SteelSeries_Arctis_1_Wireless-00.analog-stereo:playback_FR'       
+        outLineL='alsa_output.pci-0000_00_1f.3.analog-stereo:playback_FL'
+        outLineR='alsa_output.pci-0000_00_1f.3.analog-stereo:playback_FR'
+        outTvL='alsa_output.pci-0000_03_00.1.hdmi-stereo.2:playback_FL'
+        outTvR='alsa_output.pci-0000_03_00.1.hdmi-stereo.2:playback_FR'
+        
+        # Monitors
+        echo "trying w/less usb dongle" && pw-link $sinkL $outWlL      && pw-link $sinkR $outWlR
+        echo "trying headset"           && pw-link $sinkL $outHeadsetL && pw-link $sinkR $outHeadsetR
+        echo "trying line out"          && pw-link $sinkL $outLineL    && pw-link $sinkR $outLineR
+        echo "trying tv"                && pw-link $sinkL $outTvL      && pw-link $sinkR $outTvR
+        
+        # Mics
+        echo "trying webcam mic"        && pw-link $micWebcam $micSink
+        echo "trying headset mic"       && pw-link $micHeadset $micSink
       '';
-    #//endregion
     };
   };
 }

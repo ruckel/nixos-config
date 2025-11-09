@@ -1,4 +1,4 @@
-{lib, pkgs, config, userName, ... } :
+{ lib, pkgs, config, userName, ... } :
 with lib;
 let
   cfg = config.syncthing;
@@ -17,7 +17,6 @@ in {
       dataDir = "/home/${userName}/syncthing";
       configDir = "/home/${userName}/.config/syncthing";
       #systemService = true; #databaseDir =
-      openDefaultPorts = true;
     };
     users.users.${userName}.extraGroups = [ "syncthing" ];
   };

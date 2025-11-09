@@ -37,11 +37,8 @@ let
 in {
   options.programs.flutter = {
     enable = mkEnableOption "Flutter development environment";
-    addToKvmGroup = mkOption {
-      type = types.bool;
-      default = true;
-      description = "Add user to KVM group for hardware acceleration";
-    };
+    addToKvmGroup = mkEnableOption "Add user to KVM group for hardware acceleration";
+    enableAdb = mkEnableOption "Enable ADB and add user to adbusers group";
     user = mkOption {
       type = types.str;
       description = "Username for Flutter development";
@@ -53,7 +50,7 @@ in {
     environment.systemPackages = with pkgs; [
       flutter
       androidSdk
-      android-studio
+      # android-studio
       jdk17
       firebase-tools
     ];
@@ -77,6 +74,9 @@ in {
       export PATH="$PATH":"$HOME/.pub-cache/bin"
     '';
 
-    users.users.${cfg.user}.extraGroups = (optional cfg.addToKvmGroup "kvm") ;
+    programs.adb.enable = cfg.enableAdb;
+
+    users.users.${cfg.user}.extraGroups =
+      (optional cfg.addToKvmGroup "kvm") ++ (optional cfg.enableAdb "adbusers");
   };
 }

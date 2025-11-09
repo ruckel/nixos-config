@@ -6,7 +6,7 @@ in
 
   config = lib.mkIf cfg.enable {
     environment.systemPackages = with pkgs; [
-      python311
+      python3
      #python313Full
      #python39Full
     ];

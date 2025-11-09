@@ -8,37 +8,28 @@
 
 #  print.this = [ "${vars.username-admin}" "${toString vars.ssh-ports}" ];
 
-#netbird.enable = true;
-services.flatpak.enable = true;
+netbird.enable = true;
 services.zoneminder = { enable = false;
   database = {
     createLocally =   true;
     username =        "zoneminder";
-  };
+  }; 
 };
 services.home-assistant = {
   enable = false;
   config.homeassistant.name = "home";
 };
-services.rustdesk-server.enable = true;
-services.rustdesk-server.openFirewall = true;
-services.rustdesk-server.signal.enable = false;
 /* custom services */
   adb.enable            = true;
   adb.scrcpy            = true;
   #autorandr.enable      = true;
   scripts.enable        = true;
-  shell.scripts         = true;
   dunst-service.enable  = true;
-  ffsyncserver.enable   = false;
+  ffsyncserver.enable   = true;
 
   localization.enable   = true;
   mpv.enable            = true;
   mysql.enable          = true;
-  nginx = {
-    enable = true;
-    deno = true;
-  };
   obsStudio.enable      = true;
   pcon = {
     enable = true;
@@ -63,7 +54,6 @@ services.rustdesk-server.signal.enable = false;
     enable              = true;
   };
   vim.enable            = true;
-  virtualisation.vmware.host.enable = true;
 
   experimental = {
     enable                  = true;
@@ -75,21 +65,15 @@ services.rustdesk-server.signal.enable = false;
    };
 /* end custom services */
 
-  programs.flutter.enable = true;
-
   programs.java.enable      = false;
 
 services.xserver.desktopManager.gnome.debug = true;
-  /*  */x.autologin = userName;
+  x.autologin = userName;
   x = {
-    defaultSession = "xfce";
-    dm = "lightdm";
-    wm = {
-      dwm = true;
-      xfce = true;
-      gnome = false;
-     };
+    defaultSession = "gnome-xorg";
+    wm.dwm = true;
   };
+
 
   nixpkgs.config = {
     allowUnfree = true;
@@ -102,7 +86,7 @@ services.xserver.desktopManager.gnome.debug = true;
   system.stateVersion = "24.05"; /* DONT toush */
   services.printing.enable = true;
   services.devmon.enable = true; /* automatic device mounting daemon */
-  #services.gvfs.enable = true; /* Mount, trash, and other functionalities */
+  services.gvfs.enable = true; /* Mount, trash, and other functionalities */
   services.tumbler.enable = true; /* Thumbnail support for images */
   services.udisks2 = { enable = true; #settings = {};
     mountOnMedia = true; /* mount in /media/ instead of /run/media/$USER/ */
@@ -135,104 +119,12 @@ services.xserver.desktopManager.gnome.debug = true;
   networking = {
     hostName = hostName;
     networkmanager.enable = true;
-    #networkmanager.unmanaged = [ "tap0" "br0" ];
     firewall = {
       enable = true;
-#      trustedInterfaces = [ "br0" "tap0" ];
       allowedTCPPorts = [ 3000 3001 ];
       allowedTCPPortRanges = [{ from = 40000; to = 65535; }];
     };
   };
-  security.pki.certificateFiles = [
-    /etc/nixos/configfiles/korv_org-250921T192042-RootCA.crt
-    ];
-
-#  networking.useDHCP = false;
-#  networking.bridges = {
-#    "br0" = {
-#      interfaces = [ "eno1" ];
-#    };
-#  };
-#  networking.interfaces.br0.ipv4.addresses = [ {
-#    address = "192.168.1.10";
-#    prefixLength = 24;
-#  } ];
-#  networking.defaultGateway = "192.168.1.1";
-#  networking.nameservers = ["192.168.1.1" "8.8.8.8"];
-
-# systemd.network = {
-#    enable = true;
-#    wait-online.enable = false;
-#    netdevs = {
-#      # Create the tap interface
-#      "20-tap2" = {
-#       enable = true;
-#        netdevConfig = {
-#          Kind = "tap";
-#          Name = "tap2";
-#        };
-#      };
-#      "20-tap3" = {
-#       enable = true;
-#        netdevConfig = {
-#          Kind = "tap";
-#          Name = "tap3";
-#        };
-#      };
-#      "20-bridge0" = {
-#        enable = true;
-#        netdevConfig = {
-#          Kind = "bridge";
-#          Name = "br0";
-#        };
-#      };
-#    };
-#    networks = {
-#      "30-eno1" = {
-#        matchConfig.Name ="eno1";
-#        linkConfig = {
-#          Unmanaged = "yes";
-#        };
-#      };
-#      "40-tap2" = {
-#        matchConfig.Name ="tap2";
-#        bridgeConfig = {   };
-#        linkConfig = {
-#          ActivationPolicy = "always-up";
-#          RequiredForOnline = "no";
-#        };
-#        networkConfig = {
-#          Bridge = "br0";
-#        };
-#      };
-#      "40-tap3" = {
-#        matchConfig.Name ="tap3";
-#        bridgeConfig = {   };
-#        linkConfig = {
-#          ActivationPolicy = "always-up";
-#          RequiredForOnline = "no";
-#        };
-#        networkConfig = {
-#          Bridge = "br0";
-#        };
-#      };
-#      "40-bridge0" = {
-#        matchConfig.Name = "br0";
-#        linkConfig = {
-#          ActivationPolicy = "always-up";
-#          RequiredForOnline = "no";
-#        };
-#        networkConfig = {
-#          Address = ["192.168.1.10/24"];
-#          # Bridge = "br0";
-#        };
-#      };
-#    };
-#  };
-
-
-
-
   boot.plymouth = { enable = true;
     # themePackages = [ ];
     # theme         = "";
@@ -249,7 +141,7 @@ services.xserver.desktopManager.gnome.debug = true;
     useTmpfs = false;
     tmpfsSize = "50%";
    };
-
+  
   nix.gc = { # nix-collect-garbage
     options = "--delete-older-than 30d"; # removes stale profile generations
     automatic = true;
