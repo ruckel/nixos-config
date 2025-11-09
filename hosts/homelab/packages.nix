@@ -4,6 +4,7 @@
   deno
   efibootmgr
   netbird
+  fastfetch
   ffmpegthumbnailer
   fswebcam
   git
@@ -17,6 +18,8 @@
   nodejs_20
   openssl
   sops
-  #spotify spotify-player 
+  sqlite
+  xkbset
+  spotify
   wget
 ];}

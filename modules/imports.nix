@@ -11,6 +11,7 @@
     ./experimental.nix
     ./fail2ban.nix
     ./ffsyncserver.nix
+    ./flutter.nix
     ./gnomeWM.nix
     ./hyprland.nix
     ./immich.nix
