@@ -11,12 +11,12 @@ in {
     ({
       services.ollama = {
         enable = true;
-        acceleration = mkDefault false;
+        #acceleration = mkDefault false;
         loadModels = [ "llama3.2:3b" "deepseek-r1:1.5b"];
-        #/* environmentVariables = {
-        #     HIP_VISIBLE_DEVICES = "0,1";
-        #     OLLAMA_LLM_LIBRARY = "cpu";
-        #   } */
+        environmentVariables = {
+             HIP_VISIBLE_DEVICES = "0,1";
+             #OLLAMA_LLM_LIBRARY = "cpu";
+        };
         # listenAddress = "127.0.0.1:11434";
         # home = "/home/foo";
         # models = "/path/to/ollama/models";
@@ -42,8 +42,12 @@ in {
       };
     })
     ( mkIf cfg.nvidia {
+      /* https://developer.nvidia.com/cuda-gpus */
+      /* 1070 not supported */
+      nixpkgs.config.allowUnfree = true;
+      services.ollama.package = pkgs.ollama-cuda;
       services.ollama.acceleration = "cuda";
-      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (getName pkg) [
+      nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
         "cuda_cudart"
         "cuda_cccl"
         "cuda_nvcc"

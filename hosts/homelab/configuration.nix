@@ -1,6 +1,7 @@
 { config, pkgs, lib, inputs, hostName, userName, ... }:
 { imports = [
   ../../modules/imports.nix
+  ../../cachix.nix
   ./hardware-configuration.nix
   ./packages.nix
 ];
@@ -33,7 +34,6 @@ localization.enable = true;
 ollama = {
   enable = true;
   webui = true;
-  nvidia = true;
 };
 ssh = {
   enable            = true;
@@ -90,6 +90,7 @@ networking = {
   hostName = hostName;
   networkmanager.enable = true;
   firewall.enable = true;
+  firewall.allowedTCPPorts = [ 6842 ];
 };
 nix.gc = { # nix-collect-garbage
   options = "--delete-older-than 30d"; # removes stale profile generations
