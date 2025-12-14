@@ -1,16 +1,18 @@
 {pkgs, ...}:{
   services = {
-    transmission.enable = true;
+    transmission.enable  = true;
+    transmission.package = pkgs.transmission_4;
     tumbler.enable =      true; # image thumbnail support for thunar
   };
   programs = {
     appimage.binfmt =     true;
     bash.vteIntegration = true;
     firefox.enable =      true;
+    firejail.enable =     true;
     i3lock.enable =       true;
     lazygit.enable =      true;
     steam.enable =        true;
-    gnupg.agent = { 
+    gnupg.agent = {
       enable =            true;
     #enableSSHSupport =   true;
     #enableBrowserSocket =true;
@@ -35,15 +37,15 @@
     appimage-run /* appimage compability wrapper */
     arandr /* gui randr editor */
     #args.textfile
-    #audacity /* audio editor */
+    audacity
     bat
     birdtray /* email client */
-    #bitwig-studio /* audio editor */
     bluez-tools
     brightnessctl
     brave
     busybox
     chatterino7 alsa-lib
+    cherry-studio
     #clinfo
     cryptsetup #rage /* encryption tools */
     #ddclient
@@ -57,6 +59,7 @@
     drawio
     easyeffects helvum
     #efibootmgr
+    emote
     #endeavour
     fastfetch
     feh qimgv nomacs
@@ -65,7 +68,7 @@
     ffmpegthumbnailer
     #figma-linux
     #firebase-tools
-    floorp /* browser */
+    floorp-bin
     #fortune
     fswebcam
     fzf
@@ -75,10 +78,10 @@
     git gh gitg
     glow /* cli markdown renderer  */
     gnome-secrets
+    gnome-disk-utility
     gnupg
     #go2rtc
     gparted
-    gradience
     gscreenshot
     helvum
     htop
@@ -96,6 +99,7 @@
     libgnomekbd
     libnotify
     libreoffice
+    librewolf
     libsecret
     kdePackages.kleopatra
     libusb-compat-0_1
@@ -107,7 +111,7 @@
     menulibre
     merge-fmt
     mktemp
-    mullvad-vpn /* duh */
+    #mullvad-vpn /* duh */
     networkmanagerapplet
     nextcloud-client
     ngrok jq
@@ -118,14 +122,18 @@
     obs-studio
     obsidian /* note editor */
     ots /* onetimesecret cli */
+    pdf4qt
     photoqt
     pinta
     place-cursor-at
     playerctl
     previewqt
     qutebrowser
+    retroarch
+    reaper
     #rkflashtool libusb1 libusbp libusb-compat-0_1
     rymdport
+    rustdesk-flutter
     ocamlPackages.alsa
     scrypt cryptsetup #rage /* encryption tools */
     showmethekey
@@ -135,10 +143,10 @@
     simplex-chat-desktop /* E2E-encrypted chat */
     sops /* secret manager */
     #spacedrive
-    spotify spotify-tray #spotifywm spotifyd spotify-player
+    spotify #spotify-tray #spotifywm spotifyd spotify-player
     streamlink
     super-productivity /* task manager / pomodoro timer */
-    surf /* browser */
+    #surf /* browser */
     syncthing
     tealdeer
     thunderbird birdtray /* email client */
@@ -154,15 +162,16 @@
     veracrypt scrypt cryptsetup #rage /* encryption tools */
     vesktop
     vlc
-    #vscodium-fhs
+    vscodium-fhs
     wine
     wmctrl
+    qpdfview
     xclip xprintidle xdotool
+    xkbset
     xorg.xev xorg.xmodmap xorg.xkill
-    xscreensaver
     xss-lock
     yad
-    yazi
+    yazi yaziPlugins.relative-motions yaziPlugins.mediainfo yaziPlugins.rich-preview yaziPlugins.toggle-pane
     #zed-editor
     zoneminder
 ];
