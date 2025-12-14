@@ -1,8 +1,5 @@
-{ lib, pkgs, config, ... } :
-with lib;
-let
-  cfg = config.docker;
-in
+{ lib, pkgs, config, userName, ... } : with lib;
+let cfg = config.docker; in
 {
   options.docker = {
     enable  = mkEnableOption "experimental";
@@ -32,8 +29,8 @@ in
         ports = [ "5223:5223" ];
         environment = { ADDR = "smp.korv.lol"; };
         volumes = [
-          "/home/user/simplex/smp/config:/etc/opt/simplex:z"
-          "/home/user/simplex/smp/logs:/var/opt/simplex:z"
+          #"/home/${userName}/simplex/smp/config:/etc/opt/simplex:z"
+          #"/home/${userName}/simplex/smp/logs:/var/opt/simplex:z"
         ];
       };
       containers.xftp = lib.mkIf cfg.xftp {
@@ -44,9 +41,9 @@ in
           QUOTA = "10gb";
         };
         volumes = [
-         "/home/user/simplex/smp/config:/etc/opt/simplex-xftp:z"
-         "/home/user/simplex/smp/logs:/var/opt/simplex-xftp:z"
-         "/home/user/simplex/xftp/files:/srv/xftp:z"
+         #"/home/${userName}/simplex/smp/config:/etc/opt/simplex-xftp:z"
+         #"/home/${userName}/simplex/smp/logs:/var/opt/simplex-xftp:z"
+         #"/home/${userName}/simplex/xftp/files:/srv/xftp:z"
         ];
       };
     };

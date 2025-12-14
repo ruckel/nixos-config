@@ -39,5 +39,6 @@
     ./transmission.nix
     ./vim.nix
     ./xserver.nix
+    ./xscreensaver.nix
   ];
 }

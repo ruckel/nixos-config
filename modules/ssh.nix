@@ -72,7 +72,7 @@ in {
 #    })
     ({
       programs.ssh.setXAuthLocation = true;
-#      programs.ssh.startAgent = true; # remembers private keys. starts at boot. Use ssh-add to add a key to the agent
+      programs.ssh.startAgent = false; # remembers private keys. starts at boot. Use ssh-add to add a key to the agent
       users.users.${userName}.openssh.authorizedKeys.keyFiles = [
           config.sops.secrets.pubkey-burk.path
           config.sops.secrets.pubkey-labb.path

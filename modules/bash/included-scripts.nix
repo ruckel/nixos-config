@@ -45,7 +45,7 @@
 } {
    name = "scrcpy-autoconnect";
    file = scripts/scrcpyautoconnect.sh;
-   deps = with pkgs; [ coreutils gnused gnugrep avahi android-tools scrcpy ];
+   deps = with pkgs; [ coreutils gnused gnugrep avahi android-tools scrcpy libnotify ];
  } {
    name = "spotify-record";
    file = scripts/spotify-record.sh;

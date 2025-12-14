@@ -1,4 +1,5 @@
-{ pkgs, config, lib, ... } : with lib; let cfg = config.ollama;
+{ lib, pkgs, config, ... } : with lib; let
+  cfg = config.ollama;
 in {
   options.ollama = {
     enable = mkEnableOption "";
@@ -12,11 +13,14 @@ in {
       services.ollama = {
         enable = true;
         #acceleration = mkDefault false;
-        loadModels = [ "llama3.2:3b" "deepseek-r1:1.5b"];
+        #loadModels = [ "llama3.2:3b" ];
         environmentVariables = {
-             HIP_VISIBLE_DEVICES = "0,1";
-             #OLLAMA_LLM_LIBRARY = "cpu";
-        };
+          HIP_VISIBLE_DEVICES = "0,1";
+          #OLLAMA_LLM_LIBRARY = "cpu";
+          OLLAMA_KEEP_ALIVE = "60m";
+          OLLAMA_DEBUG = "INFO"; # INFO | ??
+          OLLAMA_HOST = "0.0.0.0";
+         };
         # listenAddress = "127.0.0.1:11434";
         # home = "/home/foo";
         # models = "/path/to/ollama/models";
@@ -27,8 +31,8 @@ in {
     ( mkIf cfg.webui {
       services.open-webui = {
         enable = true;
-        #   stateDir = "/var/lib/open-webui";
-        #   host = "127.0.0.1";
+        #stateDir = "/var/lib/open-webui-aux";
+        #host = "127.0.0.1";
         port = 1337;
         environment = {
           ANONYMIZED_TELEMETRY = "True";
@@ -56,10 +60,13 @@ in {
     })
     ( mkIf cfg.amd {
       boot.initrd.kernelModules = [ "amdgpu" ];
-      services.ollama.acceleration = "rocm";
+      services.ollama = {
+        package = pkgs.ollama-rocm;
+        rocmOverrideGfx = "10.3.0";
+      };
       hardware = {
         amdgpu.opencl.enable = true;
-        opengl.extraPackages = [ rocmPackages.clr.icd ];
+        graphics.extraPackages = [ pkgs.rocmPackages.clr.icd ];
       };
     })
   ]);

@@ -76,6 +76,9 @@ options.nc = {
 };
 
 config = mkIf cfg.enable (mkMerge [
+  ({ # temp: allow v30
+    nixpkgs.config.permittedInsecurePackages = [ "nextcloud-30.0.17" ];
+  })
   ({ # change listening port
     services.nginx.virtualHosts."${config.services.nextcloud.hostName}".listen = [{  addr = "127.0.0.1"; port = 8080; }];
   })

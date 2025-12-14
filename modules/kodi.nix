@@ -1,15 +1,14 @@
-{ lib, pkgs, config, ... } :
-with lib;
-let cfg = config.kodi;
+{ lib, pkgs, config, userName, ... } : with lib; let
+  cfg = config.kodi;
 in {
   options.kodi = {
     enable = mkEnableOption "kodi";
 
-    user = mkOption { default = "user";
+    user = mkOption {
+      default = userName;
       type = types.str;
-    };
-    };
-
+      };
+  };
   config = lib.mkIf cfg.enable {
     environment.systemPackages = [
       (pkgs.kodi.withPackages (kodiPkgs: with kodiPkgs; [ jellyfin ]))
