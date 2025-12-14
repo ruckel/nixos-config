@@ -73,7 +73,7 @@ in {
         userName = "korv";
       };
       modules = [
-        ./hosts/dell/configuration.nix
+        ./hosts/pad/configuration.nix
         sops-nix.nixosModules.sops
       ];
     };
