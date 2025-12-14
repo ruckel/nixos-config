@@ -57,6 +57,15 @@
       variant = "";
     };
   };
+  services.xserver.desktopManager.gnome.debug = true;
+    /*  */x.autologin = userName;
+    x = {
+      defaultSession = "xfce";
+      dm = "lightdm";
+      wm = {
+        gnome = false;
+       };
+    };
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
