@@ -60,7 +60,7 @@
   services.xserver.desktopManager.gnome.debug = true;
     /*  */x.autologin = userName;
     x = {
-      defaultSession = "xfce";
+      defaultSession = "lxqt";
       dm = "lightdm";
       wm = {
         gnome = false;

@@ -72,6 +72,7 @@ in {
         "gnome-xorg"
         "none+dwm"
         "xfce"
+        "lxqt"
       ];
     };
     wm = { /* Window / desktop manager. Desktop gui */
