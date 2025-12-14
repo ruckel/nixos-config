@@ -1,0 +1,19 @@
+diff --git a/drivers/hid/hid-multitouch.c b/drivers/hid/hid-multitouch.c
+index 5e6f6c7b8f3a..aaaaaaaaaaaa 100644
+--- a/drivers/hid/hid-multitouch.c
++++ b/drivers/hid/hid-multitouch.c
+@@ -977,6 +977,14 @@ static int mt_feature_mapping(struct hid_device *hdev,
+ 	struct mt_device *td = hid_get_drvdata(hdev);
+ 	u8 *data;
+ 	int ret;
++
++	/* Samsung Galaxy TabPro S (04e8:a00a)
++	 * Feature report 8 stalls after USB reconnect.
++	 * Skip feature fetch to allow clean re-enumeration.
++	 */
++	if (hdev->vendor == 0x04e8 &&
++	    hdev->product == 0xa00a)
++		return 0;
+
+ 	data = kmalloc(size, GFP_KERNEL);
+ 	if (!data)

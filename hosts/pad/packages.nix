@@ -1,0 +1,176 @@
+{pkgs, ...}:{
+  services = {
+    tumbler.enable =      true; # image thumbnail support for thunar
+  };
+  programs = {
+    appimage.binfmt =     true;
+    bash.vteIntegration = true;
+    firefox.enable =      true;
+    firejail.enable =     true;
+    i3lock.enable =       true;
+    lazygit.enable =      true;
+    steam.enable =        true;
+    gnupg.agent = {
+      enable =            true;
+    #enableSSHSupport =   true;
+    #enableBrowserSocket =true;
+    #enableExtraSocket =  true;
+    #pinentryPackage =    null;
+    };
+    thunar = { enable =   true;
+      plugins = with pkgs.xfce; [ thunar-volman thunar-archive-plugin thunar-media-tags-plugin ];
+    };
+    xfconf.enable =       true;
+  };
+  xdg.terminal-exec = {
+    enable =              true;
+    settings = {
+      default = [ "tilix.desktop" ];
+    };
+  };
+  environment.systemPackages = with pkgs; [
+    mpv
+    alsa-lib
+    #android-studio
+    appimage-run /* appimage compability wrapper */
+    arandr /* gui randr editor */
+    #args.textfile
+    audacity
+    bat
+    birdtray /* email client */
+    bluez-tools
+    brightnessctl
+    brave
+    busybox
+    chatterino7 alsa-lib
+    cherry-studio
+    #clinfo
+    cryptsetup #rage /* encryption tools */
+    #ddclient
+    delta
+    deno #node alternative
+    desktop-file-utils
+    digikam
+    dmenu networkmanager_dmenu
+    # docker docker-compose
+    dunst
+    drawio
+    easyeffects helvum
+    #efibootmgr
+    emote
+    #endeavour
+    fastfetch
+    feh qimgv nomacs
+    ferdium
+    ffmpeg
+    ffmpegthumbnailer
+    #figma-linux
+    #firebase-tools
+    floorp-bin
+    #fortune
+    fswebcam
+    fzf
+    gdu
+    gh
+    gimp
+    git gh gitg
+    glow /* cli markdown renderer  */
+    gnome-secrets
+    gnome-disk-utility
+    gnupg
+    #go2rtc
+    gparted
+    gscreenshot
+    helvum
+    htop
+    hydrapaper
+    #insomnia
+    #jetbrains.pycharm-community-bin
+    jetbrains.webstorm /* ide / code editor */
+    jless
+    jq
+    kdocker
+    kdePackages.kwallet kwalletcli
+    keepassxc git-credential-keepassxc cryptsetup
+    kitty
+    libadwaita
+    libgnomekbd
+    libnotify
+    libreoffice
+    librewolf
+    libsecret
+    kdePackages.kleopatra
+    libusb-compat-0_1
+    libusb1
+    libusbp
+    lsof
+    mdp
+    media-downloader
+    menulibre
+    merge-fmt
+    mktemp
+    #mullvad-vpn /* duh */
+    networkmanagerapplet
+    nextcloud-client
+    ngrok jq
+    nix-plugins
+    nodePackages.npm dum
+    nodejs-slim nodePackages.npm dum
+    ntfy-sh
+    obs-studio
+    obsidian /* note editor */
+    ots /* onetimesecret cli */
+    pdf4qt
+    photoqt
+    pinta
+    place-cursor-at
+    playerctl
+    previewqt
+    qutebrowser
+    retroarch
+    reaper
+    #rkflashtool libusb1 libusbp libusb-compat-0_1
+    rymdport
+    rustdesk-flutter
+    ocamlPackages.alsa
+    scrypt cryptsetup #rage /* encryption tools */
+    showmethekey
+    shotcut /*openshot-qt*/
+    shotwell
+    signal-desktop /* E2E-encrypted chat */
+    simplex-chat-desktop /* E2E-encrypted chat */
+    sops /* secret manager */
+    #spacedrive
+    spotify #spotify-tray #spotifywm spotifyd spotify-player
+    streamlink
+    super-productivity /* task manager / pomodoro timer */
+    #surf /* browser */
+    syncthing
+    tealdeer
+    thunderbird birdtray /* email client */
+    tiramisu toastify
+    tmux
+    tor-browser
+    translate-shell
+    trashy
+    #tuxguitar /* guitar pro-like */
+    ungoogled-chromium /* browser */
+    upscayl
+    usbutils
+    veracrypt scrypt cryptsetup #rage /* encryption tools */
+    vesktop
+    vlc
+    vscodium-fhs
+    wine
+    wmctrl
+    qpdfview
+    xclip xprintidle xdotool
+    xkbset
+    xorg.xev xorg.xmodmap xorg.xkill
+    xss-lock
+    yad
+    yazi yaziPlugins.relative-motions yaziPlugins.mediainfo yaziPlugins.rich-preview yaziPlugins.toggle-pane
+    #zed-editor
+    zoneminder
+];
+}
