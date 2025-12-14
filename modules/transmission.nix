@@ -19,6 +19,7 @@ in {
     ({
       services.transmission = {
         enable = true;
+        package = pkgs.transmission_4;
         home = cfg.dir;
         openRPCPort = true;
         settings.rpc-bind-address = "0.0.0.0";
