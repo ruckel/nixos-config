@@ -66,6 +66,17 @@ in {
         sops-nix.nixosModules.sops
       ];
     };
+    pad = nixpkgs-stable.lib.nixosSystem {
+      specialArgs = {
+      inherit system inputs outputs;
+        hostName = "pad";
+        userName = "korv";
+      };
+      modules = [
+        ./hosts/dell/configuration.nix
+        sops-nix.nixosModules.sops
+      ];
+    };
   };
 };
 }
