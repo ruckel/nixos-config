@@ -76,11 +76,11 @@ showHelp () {
 
   echo;echo "Args:                  Desc:"
    # echo "-V|--verbose <  >  . "
-  echo "-e|--evaluate <  >  . "
-  echo "-t|--test <  >  . "
+  echo "-e|--evaluate           "
+  echo "-t|--test               "
   echo "-h|--help               show help, exit"
   echo "-p|--profile <name>     specify nixos-rebuild profile name"
-  echo "-d|--dryrun             evaluates config and prints hypothetical paths"
+  #echo "-d|--dryrun             evaluates config and prints hypothetical paths"
   echo "-D|--debug              ¿¿ 5 ?? "
   echo "-T|--trace              activate nixos-rebuild flag --show-trace"
   echo "-v|--volume <int>       alert volume        (def: ${vol_def})"
@@ -129,6 +129,8 @@ setOpts () {
 }
 run () {
   #[[ -n "$debug" ]] &&
+  sudo -A printf ''
+  sudo printf ''
   if  [[ "$cmd" == "eval" ]]; then cmd_to_run="sudo -A nix flake check --arg attrPath .#${HOSTNAME} --impure --no-build --option keep-going true /etc/nixos/#"
   elif [[ "$cmd" == "all" ]]; then cmd_to_run="sudo -A nix flake check --impure --no-build --option keep-going true /etc/nixos/"
   else cmd_to_run="${USE_SUDO}nixos-rebuild ${opts} ${cmd}"
