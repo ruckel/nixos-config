@@ -21,6 +21,7 @@
     gitg
     gscreenshot
     keepassxc
+    lazygit
     git-credential-keepassxc
     cryptsetup
     mpv
